@@ -13,11 +13,33 @@ class Kiyama_ecApplication extends Application
 	protected function registerRoutes()
 	{
 		return array(
-			
+
+				'/'
+				 =>array('controller'=>'product','action'=>'index'),
+				 '/product/regist'
+				 =>array('controller'=>'product','action'=>'regist'),
+				 '/product/regist/post'
+				 =>array('controller'=>'product','action'=>'regist'),
+
+				 '/category'
+				 =>array('controller'=>'category','action'=>'category'),
+				 '/category/:action'
+				 =>array('controller'=>'category','action'=>':action'),
+				 '/category/add/post'
+				 =>array('controller'=>'category','action'=>'add'),
+				 '/category/delete/post'
+				 =>array('controller'=>'category','action'=>'delete'),
+
+				 '/order'
+				 =>array('controller'=>'order','action'=>'orderlist'),
+
+				
 				'/account'
 				 =>array('controller' =>'account','action' =>'index'),
 				 '/account/:action'
 				 =>array('controller'=> 'account'),
+
+
 
 		);
 	}

@@ -4,19 +4,22 @@ class AdminRepository extends DbRepository
 {
 	public function insert($user_name,$password)
 	{
-		$passworad = $this->hashPassword($password);
+		$password = $this->hashPassword($password);
 
-		$sql = " INSERT INTO admins(user_name,password)
-				 VALUES(:user_name,:password)";
+		$sql = "
+		INSERT INTO admins(user_name,password)
+					VALUES(:user_name,:password)
+				";
 
 		$stmt = $this->execute($sql,array(
-			':user_name'=>$user_name,
-			'password' =>$password,
-		));
+			':user_name' => $user_name,
+			':password'  => $password,
+		));		
 	}
 
-	public function hashPassword($password){
-		return sha1($password.'kiyamaorigin');
+	public function hashPassword($password)
+	{
+		return sha1($password. 'kiyama0723');
 	}
 
 	public function fetchByUserName($user_name)
