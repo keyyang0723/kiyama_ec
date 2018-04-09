@@ -39,4 +39,52 @@ class ProductRepository extends DbRepository
 			return $this->fetchAll($sql);
 
 	}
+
+	public function fetchByName($name)
+	{
+		$sql = "SELECT * FROM products WHERE name = :name";
+		return $this->fetch($sql,array(
+			':name' => $name));
+	}
+
+	public function fetchById($id)
+	{
+		{
+		$sql = "SELECT * FROM products WHERE id = :id";
+		return $this->fetch($sql,array(
+			':id' => $id));
+	}
+	}
+
+	public function edit($name,$description,$category_id,$price,$image,$stock,$id)
+	{
+		$sql = "
+			UPDATE products SET 
+				name = :name,
+				description = :description,
+				category_id = :category_id,
+				price = :price,
+				stock = :stock,
+				image = :image
+				WHERE id = :id
+				";
+
+		$stmt = $this->execute($sql,array(
+			':name'    =>$name,
+			':description'=>$description,
+			':category_id'=>$category_id,
+			':price'       =>$price,
+			':image'	  =>$image,
+			':stock'	  =>$stock,
+			'id'		=>$id,
+		));
+	}
+	public function delete($id)
+	{
+		$sql = "DELETE FROM products
+			WHERE id = :id";
+			$stmt = $this->execute($sql,array(
+				':id' => $id,
+			));
+	}
 }

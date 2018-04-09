@@ -1,3 +1,4 @@
+<?php $this->setLayoutVar('title','商品登録')?>
 <form action="<?php echo $base_url;?>/product/regist/post" method="post">
 	<input type="hidden" name="_token" value="<?php echo $this->escape($_token);?>" />
 

@@ -114,6 +114,90 @@ class ProductController extends Controller
 
 	}
 
+	public function detailAction()
+	{
+		$name = $this->request->getPost('name');
+		$product = $this->db_manager->get('Product')->fetchByName($name);
+		// if(!$product){
+		// 	$this->forward404();
+		// }
+
+		return $this->render(array(
+			'name' =>$name,
+			'product' =>$product));
+	}
+
+	public function editAction()
+	{
+		$categories =$this->db_manager->get('category')->fetchAllCategories();
+
+		$name = $this->request->getPost('name');
+		$description = $this->request->getPost('description');
+		$price = $this->request->getPost('price');
+		$stock = $this->request->getPost('stock');
+		$category_id = $this->request->getPost('category_id');
+		$image = $this->request->getPost('image');
+		$id = $this->request->getPost('id');
+		$delite = $this ->request->getPost('delite');
+
+		$errors = array();
+		if(!strlen($name)){
+			$errors[]='商品名を入力してください';
+		}else if(mb_strlen($name) > 200){
+			$errors[]='商品名は２００文字以内で入力してください';
+		}
+
+		if(!strlen($description)){
+			$errors[]='説明を入力してください';
+		}
+		if(!strlen($price)){
+			$errors[]='値段を入力してください';
+		}
+		if(!isset($category_id)){
+			$errors[]='カテゴリを選択してください';
+		}
+		if(!strlen($stock)){
+			$errors[]='個数を入力してください';
+		}
+		if(!isset($image)){
+			$errors[]='画像を選択してください';
+		}
+
+		if(isset($delite)){
+			$this->db_manager->get('product')->delete($id);
+			return $this->redirect('/');
+		}
+
+		if(count($errors)===0){
+			
+			$this->db_manager->get('Product')->edit($name,$description,$category_id,$price,$image,$stock,$id);
+			return $this->render(array(
+				'errors'  => $errors,
+				'name'   =>$name,
+				'description'=>$description,
+				'categories'=>$categories,
+				'category_id'=>$category_id,
+				'price'       =>$price,
+				'image'	  =>$image,
+				'stock'	  =>$stock,
+				'id'  	 =>$id,
+			));
+		}
+
+			return $this->render(array(
+				'errors'  => $errors,
+				'products'=>$products,
+				'name'   =>$name,
+				'description'=>$description,
+				'categories'=>$categories,
+				'category_id'=>$category_id,
+				'price'       =>$price,
+				'image'	  =>$image,
+				'stock'	  =>$stock,
+				'id'  	 =>$id,
+			));
+	}
+
 
 
 
