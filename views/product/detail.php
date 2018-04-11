@@ -12,10 +12,17 @@
 	<input type="hidden" name="description" value="<?php echo $this->escape($product['description']);?>" />
 		<div class="status_content">
 			<h2><?php echo $this->escape($product['name']);?></h2>
-			price<div><?php echo $this->escape($product['price']);?></div>
-			stock<div><?php echo $this->escape($product['stock']);?></div>
-			説明<div><?php echo $this->escape($product['description']);?></div>
-			画像<div><?php echo $this->escape($product['image']);?></div>
+			<div>price
+				<?php echo $this->escape($product['price']);?></div>
+			<div>
+				stock
+				<?php echo $this->escape($product['stock']);?></div>
+			<div>
+				説明
+				<?php echo $this->escape($product['description']);?></div>
+			<div>
+				画像
+				<?php echo $this->escape($product['image']);?></div>
 		</div>
 <input type="submit" value="詳細編集"/>
 </form>

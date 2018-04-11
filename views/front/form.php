@@ -1,5 +1,7 @@
 <?php $this->setLayoutVar('title','注文フォーム')?>
-<?php var_dump($product);?>
+
+<?php var_dump($_SESSION);?>
+
 <form action="<?php echo $base_url;?>/front/<?php echo $this->escape($product['id']);?>" method="post">
 	
 	<input type="hidden" name="id" value="<?php echo $this->escape($product['id']);?>" >

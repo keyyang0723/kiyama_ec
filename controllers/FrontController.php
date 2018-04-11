@@ -17,12 +17,36 @@ class FrontController extends Controller
 		$id = $this->request->getPost('id');
 		$product = $this->db_manager->get('product')->fetchById($id);
 		$form = $this->request->getPost('form');
+		
+		
+		
+		if(isset($_SESSION['customer_name'])){
+			$customer_name = $_SESSION['customer_name'] ;
+		}
+		if(isset($_SESSION['customer_address'])){
+			$customer_address = $_SESSION['customer_address'];
+		}
+		if(isset($_SESSION['customer_street'])){
+			$customer_street= $_SESSION['customer_street'];
+		}
+		if(isset($_SESSION['customer_zipcode'])){
+			$customer_zipcode = $_SESSION['customer_zipcode'];
+		}
+		if(isset($_SESSION['customer_tel'])){
+			$customer_tel = $_SESSION['customer_tel'];
+		}
+		if(isset($_SESSION['customer_email'])){
+			$customer_email = $_SESSION['customer_email'];
+		}
+
+
 		$customer_name = $this->request->getPost('customer_name');
 		$customer_address = $this->request->getPost('customer_address');
 		$customer_street= $this->request->getPost('customer_street');
 		$customer_zipcode = $this->request->getPost('customer_zipcode');
 		$customer_tel = $this->request->getPost('customer_tel');
 		$customer_email = $this->request->getPost('customer_email');
+		
 
 		if(!isset($form)){
 			return $this->render(array(
@@ -36,6 +60,8 @@ class FrontController extends Controller
 			'customer_email'=>'',
 		));
 		}
+
+
 
 
 		if(!strlen($customer_name)){
@@ -57,12 +83,21 @@ class FrontController extends Controller
 			$errors[] ='メールアドレスを入力してください';
 		}
 
+		$_SESSION['product'] = $product;
+		$_SESSION['customer_name'] =$customer_name;
+		$_SESSION['customer_address']=$customer_address;
+		$_SESSION['customer_street']=$customer_street;
+		$_SESSION['customer_zipcode'] =$customer_zipcode;
+		$_SESSION['customer_tel']=$customer_tel;
+		$_SESSION['customer_email']=$customer_email;
+
+
 		if(count($errors)===0){
+			
 			return $this->redirect('/front/conf');
 		}
-
-
-
+		
+		
 		return $this->render(array(
 			'id'	=>$id,
 			'product'=>$product,
@@ -73,11 +108,12 @@ class FrontController extends Controller
 			'customer_tel'=>$customer_tel,
 			'customer_email'=>$customer_email,
 			'errors' =>$errors,
-		));
+			));
 	}
 
 	public function confAction()
 	{
-		return $this->render(array());
+		return $this->render(array(
+		));
 	}
 }
