@@ -49,6 +49,8 @@ class Kiyama_ecApplication extends Application
 				 =>array('controller' =>'front','action'=>'front'),
 				  '/front/conf'
 				 =>array('controller' =>'front','action'=>'conf'),
+				 '/front/finish'
+				 =>array('controller' =>'front','action'=>'finish'),
 				 '/front/:name'
 				 =>array('controller' =>'front','action'=>'form'),
 				

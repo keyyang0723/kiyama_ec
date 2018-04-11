@@ -6,7 +6,7 @@
 <h3>商品一覧</h3>
 <div id="product">
 	<?php foreach($products as $product):?>
-		<form action="<?php echo $base_url;?>/front/<?php echo $this->escape($product['id']);?>" method="post">
+		<form action="<?php echo $base_url;?>/front/<?php echo $this->escape($product['id']);?>" method="get">
 			<div class="product_conten">
 				name <?php echo $this->escape($product['name']);?>
 				price <?php echo $this->escape($product['price']);?>
