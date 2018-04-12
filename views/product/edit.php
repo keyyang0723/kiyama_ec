@@ -46,3 +46,4 @@
 		<input type="submit" value="編集する"/>
 		<input type="submit" name="delite" value="削除する"/>
 	</p>
+</form>

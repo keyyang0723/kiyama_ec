@@ -36,8 +36,10 @@ class Kiyama_ecApplication extends Application
 
 				 '/order'
 				 =>array('controller'=>'order','action'=>'orderlist'),
-				 '/order/conf'
-				 =>array('controller'=>'order','action'=>'conf'),
+				 '/order/:id'
+				 =>array('controller'=>'order','action'=>'detail'),
+				  '/order/:id/edit'
+				 =>array('controller'=>'order','action'=>'edit'),
 
 				
 				'/account'

@@ -14,9 +14,6 @@ class FrontController extends Controller
 	public function formAction()
 	{	
 		
-		
-		// $form = $this->request->getGet('form');
-		// $_SESSION['form']=$form;
 
 		if(!$this->request->isPost()){
 			$id = $this->request->getGet('id');
@@ -161,8 +158,8 @@ class FrontController extends Controller
 		));
 		}else{
 
-		// 	$this->db_manager->get('Order')->insertOrder($customer_name,$customer_address,$customer_street,$customer_zipcode,
-		// $customer_tel,$customer_email,$product_id,$price,$tax_rate);
+			$this->db_manager->get('Order')->insertOrder($customer_name,$customer_address,$customer_street,$customer_zipcode,
+			$customer_tel,$customer_email,$product_id,$price,$tax_rate);
 			return $this->redirect('/front/finish');
 		}
 	}

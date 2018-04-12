@@ -18,10 +18,7 @@ class CategoryController extends Controller
 		}
 
 		$token = $this->request->getPost('_token');
-		// if(!$this->checkCsrfToken('category/post',$token)){
-		// 	return $this->redirect('/');
-		// }
-
+		
 		$name = $this->request->getPost('name');
 		$errors = array();
 		if(!strlen($name)){
