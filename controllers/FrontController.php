@@ -17,8 +17,10 @@ class FrontController extends Controller
 
 		if(!$this->request->isPost()){
 			$id = $this->request->getGet('id');
+			$number = $this->request->getGet('number');
 			$product = $this->db_manager->get('product')->fetchById($id);
 			$_SESSION['product'] = $product;
+			$_SESSION['number']	= $number;
 
 			if(isset($_SESSION['customer_name'])){
 				$customer_name = $_SESSION['customer_name'] ;
@@ -60,9 +62,11 @@ class FrontController extends Controller
 				'customer_zipcode' =>$customer_zipcode,
 				'customer_tel'=>$customer_tel,
 				'customer_email'=>$customer_email,
+				'number'=>$number,
 			));
 		}else{
 			$product =$_SESSION['product'];
+			$number = $_SESSION['number'];
 		}
 		
 		// if(isset($_SESSION['customer_name'])){
@@ -121,6 +125,7 @@ class FrontController extends Controller
 		$_SESSION['customer_tel']=$customer_tel;
 		$_SESSION['customer_email']=$customer_email;
 		$_SESSION['tax_rate']="1.08";
+		$_SESSION['number'] =$number;
 
 
 		if(count($errors)===0){
@@ -130,6 +135,7 @@ class FrontController extends Controller
 		
 		
 		return $this->render(array(
+			'number'=>$number,
 			'product'=>$product,
 			'customer_name' =>$customer_name,
 			'customer_address'=>$customer_address,
@@ -150,8 +156,9 @@ class FrontController extends Controller
 		$customer_tel = $_SESSION['customer_tel'];
 		$customer_email = $_SESSION['customer_email'];
 		$product_id = $_SESSION['product']['id'];
-		$price = $_SESSION['product']['price'];
 		$tax_rate = $_SESSION['tax_rate'];
+		$number = $_SESSION['number'];
+		$price = $_SESSION['product']['price']*$number;
 		if(!$this->request->isPost()){
 		
 		return $this->render(array(
@@ -160,6 +167,7 @@ class FrontController extends Controller
 
 			$this->db_manager->get('Order')->insertOrder($customer_name,$customer_address,$customer_street,$customer_zipcode,
 			$customer_tel,$customer_email,$product_id,$price,$tax_rate);
+			$this->db_manager->get('product')->reduce($product_id,$number);
 			return $this->redirect('/front/finish');
 		}
 	}
@@ -178,6 +186,18 @@ class FrontController extends Controller
 			
 		));
 	}
+	public function detailAction()
+	{
+		$id = $this->request->getGet('id');
+		$product = $this->db_manager->get('Product')->fetchById($id);
+		$number = $this->request->getPost('number');
+		$_SESSION['number'] = $number;
+		return $this->render(array(
+			'number' => $number,
+			'id' =>$id,
+			'product' =>$product));
+	}
+
 
 
 }

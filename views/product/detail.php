@@ -10,6 +10,7 @@
 	<input type="hidden" name="category_id" value="<?php echo $this->escape($product['category_id']);?>" />
 	<input type="hidden" name="image" value="<?php echo $this->escape($product['image']);?>" />
 	<input type="hidden" name="description" value="<?php echo $this->escape($product['description']);?>" />
+	<input type="hidden" name="is_displayed" value="<?php echo $this->escape($product['is_displayed']);?>" />
 		<div class="status_content">
 			<h2><?php echo $this->escape($product['name']);?></h2>
 			<div>price

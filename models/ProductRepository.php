@@ -56,7 +56,7 @@ class ProductRepository extends DbRepository
 	}
 	}
 
-	public function edit($name,$description,$category_id,$price,$image,$stock,$id)
+	public function edit($name,$description,$category_id,$price,$image,$stock,$is_displayed,$id)
 	{
 		$sql = "
 			UPDATE products SET 
@@ -65,7 +65,8 @@ class ProductRepository extends DbRepository
 				category_id = :category_id,
 				price = :price,
 				stock = :stock,
-				image = :image
+				image = :image,
+				is_displayed = :is_displayed
 				WHERE id = :id
 				";
 
@@ -76,6 +77,7 @@ class ProductRepository extends DbRepository
 			':price'       =>$price,
 			':image'	  =>$image,
 			':stock'	  =>$stock,
+			'is_displayed' =>$is_displayed,
 			'id'		=>$id,
 		));
 	}
@@ -85,6 +87,19 @@ class ProductRepository extends DbRepository
 			WHERE id = :id";
 			$stmt = $this->execute($sql,array(
 				':id' => $id,
+			));
+	}
+
+	public function reduce($product_id,$number){
+
+		$sql = "UPDATE products SET
+			stock = stock - :num
+			WHERE id = :id
+			";
+
+		$stmt = $this->execute($sql,array(
+			':id'=> $product_id,
+			':num'=>$number,
 			));
 	}
 }

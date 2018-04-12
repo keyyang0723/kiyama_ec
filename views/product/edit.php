@@ -1,5 +1,5 @@
 <?php $this->setLayoutVar('title','詳細編集')?>
-<?php var_dump($id);?>
+<?php var_dump($is_displayed);?>
 <form action="<?php echo $base_url;?>/product/<?php echo $this->escape($name);?>/edit" method="post">
 
 	<?php if(isset($errors) && count($errors)>0): ?>
@@ -23,7 +23,7 @@
 		<div id="categories">
 			<?php foreach($categories as $category):?>
 				<div class="cate">
-				<input type="checkbox" <?php if($category['id'] == $category_id ) echo 'checked'; ?> name="category_id" value="<?php echo $this->escape($category['id']);?>">
+				<input type="radio" <?php if($category['id'] == $category_id ){echo 'checked';}?> name="category_id" value="<?php echo $this->escape($category['id']);?>">
 					<?php echo $this->escape($category['id']);?>
 					<?php echo $this->escape($category['name']);?>
 				</div>
@@ -41,6 +41,14 @@
 				<option value="サンプル3">サンプル3</option>
 			</select>
 
+		</div>
+
+	<h3>表示</h3>
+		<div>
+			<select name="is_displayed">
+				<option value="0" <?php if($is_displayed == '0' ):?>selected<?php endif;?>>表示する</option>
+				<option value="1" <?php if($is_displayed == '1' ):?>selected<?php endif;?>>表示しない</option>
+			</select>
 		</div>
 	<p>
 		<input type="submit" value="編集する"/>

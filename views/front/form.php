@@ -1,5 +1,5 @@
 <?php $this->setLayoutVar('title','注文フォーム')?>
-
+<?php var_dump($_SESSION);?>
 <form action="<?php echo $base_url;?>/front/<?php echo $this->escape($product['id']);?>" method="post">
 	
 <?php if(isset($errors) && count($errors)>0): ?>

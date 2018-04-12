@@ -15,24 +15,7 @@ class ProductController extends Controller
 
 
 	}
-	// public function registAction()
-	// {
-	// 	$products =$this->db_manager->get('product')->fetchAllProduct();
-	// 	$categories =$this->db_manager->get('category')->fetchAllCategories();
-	// 	return $this->render(array(
-	// 		'products'=>$products,
-	// 		'name'   =>'',
-	// 		'description'=>'',
-	// 		'categories'=>$categories,
-	// 		'price'       =>'',
-	// 		'image'	  =>'',
-	// 		'stock'	  =>'',
-	// 		'_token' =>$this->generateCsrfToken('product/post'),
-	// 	));	
 
-
-
-	// }
 
 	public function registAction()
 	{
@@ -53,10 +36,6 @@ class ProductController extends Controller
 		));	
 		}
 
-		// $token = $this->request->getPost('_token');
-		// if(!$this->checkCsrfToken('status/post',$token)){
-		// 	return $this->redirect('/');
-		// }
 		$name = $this->request->getPost('name');
 		$description = $this->request->getPost('description');
 		$price = $this->request->getPost('price');
@@ -118,9 +97,6 @@ class ProductController extends Controller
 	{
 		$name = $this->request->getPost('name');
 		$product = $this->db_manager->get('Product')->fetchByName($name);
-		// if(!$product){
-		// 	$this->forward404();
-		// }
 
 		return $this->render(array(
 			'name' =>$name,
@@ -138,6 +114,7 @@ class ProductController extends Controller
 		$category_id = $this->request->getPost('category_id');
 		$image = $this->request->getPost('image');
 		$id = $this->request->getPost('id');
+		$is_displayed = $this->request->getPost('is_displayed');
 		$delite = $this ->request->getPost('delite');
 
 		$errors = array();
@@ -170,7 +147,7 @@ class ProductController extends Controller
 
 		if(count($errors)===0){
 			
-			$this->db_manager->get('Product')->edit($name,$description,$category_id,$price,$image,$stock,$id);
+			$this->db_manager->get('Product')->edit($name,$description,$category_id,$price,$image,$stock,$is_displayed,$id);
 			return $this->render(array(
 				'errors'  => $errors,
 				'name'   =>$name,
@@ -180,6 +157,7 @@ class ProductController extends Controller
 				'price'       =>$price,
 				'image'	  =>$image,
 				'stock'	  =>$stock,
+				'is_displayed' =>$is_displayed,
 				'id'  	 =>$id,
 			));
 		}
@@ -194,6 +172,7 @@ class ProductController extends Controller
 				'price'       =>$price,
 				'image'	  =>$image,
 				'stock'	  =>$stock,
+				'is_displayed' =>$is_displayed,
 				'id'  	 =>$id,
 			));
 	}

@@ -3,40 +3,38 @@
 <h2>以下の内容で注文いたしました</h2>
 
 <div>お名前
-<?php echo $this->escape($_SESSION['customer_name']);?>
+	<?php echo $this->escape($_SESSION['customer_name']);?>
 </div>
-<div>
-住所
-<?php echo $this->escape($_SESSION['customer_address']);?>
+<div>住所
+	<?php echo $this->escape($_SESSION['customer_address']);?>
 </div>
-<div>
-番地
-<?php echo $this->escape($_SESSION['customer_street']);?>
+<div>番地
+	<?php echo $this->escape($_SESSION['customer_street']);?>
 </div>
-<div>
-住所番号
-<?php echo $this->escape($_SESSION['customer_zipcode']);?>
+<div>住所番号
+	<?php echo $this->escape($_SESSION['customer_zipcode']);?>
 </div>
-<div>
-電話番号
-<?php echo $this->escape($_SESSION['customer_tel']);?>
+<div>電話番号
+	<?php echo $this->escape($_SESSION['customer_tel']);?>
 </div>
-<div>
-email
-<?php echo $this->escape($_SESSION['customer_email']);?>
+<div>email
+	<?php echo $this->escape($_SESSION['customer_email']);?>
 </div>
-お品物
-<li>
-	<?php echo $_SESSION['product']['image'] ;?>
-</li>
-<li>
-<?php echo $_SESSION['product']['name'] ;?>
-</li>
-お値段
-<li>
-<?php echo $_SESSION['product']['price'];?>+TAX＝
-<?php $price = $_SESSION['product']['price']*$_SESSION['tax_rate'];echo $price;?>
-</li>
-</ul>
+<div>お品物
+	<ul>
+		<li>
+			<?php echo $_SESSION['product']['image'] ;?>
+		</li>
+		<li>
+			<?php echo $_SESSION['product']['name'] ;?>
+		</li>
+		<li>
+			点数　<?php echo $_SESSION['number'];?>点
+		</li>
+	お値段
+		<li>
+			<?php echo $_SESSION['product']['price'];?>×<?php echo $_SESSION['number'];?>+TAX＝
+			<?php $price = $_SESSION['product']['price']*$_SESSION['number']*$_SESSION['tax_rate'];echo $price;?>
+		</li>
 
 <h3>またのご利用お待ちしております</h3>
