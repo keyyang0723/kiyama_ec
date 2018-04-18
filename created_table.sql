@@ -1,19 +1,35 @@
--- Create syntax for TABLE 'admins'
+# テーブルのダンプ admins
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `admins`;
+
 CREATE TABLE `admins` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL DEFAULT '',
+  `user_name` varchar(255) NOT NULL DEFAULT '',
   `password` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Create syntax for TABLE 'categories'
+
+
+# テーブルのダンプ categories
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `categories`;
+
 CREATE TABLE `categories` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Create syntax for TABLE 'orders'
+
+
+# テーブルのダンプ orders
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `orders`;
+
 CREATE TABLE `orders` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `product_id` int(11) unsigned NOT NULL,
@@ -30,7 +46,13 @@ CREATE TABLE `orders` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Create syntax for TABLE 'products'
+
+
+# テーブルのダンプ products
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `products`;
+
 CREATE TABLE `products` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `category_id` int(11) unsigned NOT NULL,
@@ -39,6 +61,7 @@ CREATE TABLE `products` (
   `stock` int(11) NOT NULL,
   `image` varchar(255) DEFAULT '',
   `description` text,
-  `id_displayed` tinyint(1) NOT NULL,
+  `is_displayed` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
