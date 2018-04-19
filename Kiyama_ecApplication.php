@@ -25,6 +25,11 @@ class Kiyama_ecApplication extends Application
 				 '/product/:name/edit'
 				 =>array('controller'=>'product','action'=>'edit'),
 
+				 '/upload'
+				  =>array('controller'=>'product','action'=>'gazou'),
+				 '/image'
+				 =>array('controller'=>'product','action'=>'image'),
+
 				 '/category'
 				 =>array('controller'=>'category','action'=>'category'),
 				 '/category/:action'

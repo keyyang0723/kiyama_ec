@@ -144,7 +144,6 @@ class AccountController extends Controller
 
 	public function signoutAction()
 	{	
-			session_destroy();
 			$this->session->clear();
 			$this->session->setAuthenticated(false);
 

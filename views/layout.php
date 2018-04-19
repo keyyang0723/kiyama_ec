@@ -16,6 +16,7 @@
  		<p>
  			<?php if($session->isAuthenticated()):?>
  			<a href="<?php echo $base_url;?>/">ホーム</a>
+ 			<a href="<?php echo $base_url;?>/upload">画像</a>
  			<a href="<?php echo $base_url;?>/product/regist">商品登録</a>
  			<a href="<?php echo $base_url;?>/category">カテゴリ編集</a>
  			<a href="<?php echo $base_url;?>/order">注文確認</a>

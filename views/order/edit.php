@@ -8,39 +8,39 @@
 		</li>
 		<li>
 			注文商品
-			<textarea name="product_id" rows="1" cols="60"><?php echo $this->escape($product_id);?></textarea>	
+			<input type="text" name="product_id" value="<?php echo $this->escape($product_id);?>">	
 		</li>
 		<li>
 			顧客名
-			<textarea name="customer_name" rows="1" cols="60"><?php echo $this->escape($customer_name);?></textarea>	
+			<input type="text" name="customer_name" value="<?php echo $this->escape($customer_name);?>">
 		</li>
 		<li>
 			住所
-			<textarea name="customer_address" rows="1" cols="60"><?php echo $this->escape($customer_address);?></textarea>
+			<input type="text" name="customer_address" value="<?php echo $this->escape($customer_address);?>" size="80">
 		</li>	
 		<li>
 			番地
-			<textarea name="customer_street" rows="1" cols="60"><?php echo $this->escape($customer_street);?></textarea>
+		<input type="text" name="customer_street" value="<?php echo $this->escape($customer_street);?>" size="80">
 		</li>
 		<li>
 			住所番号
-			<textarea name="customer_zipcode" rows="1" cols="60"><?php echo $this->escape($customer_zipcode);?></textarea>
+		<input type="text" name="customer_zipcode" value="<?php echo $this->escape($customer_zipcode);?>" >
 		</li>
 		<li>
 			電話番号
-			<textarea name="customer_tel" rows="1" cols="60"><?php echo $this->escape($customer_tel);?></textarea>
+		<input type="text" name="customer_tel" value="<?php echo $this->escape($customer_tel);?>">
 		</li>
 		<li>
 			メールアドレス
-			<textarea name="customer_email" rows="1" cols="60"><?php echo $this->escape($customer_email);?></textarea>
+		<input type="text" name="customer_email" value="<?php echo $this->escape($customer_email);?>">
 		</li>
 		<li>
 			料金
-			<textarea name="price" rows="1" cols="60"><?php echo $this->escape($price);?></textarea>
+			<input type="text" name="price" value="<?php echo $this->escape($price);?>">
 		</li>
 		<li>
 			消費税率
-			<textarea name="tax_rate" rows="1" cols="60"><?php echo $this->escape($tax_rate);?></textarea>%
+			<input type="text" name="tax_rate" value="<?php echo $this->escape($tax_rate);?>">%
 		</li>
 		<li>
 			注文日時

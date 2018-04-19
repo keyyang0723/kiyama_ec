@@ -1,5 +1,4 @@
 <?php $this->setLayoutVar('title','確認画面')?>
-<?php var_dump($_SESSION);?>
 <form action="<?php echo $base_url;?>/front/conf" method="post">
 	<h2>注文確認画面</h2>
 	<div>お名前

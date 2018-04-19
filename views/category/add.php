@@ -8,7 +8,7 @@
 	<?php echo $this->render('errors',array('errors'=> $errors));?>
 	<?php endif;?>
 
-	<textarea name="name" rows="2" cols="60"><?php echo $this->escape($name);?></textarea>
+	<input type="text" name="name" value="<?php echo $this->escape($name);?>">
 
 	<p>
 		<input type="submit" value="追加"/>

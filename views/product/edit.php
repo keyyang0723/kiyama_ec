@@ -1,5 +1,4 @@
 <?php $this->setLayoutVar('title','詳細編集')?>
-<?php var_dump($is_displayed);?>
 <form action="<?php echo $base_url;?>/product/<?php echo $this->escape($name);?>/edit" method="post">
 
 	<?php if(isset($errors) && count($errors)>0): ?>
@@ -9,7 +8,7 @@
 	<input type="hidden" name="id" value="<?php echo $this->escape($id);?>" />
 	<h3>商品名</h3>
 		<div>	
-			<textarea name="name" rows="1" cols="60"><?php echo $this->escape($name);?></textarea>
+			<input type="text" name="name" value="<?php echo $this->escape($name);?>">
 		</div>
 	<h3>説明</h3>
 		<div>
@@ -17,7 +16,7 @@
 		</div>
 	<h3>値段</h3>
 		<div>
-			<textarea name="price" rows="1" cols="60"><?php echo $this->escape($price);?></textarea>
+			<input type="text" name="price" value="<?php echo $this->escape($price);?>">
 		</div>
 	<h3>カテゴリ</h3>
 		<div id="categories">
@@ -31,8 +30,14 @@
 		</div>
 	<h3>個数</h3>
 		<div>
-			<textarea name="stock" rows="1" cols="60"><?php echo $this->escape($stock);?></textarea>
+			<select name="stock">
+							<?php for($i=1;$i<=999;$i++):?>
+							<option value="<?php echo $i;?>"<?php if($stock == $i):?> selected <?php endif;?> /><?php echo $i;?>
+							</option>
+						<?php endfor;?>
+			</select>
 		</div>
+	<h3>画像</h3>
 	<h3>画像</h3>
 		<div>
 			<select name="image">

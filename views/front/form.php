@@ -1,5 +1,4 @@
 <?php $this->setLayoutVar('title','注文フォーム')?>
-<?php var_dump($_SESSION);?>
 <form action="<?php echo $base_url;?>/front/<?php echo $this->escape($product['id']);?>" method="post">
 	
 <?php if(isset($errors) && count($errors)>0): ?>
@@ -7,27 +6,27 @@
 <?php endif;?>	
 名前
 	<div>
-		<textarea name="customer_name" rows="1" cols="60"><?php echo $this->escape($customer_name);?></textarea>
+		<input type="text" name="customer_name" value="<?php echo $this->escape($customer_name);?>">
 	</div>
 住所
 	<div>	
-		<textarea name="customer_address" rows="1" cols="60"><?php echo $this->escape($customer_address);?></textarea>
+		<input type="text" name="customer_address" value="<?php echo $this->escape($customer_address);?>" size="80">
 	</div>
 番地
 	<div>	
-		<textarea name="customer_street" rows="1" cols="60"><?php echo $this->escape($customer_street);?></textarea>
+		<input type="text" name="customer_street" value="<?php echo $this->escape($customer_street);?>" size="80">
 	</div>
 住所番号
 	<div>	
-		<textarea name="customer_zipcode" rows="1" cols="60"><?php echo $this->escape($customer_zipcode);?></textarea>
+		<input type="text" name="customer_zipcode" value="<?php echo $this->escape($customer_zipcode);?>" >
 	</div>
 電話番号
 	<div>	
-		<textarea name="customer_tel" rows="1" cols="60"><?php echo $this->escape($customer_tel);?></textarea>
+		<input type="text" name="customer_tel" value="<?php echo $this->escape($customer_tel);?>">
 	</div>
 email
 	<div>	
-		<textarea name="customer_email" rows="1" cols="60"><?php echo $this->escape($customer_email);?></textarea>
+		<input type="text" name="customer_email" value="<?php echo $this->escape($customer_email);?>">
 	</div>
 
 <input type="submit" value="注文確認画面へ" />

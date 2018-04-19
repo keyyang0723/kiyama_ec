@@ -46,22 +46,39 @@ class ProductController extends Controller
 		$errors = array();
 		if(!strlen($name)){
 			$errors[]='商品名を入力してください';
-		}else if(mb_strlen($name) > 200){
-			$errors[]='商品名は２００文字以内で入力してください';
+		}else if(mb_strlen($name) > 50){
+			$errors[]='商品名は50文字以内で入力してください';
+			$name ='';
 		}
 
 		if(!strlen($description)){
 			$errors[]='説明を入力してください';
+		}else if(mb_strlen($description) > 200){
+			$errors[]='説明は200文字以内で入力してください';
+			$description ='';
 		}
 		if(!strlen($price)){
 			$errors[]='値段を入力してください';
+		}elseif(ctype_digit($price)=== FALSE ){
+			$errors[]='値段は半角数字で入力してください';
+		}else if(mb_strlen($price) > 10){
+			$errors[]='値段は10桁以下で入力してください';
+			$price ='';
 		}
+
 		if(!isset($category_id)){
 			$errors[]='カテゴリを選択してください';
 		}
+
 		if(!strlen($stock)){
 			$errors[]='個数を入力してください';
+		}elseif(!ctype_digit($stock)){
+			$errors[]='個数は半角数字で入力してください';
+		}else if(mb_strlen($stock) > 10){
+			$errors[]='商品名は10桁以内で入力してください';
+			$stock ='';
 		}
+
 		if(!isset($image)){
 			$errors[]='画像を選択してください';
 		}
@@ -70,8 +87,10 @@ class ProductController extends Controller
 		if(count($errors)===0){
 			$user = $this->session->get('user');
 			$this->db_manager->get('Product')->insert($name,$description,$category_id,$price,$image,$stock);
+			$product =$this->db_manager->get('product')->fetchByName($name);
+			$_SESSION['product'] = $product;
 
-			return $this->redirect('/');
+			return $this->redirect('/upload');
 		}
 
 		$user = $this->session->get('admin');
@@ -120,22 +139,39 @@ class ProductController extends Controller
 		$errors = array();
 		if(!strlen($name)){
 			$errors[]='商品名を入力してください';
-		}else if(mb_strlen($name) > 200){
-			$errors[]='商品名は２００文字以内で入力してください';
+		}else if(mb_strlen($name) > 50){
+			$errors[]='商品名は50文字以内で入力してください';
+			$name ='';
 		}
 
 		if(!strlen($description)){
 			$errors[]='説明を入力してください';
+		}else if(mb_strlen($description) > 200){
+			$errors[]='説明は200文字以内で入力してください';
+			$description ='';
 		}
 		if(!strlen($price)){
 			$errors[]='値段を入力してください';
+		}elseif(ctype_digit($price)=== FALSE ){
+			$errors[]='値段は半角数字で入力してください';
+		}else if(mb_strlen($price) > 10){
+			$errors[]='値段は10桁以下で入力してください';
+			$price ='';
 		}
+
 		if(!isset($category_id)){
 			$errors[]='カテゴリを選択してください';
 		}
+
 		if(!strlen($stock)){
 			$errors[]='個数を入力してください';
+		}elseif(!ctype_digit($stock)){
+			$errors[]='個数は半角数字で入力してください';
+		}else if(mb_strlen($stock) > 10){
+			$errors[]='商品名は10桁以内で入力してください';
+			$stock ='';
 		}
+
 		if(!isset($image)){
 			$errors[]='画像を選択してください';
 		}
@@ -177,27 +213,36 @@ class ProductController extends Controller
 			));
 	}
 
+	public function imageAction(){
+	$tempfile = $_FILES['fname']['tmp_name'];
+	$filename = 'gazou.php/' .$_SESSION['product']['id'].'.jpg';
+	// $filename = 'image/' .$_SESSION['product']['id'].'.jpg';
+	$comment = "";
 
+	if (is_uploaded_file($tempfile)) {
+	    if ( move_uploaded_file($tempfile , $filename )) {
+		$comment = "画像をアップロードしました。";
+	    } else {
+	        $comment =  "ファイルをアップロードできません。画像を登録できませんでした。";
+	    }
+	} else {
+	    $comment =  "ファイルが選択されていません。画像を登録できませんでした。";
+	} 
+    return $this->render(array(
+    	'comment' => $comment,
 
+    ));
+}
+	public function uploadAction(){
 
+    return $this->render(array(
+    	'fname'=>'',
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    ));
+}
+	public function gazouAction(){
+		return $this->render(array());
+	}
 
 
 }
