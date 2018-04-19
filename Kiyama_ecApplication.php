@@ -14,7 +14,7 @@ class Kiyama_ecApplication extends Application
 	{
 		return array(
 
-				'/'
+				'/product'
 				 =>array('controller'=>'product','action'=>'index'),
 				 '/product/regist'
 				 =>array('controller'=>'product','action'=>'regist'),
@@ -52,15 +52,15 @@ class Kiyama_ecApplication extends Application
 				 '/account/:action'
 				 =>array('controller'=> 'account'),
 
-				 '/front'
+				 '/'
 				 =>array('controller' =>'front','action'=>'front'),
-				  '/front/conf'
+				  '/conf'
 				 =>array('controller' =>'front','action'=>'conf'),
-				 '/front/finish'
+				 '/finish'
 				 =>array('controller' =>'front','action'=>'finish'),
-				 '/front/:name'
+				 '/:name'
 				 =>array('controller' =>'front','action'=>'form'),
-				 '/front/:name/detail'
+				 '/:name/detail'
 				 =>array('controller' =>'front','action'=>'detail'),
 				
 

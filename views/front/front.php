@@ -7,7 +7,7 @@
 <div id="product">
 	<?php foreach($products as $product):?>
 		<?php if($product['is_displayed']==0):?>
-			<form action="<?php echo $base_url;?>/front/<?php echo $this->escape($product['name']);?>/detail" method="get">
+			<form action="<?php echo $base_url;?>/<?php echo $this->escape($product['name']);?>/detail" method="get">
 				<div class="product_conten">
 					name <?php echo $this->escape($product['name']);?>
 					price <?php echo $this->escape($product['price']);?>

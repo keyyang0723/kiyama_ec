@@ -15,13 +15,13 @@
  	<div id="nav">
  		<p>
  			<?php if($session->isAuthenticated()):?>
- 			<a href="<?php echo $base_url;?>/">ホーム</a>
+ 			<a href="<?php echo $base_url;?>/product">ホーム</a>
  			<a href="<?php echo $base_url;?>/upload">画像</a>
  			<a href="<?php echo $base_url;?>/product/regist">商品登録</a>
  			<a href="<?php echo $base_url;?>/category">カテゴリ編集</a>
  			<a href="<?php echo $base_url;?>/order">注文確認</a>
  			<a href="<?php echo $base_url; ?>/account/signout">ログアウト</a>
- 			<a href="<?php echo $base_url; ?>/front">フロントページ</a>
+ 			<a href="<?php echo $base_url; ?>/">フロントページ</a>
  		<?php else:?>
  			<a href="<?php echo $base_url; ?>/account/signin">ログイン</a>
  			<a href="<?php echo $base_url; ?>/account/signup">アカウント登録</a>

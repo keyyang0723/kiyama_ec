@@ -130,7 +130,7 @@ class FrontController extends Controller
 
 		if(count($errors)===0){
 			
-			return $this->redirect('/front/conf');
+			return $this->redirect('/conf');
 		}
 		
 		
@@ -168,7 +168,7 @@ class FrontController extends Controller
 			$this->db_manager->get('Order')->insertOrder($customer_name,$customer_address,$customer_street,$customer_zipcode,
 			$customer_tel,$customer_email,$product_id,$price,$tax_rate);
 			$this->db_manager->get('product')->reduce($product_id,$number);
-			return $this->redirect('/front/finish');
+			return $this->redirect('/finish');
 		}
 	}
 

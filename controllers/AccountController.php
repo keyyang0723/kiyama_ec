@@ -52,7 +52,7 @@ class AccountController extends Controller
 			$user = $this->db_manager->get('Admin')->fetchByUserName($user_name);
 			$this->session->set('Admin',$user);
 
-			return $this->redirect('/');
+			return $this->redirect('/product');
 		}
 
 		return $this->render(array(

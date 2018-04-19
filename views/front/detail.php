@@ -1,5 +1,5 @@
 <?php $this->setLayoutVar('title',$product['name'])?>
-<form action="<?php echo $base_url;?>/front/form" method="get">
+<form action="<?php echo $base_url;?>/form" method="get">
 	<input type="hidden" name="id" value="<?php echo $this->escape($product['id']);?>" />
 		<div class="status_content">
 			<h2><?php echo $this->escape($product['name']);?></h2>
