@@ -1,5 +1,6 @@
 <?php $this->setLayoutVar('title',$order['id'])?>
-<form action="<?php echo $base_url;?>/order/<?php echo $this->escape($order['id']);?>/edit" method="post">
+<?php echo $this->render('back',array());?>
+<form action="<?php echo $base_url;?>/admin/order/<?php echo $this->escape($order['id']);?>/edit" method="post">
 	<input type="hidden" name='id' value="<?php echo $this->escape($order['id']);?>"/>
 	<ul>
 		<li>

@@ -90,7 +90,7 @@ class ProductController extends Controller
 			$product =$this->db_manager->get('product')->fetchByName($name);
 			$_SESSION['product'] = $product;
 
-			return $this->redirect('/upload');
+			return $this->redirect('/admin/upload');
 		}
 
 		$user = $this->session->get('admin');
@@ -178,7 +178,7 @@ class ProductController extends Controller
 
 		if(isset($delite)){
 			$this->db_manager->get('product')->delete($id);
-			return $this->redirect('/');
+			return $this->redirect('/admin');
 		}
 
 		if(count($errors)===0){

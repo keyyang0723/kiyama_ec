@@ -19,7 +19,7 @@ class AdminRepository extends DbRepository
 
 	public function hashPassword($password)
 	{
-		return password_hash($password.'kiyama', PASSWORD_DEFAULT);
+		return password_hash($password,PASSWORD_DEFAULT);
 	}
 
 	public function fetchByUserName($user_name)

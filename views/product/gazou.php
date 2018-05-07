@@ -21,4 +21,5 @@ if (file_exists($image_file)) {
 }
 
 ?>
+<?php echo $this->render('back',array());?>
 <img src ="Users/kiyamayuu/develop/app/web/image/15.jpg"≥

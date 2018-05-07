@@ -14,36 +14,36 @@ class Kiyama_ecApplication extends Application
 	{
 		return array(
 
-				'/product'
+				'/admin'
 				 =>array('controller'=>'product','action'=>'index'),
-				 '/product/regist'
+				 '/admin/product/regist'
 				 =>array('controller'=>'product','action'=>'regist'),
-				 '/product/regist/post'
+				 '/admin/product/regist/post'
 				 =>array('controller'=>'product','action'=>'regist'),
-				 '/product/:name'
+				 '/admin/product/:name'
 				 =>array('controller'=>'product','action'=>'detail'),
-				 '/product/:name/edit'
+				 '/admin/product/:name/edit'
 				 =>array('controller'=>'product','action'=>'edit'),
 
-				 '/upload'
-				  =>array('controller'=>'product','action'=>'gazou'),
-				 '/image'
+				 '/admin/upload'
+				  =>array('controller'=>'product','action'=>'upload'),
+				 '/admin/image'
 				 =>array('controller'=>'product','action'=>'image'),
 
-				 '/category'
+				 '/admin/category'
 				 =>array('controller'=>'category','action'=>'category'),
-				 '/category/:action'
+				 '/admin/category/:action'
 				 =>array('controller'=>'category','action'=>':action'),
-				 '/category/add/post'
+				 '/admin/category/add/post'
 				 =>array('controller'=>'category','action'=>'add'),
-				 '/category/delete/post'
+				 '/admin/category/delete/post'
 				 =>array('controller'=>'category','action'=>'delete'),
 
-				 '/order'
+				 '/admin/order'
 				 =>array('controller'=>'order','action'=>'orderlist'),
-				 '/order/:id'
+				 '/admin/order/:id'
 				 =>array('controller'=>'order','action'=>'detail'),
-				  '/order/:id/edit'
+				  '/admin/order/:id/edit'
 				 =>array('controller'=>'order','action'=>'edit'),
 
 				

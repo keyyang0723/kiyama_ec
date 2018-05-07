@@ -54,7 +54,7 @@ class OrderController extends Controller
 		$delite = $this->request->getPost('delite');
 		if(isset($delite)){
 			$this->db_manager->get('order')->delete($id);
-			return $this->redirect('/order');
+			return $this->redirect('/admin/order');
 		}
 		$this->db_manager->get('Order')->edit($customer_name,$customer_address,$customer_street,$customer_zipcode,
 		$customer_tel,$customer_email,$product_id,$price,$tax_rate,$id);

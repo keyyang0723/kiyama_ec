@@ -52,7 +52,7 @@ class AccountController extends Controller
 			$user = $this->db_manager->get('Admin')->fetchByUserName($user_name);
 			$this->session->set('Admin',$user);
 
-			return $this->redirect('/product');
+			return $this->redirect('/admin');
 		}
 
 		return $this->render(array(
@@ -122,14 +122,17 @@ class AccountController extends Controller
 			$user = $user_repository->fetchByUserName($user_name);
 
 			if(!$user
-				||($user['password'] !== $user_repository->hashPassword($password))
+				|| !password_verify ( $password , $user['password'] )
 			){
 				$errors[] = 'ユーザIDかパスワードが不正です';
+				$errors[] = $user['password'];
+				$errors[] = $user_repository->hashPassword($password);
+				var_dump($password);
 			}else{
 				$this->session->setAuthenticated(true);
 				$this->session->set('admin',$admin);
 
-				return $this->redirect('/');
+				return $this->redirect('/admin');
 			}
 		}
 

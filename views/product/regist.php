@@ -1,5 +1,6 @@
 <?php $this->setLayoutVar('title','商品登録')?>
-<form action="<?php echo $base_url;?>/product/regist/post" method="post">
+<?php echo $this->render('back',array());?>
+<form action="<?php echo $base_url;?>/admin/product/regist/post" method="post">
 	<input type="hidden" name="_token" value="<?php echo $this->escape($_token);?>" />
 
 	<?php if(isset($errors) && count($errors)>0): ?>
@@ -21,7 +22,7 @@
 		<div id="categories">
 			<?php foreach($categories as $category):?>
 				<div class="cate">
-					<input type="checkbox" <?php if($category['id'] == $category_id ) echo 'checked'; ?> name="category_id" value="<?php echo $this->escape($category['id']);?>">
+				<input type="radio" <?php if($category['id'] == $category_id ){echo 'checked';}?> name="category_id" value="<?php echo $this->escape($category['id']);?>">
 					<?php echo $this->escape($category['id']);?>
 					<?php echo $this->escape($category['name']);?>
 				</div>

@@ -1,7 +1,7 @@
 <?php $this->setLayoutVar('title',$product['name'])?>
+<?php echo $this->render('back',array());?>
 
-
-<form action="<?php echo $base_url;?>/product/<?php echo $this->escape($product['name']);?>/edit" method="post">
+<form action="<?php echo $base_url;?>/admin/product/<?php echo $this->escape($product['name']);?>/edit" method="post">
 	<input type="hidden" name="name" value="<?php echo $this->escape($product['name']);?>" />
 	<input type="hidden" name="id" value="<?php echo $this->escape($product['id']);?>" />
 	<input type="hidden" name="price" value="<?php echo $this->escape($product['price']);?>" />

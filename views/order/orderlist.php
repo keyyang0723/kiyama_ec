@@ -1,10 +1,10 @@
 <?php $this->setLayoutVar('title','注文一覧')?>
-
+<?php echo $this->render('back',array());?>
 <h2>注文一覧</h2>
 
 <div id="product">
 	<?php foreach($orders as $order):?>
-		<form action="<?php echo $base_url;?>/order/<?php echo $this->escape($order['id']);?>" method="post">
+		<form action="<?php echo $base_url;?>/admin/order/<?php echo $this->escape($order['id']);?>" method="post">
 			<input type="hidden" name='id' value="<?php echo $this->escape($order['id']);?>"/>
 			<div class="product_conten">
 				注文番号　<?php echo $this->escape($order['id']);?>

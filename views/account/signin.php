@@ -1,5 +1,5 @@
 <?php $this->setLayoutVar('title','ログイン')?>
-
+<?php echo $this->render('back',array());?>
 <h2>ログイン</h2>
 
 <p>

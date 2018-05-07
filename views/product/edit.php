@@ -1,5 +1,6 @@
 <?php $this->setLayoutVar('title','詳細編集')?>
-<form action="<?php echo $base_url;?>/product/<?php echo $this->escape($name);?>/edit" method="post">
+<?php echo $this->render('back',array());?>
+<form action="<?php echo $base_url;?>/admin/product/<?php echo $this->escape($name);?>/edit" method="post">
 
 	<?php if(isset($errors) && count($errors)>0): ?>
 		<?php echo $this->render('errors',array('errors'=> $errors));?>
@@ -30,14 +31,8 @@
 		</div>
 	<h3>個数</h3>
 		<div>
-			<select name="stock">
-							<?php for($i=1;$i<=999;$i++):?>
-							<option value="<?php echo $i;?>"<?php if($stock == $i):?> selected <?php endif;?> /><?php echo $i;?>
-							</option>
-						<?php endfor;?>
-			</select>
+			<input type="text" name="stock" value="<?php echo $this->escape($stock);?>">
 		</div>
-	<h3>画像</h3>
 	<h3>画像</h3>
 		<div>
 			<select name="image">

@@ -1,5 +1,5 @@
 <?php $this->setLayoutVar('title','アカウント')?>
-
+<?php echo $this->render('back',array());?>
 <h2>アカウント</h2>
 
 <p>

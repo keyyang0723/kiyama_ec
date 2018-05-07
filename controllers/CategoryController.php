@@ -32,7 +32,7 @@ class CategoryController extends Controller
 		if(count($errors)===0){
 			$this->db_manager->get('Category')->insert($name);
 
-			return $this->redirect('/category');
+			return $this->redirect('/admin/category');
 		}
 
 		$categories = $this->db_manager->get('category')
@@ -42,7 +42,7 @@ class CategoryController extends Controller
 				'errors'  => $errors,
 				'categories'=> $categories,
 				'name'     =>'',
-				'_token'  =>$this->generateCsrfToken('category/add/post'),
+				'_token'  =>$this->generateCsrfToken('/admincategory/add/post'),
 			));
 
 	}

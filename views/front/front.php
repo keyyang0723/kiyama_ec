@@ -1,5 +1,5 @@
 <?php $this->setLayoutVar('title','ホーム')?>
-
+<?php echo $this->render('back',array());?>
 <h2>ホーム</h2>
 
 </form>
