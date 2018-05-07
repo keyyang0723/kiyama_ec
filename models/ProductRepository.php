@@ -2,11 +2,11 @@
 
 class ProductRepository extends DbRepository
 {
-	public function insert($name,$description,$category_id,$price,$image,$stock)
+	public function insert($name,$description,$category_id,$price,$image,$stock,$image_name)
 	{
 		$sql = " 
-			INSERT INTO products(name,description,category_id,price,image,stock)
-			VALUES(:name,:description,:category_id,:price,:image,:stock)
+			INSERT INTO products(name,description,category_id,price,image,stock,image_name)
+			VALUES(:name,:description,:category_id,:price,:image,:stock,:image_name)
 			";
 
 		$stmt = $this->execute($sql,array(
@@ -16,6 +16,7 @@ class ProductRepository extends DbRepository
 			':price'       =>$price,
 			':image'	  =>$image,
 			':stock'	  =>$stock,
+			':image_name' =>$image_name,
 		));
 	}
 

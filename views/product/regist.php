@@ -1,6 +1,6 @@
 <?php $this->setLayoutVar('title','商品登録')?>
 <?php echo $this->render('back',array());?>
-<form action="<?php echo $base_url;?>/admin/product/regist/post" method="post">
+<form action="<?php echo $base_url;?>/admin/product/regist/post" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="_token" value="<?php echo $this->escape($_token);?>" />
 
 	<?php if(isset($errors) && count($errors)>0): ?>
@@ -33,15 +33,9 @@
 			<input type="text" name="stock" value="<?php echo $this->escape($stock);?>">
 		</div>
 	<h3>画像</h3>
-		<div>
-			<select name="image">
-				<option value="サンプル1">サンプル1</option>
-				<option value="サンプル2">サンプル2</option>
-				<option value="サンプル3">サンプル3</option>
-			</select>
-
-		</div>
-
+		<?php echo $this->render('upload',array());?>
 	<p>
 		<input type="submit" value="登録する"/>
 	</p>
+</form>
+

@@ -32,6 +32,7 @@ class ProductController extends Controller
 			'price'       =>'',
 			'image'	  =>'',
 			'stock'	  =>'',
+			'fname'  =>'',
 			'_token' =>$this->generateCsrfToken('product/post'),
 		));	
 		}
@@ -43,6 +44,8 @@ class ProductController extends Controller
 		$category_id = $this->request->getPost('category_id');
 		$image = $this->request->getPost('image');
 		$body = $this->request->getPost('body');
+		$tempfile = $_FILES['fname']['tmp_name'];
+
 		$errors = array();
 		if(!strlen($name)){
 			$errors[]='商品名を入力してください';
@@ -79,18 +82,26 @@ class ProductController extends Controller
 			$stock ='';
 		}
 
-		if(!isset($image)){
-			$errors[]='画像を選択してください';
+		if(!is_uploaded_file($tempfile)){
+			$errors[]=  'ファイルをアップロードできません。画像を登録できませんでした。';
 		}
+		// if(!isset($image)){
+		// 	$errors[]='画像を選択してください';
+		// }
 
 
 		if(count($errors)===0){
+			$imageuser = $_SESSION['Admin']['user_name'];
+			$imagetime = date('H:i:s');
+			$image_name = 'image/'.sha1($imageuser.$imagetime).'.jpg';
+			move_uploaded_file($tempfile , $image_name);
+
 			$user = $this->session->get('user');
-			$this->db_manager->get('Product')->insert($name,$description,$category_id,$price,$image,$stock);
+			$this->db_manager->get('Product')->insert($name,$description,$category_id,$price,$image,$stock,$image_name);
 			$product =$this->db_manager->get('product')->fetchByName($name);
 			$_SESSION['product'] = $product;
 
-			return $this->redirect('/admin/upload');
+			return $this->redirect('/admin');
 		}
 
 		$user = $this->session->get('admin');
@@ -215,8 +226,8 @@ class ProductController extends Controller
 
 	public function imageAction(){
 	$tempfile = $_FILES['fname']['tmp_name'];
-	$filename = 'gazou.php/' .$_SESSION['product']['id'].'.jpg';
-	// $filename = 'image/' .$_SESSION['product']['id'].'.jpg';
+	//$filename = 'gazou.php/' .$_SESSION['product']['id'].'.jpg';
+	$filename = 'image/'.$_SESSION['product']['id'].'.jpg';
 	$comment = "";
 
 	if (is_uploaded_file($tempfile)) {

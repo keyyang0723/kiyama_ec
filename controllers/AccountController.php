@@ -125,9 +125,6 @@ class AccountController extends Controller
 				|| !password_verify ( $password , $user['password'] )
 			){
 				$errors[] = 'ユーザIDかパスワードが不正です';
-				$errors[] = $user['password'];
-				$errors[] = $user_repository->hashPassword($password);
-				var_dump($password);
 			}else{
 				$this->session->setAuthenticated(true);
 				$this->session->set('admin',$admin);
