@@ -1,5 +1,6 @@
 <?php $this->setLayoutVar('title','商品登録')?>
 <?php echo $this->render('back',array());?>
+<?php var_dump($_SESSION);?>
 <form action="<?php echo $base_url;?>/admin/product/regist/post" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="_token" value="<?php echo $this->escape($_token);?>" />
 

@@ -57,7 +57,7 @@ class ProductRepository extends DbRepository
 	}
 	}
 
-	public function edit($name,$description,$category_id,$price,$image,$stock,$is_displayed,$id)
+	public function edit($name,$description,$category_id,$price,$image,$stock,$is_displayed,$id,$image_name)
 	{
 		$sql = "
 			UPDATE products SET 
@@ -67,7 +67,8 @@ class ProductRepository extends DbRepository
 				price = :price,
 				stock = :stock,
 				image = :image,
-				is_displayed = :is_displayed
+				is_displayed = :is_displayed,
+				image_name = :image_name
 				WHERE id = :id
 				";
 
@@ -78,8 +79,9 @@ class ProductRepository extends DbRepository
 			':price'       =>$price,
 			':image'	  =>$image,
 			':stock'	  =>$stock,
-			'is_displayed' =>$is_displayed,
-			'id'		=>$id,
+			':is_displayed' =>$is_displayed,
+			':image_name' =>$image_name,
+			':id'		=>$id,
 		));
 	}
 	public function delete($id)

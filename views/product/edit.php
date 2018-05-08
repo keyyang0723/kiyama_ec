@@ -1,6 +1,7 @@
 <?php $this->setLayoutVar('title','詳細編集')?>
 <?php echo $this->render('back',array());?>
-<form action="<?php echo $base_url;?>/admin/product/<?php echo $this->escape($name);?>/edit" method="post">
+
+<form action="<?php echo $base_url;?>/admin/product/<?php echo $this->escape($name);?>/edit" method="post" enctype="multipart/form-data">
 
 	<?php if(isset($errors) && count($errors)>0): ?>
 		<?php echo $this->render('errors',array('errors'=> $errors));?>
@@ -34,15 +35,9 @@
 			<input type="text" name="stock" value="<?php echo $this->escape($stock);?>">
 		</div>
 	<h3>画像</h3>
-		<div>
-			<select name="image">
-				<option value="サンプル1">サンプル1</option>
-				<option value="サンプル2">サンプル2</option>
-				<option value="サンプル3">サンプル3</option>
-			</select>
-
-		</div>
-
+		<img src =<?php echo '/image/'.$image_name.'.jpg';?> >
+		<input type="hidden" name="image_name" value="<?php echo $this->escape($image_name);?>" />
+		<input type="file" name="fname">
 	<h3>表示</h3>
 		<div>
 			<select name="is_displayed">

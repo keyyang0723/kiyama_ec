@@ -85,16 +85,13 @@ class ProductController extends Controller
 		if(!is_uploaded_file($tempfile)){
 			$errors[]=  'ファイルをアップロードできません。画像を登録できませんでした。';
 		}
-		// if(!isset($image)){
-		// 	$errors[]='画像を選択してください';
-		// }
-
 
 		if(count($errors)===0){
 			$imageuser = $_SESSION['Admin']['user_name'];
 			$imagetime = date('H:i:s');
-			$image_name = 'image/'.sha1($imageuser.$imagetime).'.jpg';
-			move_uploaded_file($tempfile , $image_name);
+			$image_name = sha1($imageuser.$imagetime);
+			$filename = 'image/'.$image_name.'.jpg';
+			move_uploaded_file($tempfile , $filename);
 
 			$user = $this->session->get('user');
 			$this->db_manager->get('Product')->insert($name,$description,$category_id,$price,$image,$stock,$image_name);
@@ -135,8 +132,8 @@ class ProductController extends Controller
 
 	public function editAction()
 	{
+		var_dump($_FILES);
 		$categories =$this->db_manager->get('category')->fetchAllCategories();
-
 		$name = $this->request->getPost('name');
 		$description = $this->request->getPost('description');
 		$price = $this->request->getPost('price');
@@ -145,6 +142,13 @@ class ProductController extends Controller
 		$image = $this->request->getPost('image');
 		$id = $this->request->getPost('id');
 		$is_displayed = $this->request->getPost('is_displayed');
+		$image_name = $this->request->getPost('image_name');
+
+		if(isset($_FILES['fname'])){
+			$tempfile = $_FILES['fname']['tmp_name'];
+		}
+
+
 		$delite = $this ->request->getPost('delite');
 
 		$errors = array();
@@ -183,9 +187,6 @@ class ProductController extends Controller
 			$stock ='';
 		}
 
-		if(!isset($image)){
-			$errors[]='画像を選択してください';
-		}
 
 		if(isset($delite)){
 			$this->db_manager->get('product')->delete($id);
@@ -193,8 +194,23 @@ class ProductController extends Controller
 		}
 
 		if(count($errors)===0){
+
+			if(isset($tempfile)){
+				if(is_uploaded_file($tempfile)){
+					if(file_exists('image/'.$image_name.'.jpg')){
+						unlink('image/'.$image_name.'.jpg');
+					}
+					$imageuser = $_SESSION['admin']['user_name'];
+					$imagetime = date('H:i:s');
+					$image_name = sha1($imageuser.$imagetime);
+					$filename = 'image/'.$image_name.'.jpg';
+					move_uploaded_file($tempfile , $filename);
+				}	
+			}else{
+
+			}
 			
-			$this->db_manager->get('Product')->edit($name,$description,$category_id,$price,$image,$stock,$is_displayed,$id);
+			$this->db_manager->get('Product')->edit($name,$description,$category_id,$price,$image,$stock,$is_displayed,$id,$image_name);
 			return $this->render(array(
 				'errors'  => $errors,
 				'name'   =>$name,
@@ -205,13 +221,15 @@ class ProductController extends Controller
 				'image'	  =>$image,
 				'stock'	  =>$stock,
 				'is_displayed' =>$is_displayed,
+				'image_name' =>$image_name,
+				'fname' =>'',
 				'id'  	 =>$id,
 			));
 		}
 
 			return $this->render(array(
 				'errors'  => $errors,
-				'products'=>$products,
+				//'products'=>$products,
 				'name'   =>$name,
 				'description'=>$description,
 				'categories'=>$categories,
@@ -220,6 +238,8 @@ class ProductController extends Controller
 				'image'	  =>$image,
 				'stock'	  =>$stock,
 				'is_displayed' =>$is_displayed,
+				'image_name' =>$image_name,
+				'fname' =>'',
 				'id'  	 =>$id,
 			));
 	}

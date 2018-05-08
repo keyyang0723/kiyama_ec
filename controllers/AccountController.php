@@ -127,7 +127,7 @@ class AccountController extends Controller
 				$errors[] = 'ユーザIDかパスワードが不正です';
 			}else{
 				$this->session->setAuthenticated(true);
-				$this->session->set('admin',$admin);
+				$this->session->set('admin',$user);
 
 				return $this->redirect('/admin');
 			}

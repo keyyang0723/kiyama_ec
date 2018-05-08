@@ -5,8 +5,10 @@
 			<h2><?php echo $this->escape($product['name']);?></h2>
 
 			<div>
-				画像
-				<?php echo $this->escape($product['image']);?></div>
+				image
+				<?php if(isset($product['image_name'])):?>
+				<img src =<?php echo '/image/'.$product['image_name'].'.jpg';?> >
+				<?php endif;?>
 			</div>
 			<ul>
 				<li>price
