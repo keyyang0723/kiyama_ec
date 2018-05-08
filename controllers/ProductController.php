@@ -132,7 +132,7 @@ class ProductController extends Controller
 
 	public function editAction()
 	{
-		var_dump($_FILES);
+		
 		$categories =$this->db_manager->get('category')->fetchAllCategories();
 		$name = $this->request->getPost('name');
 		$description = $this->request->getPost('description');
@@ -183,9 +183,19 @@ class ProductController extends Controller
 		}elseif(!ctype_digit($stock)){
 			$errors[]='個数は半角数字で入力してください';
 		}else if(mb_strlen($stock) > 10){
-			$errors[]='商品名は10桁以内で入力してください';
+			$errors[]='商品数は10桁以内で入力してください';
 			$stock ='';
 		}
+
+		if(isset($tempfile)){
+			var_dump(pathinfo($tempfile));
+			var_dump($_FILES);
+			if(filesize($tempfile) > 100000){
+				$errors[]='画像ファイルが大きすぎます';
+			}elseif($_FILES['fname']['type'] !== 'image/jpeg'){
+				$errors[]='画像はjpgを選択してください';
+			}
+		}	
 
 
 		if(isset($delite)){
@@ -196,6 +206,7 @@ class ProductController extends Controller
 		if(count($errors)===0){
 
 			if(isset($tempfile)){
+				var_dump(filesize($tempfile));
 				if(is_uploaded_file($tempfile)){
 					if(file_exists('image/'.$image_name.'.jpg')){
 						unlink('image/'.$image_name.'.jpg');
