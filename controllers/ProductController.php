@@ -279,7 +279,6 @@ class ProductController extends Controller
 		}elseif(!strlen($search_name)>0 && isset($category_id)){
 			$products = $this->db_manager->get('product')->fetchAllSearchProductsByCategory_id($category_id);
 		}
-		var_dump(count($products));
 		if(count($products) == 0 ){
 			$errors[] = "該当する結果がありませんでした";
 			return $this->render(array(
