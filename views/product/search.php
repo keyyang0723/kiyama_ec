@@ -4,7 +4,7 @@
 
 <?php echo $this->render('back',array());?>
 <form action="<?php echo $base_url;?>/admin/search" method="post">
-<?php echo $this->render('search',array('categories'=>$categories,'category_id'=>''));?>
+<?php echo $this->render('search',array('categories'=>$categories,'category_id'=>$category_id,'search_name'=>$search_name));?>
 <?php if(isset($errors) && count($errors)>0): ?>
 	<?php echo $this->render('errors',array('errors'=> $errors));?>
 <?php else:?>

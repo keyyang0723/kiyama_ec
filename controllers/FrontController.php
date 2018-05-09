@@ -209,24 +209,20 @@ class FrontController extends Controller
 		$category_id =$this->request->getPost('category_id');
 		$products = [];
 
-		if(strlen($search_name)>0){
-			$pros = $this->db_manager->get('product')->fetchAllProductsByName($name);
-			if(isset($category_id)){
-				foreach($pros as $pro){
-					if($pro['category_id'] == $category_id){
-						$products[] = $pro;
-					}
-				}
-			}else{
-				$products = $pros;
-			}
-		}elseif(isset($category_id)){
+		
+		if(strlen($search_name)>0 && isset($category_id)){
+			$products = $this->db_manager->get('product')->fetchAllProductsByNameAndCtegory_id($name,$category_id);
+		}
+		elseif(strlen($search_name)>0 && !isset($category_id)){
+			$products = $this->db_manager->get('product')->fetchAllProductsByName($name);
+
+		}elseif(!strlen($search_name)>0 && isset($category_id)){
 			$products = $this->db_manager->get('product')->fetchAllSearchProductsByCategory_id($category_id);
 		}
 		if(count($products) == 0 ){
 			$errors[] = "該当する検索結果がありません";
 			return $this->render(array(
-			'search_name' =>$name,
+			'search_name' =>$search_name,
 			'categories'=>$categories,
 			'category_id'=>$category_id,
 			'products'=>$products,
@@ -234,7 +230,7 @@ class FrontController extends Controller
 		));
 		}else{
 			return $this->render(array(
-				'search_name' =>$name,
+				'search_name' =>$search_name,
 				'categories'=>$categories,
 				'category_id'=>$category_id,
 				'products'=>$products,

@@ -62,6 +62,15 @@ class ProductRepository extends DbRepository
 			':category_id' => $category_id));
 	}
 
+	public function fetchAllProductsByNameAndCtegory_id($name,$category_id){
+
+		$sql = "SELECT * FROM products WHERE category_id = :category_id AND name LIKE :name";
+		return $this->fetchAll($sql,array(
+			':name' => $name,
+			':category_id' => $category_id
+		));
+	}
+
 	public function edit($name,$description,$category_id,$price,$image,$stock,$is_displayed,$id,$image_name)
 	{
 		$sql = "

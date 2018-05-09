@@ -1,6 +1,6 @@
 <?php $this->setLayoutVar('title','ホーム')?>
 <form action="<?php echo $base_url;?>/search" method="post">
-<?php echo $this->render('search',array('categories'=>$categories,'category_id'=>''));?>
+<?php echo $this->render('search',array('categories'=>$categories,'category_id'=>'','search_name'=>''));?>
 <h3>商品一覧</h3>
 <div id="product">
 	<?php foreach($products as $product):?>
