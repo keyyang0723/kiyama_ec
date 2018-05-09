@@ -1,6 +1,6 @@
-<?php $this->setLayoutVar('title','ホーム')?>
+<?php $this->setLayoutVar('title','検索結果')?>
 
-<h2>ホーム</h2>
+<h2>検索結果</h2>
 
 <?php echo $this->render('back',array());?>
 <form action="<?php echo $base_url;?>/admin/search" method="post">

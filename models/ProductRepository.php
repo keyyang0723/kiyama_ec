@@ -20,17 +20,6 @@ class ProductRepository extends DbRepository
 		));
 	}
 
-	// public function insert($name)
-	// {
-	// 	$sql = " 
-	// 		INSERT INTO products(name)
-	// 		VALUES(:name)
-	// 		";
-
-	// 	$stmt = $this->execute($sql,array(
-	// 		':name'    =>$name,
-	// 	));
-	// }
 
 
 	public function fetchAllProduct(){
@@ -48,13 +37,29 @@ class ProductRepository extends DbRepository
 			':name' => $name));
 	}
 
+
+
 	public function fetchById($id)
 	{
 		{
 		$sql = "SELECT * FROM products WHERE id = :id";
 		return $this->fetch($sql,array(
 			':id' => $id));
+		}
 	}
+
+	public function fetchAllProductsByName($name)
+	{
+		$sql = "SELECT * FROM products WHERE name = :name";
+		return $this->fetchAll($sql,array(
+			':name' => $name));
+	}
+
+	public function fetchAllSearchProductsByCategory_id($category_id)
+	{
+		$sql = "SELECT * FROM products WHERE category_id = :category_id";
+		return $this->fetchALL($sql,array(
+			':category_id' => $category_id));
 	}
 
 	public function edit($name,$description,$category_id,$price,$image,$stock,$is_displayed,$id,$image_name)

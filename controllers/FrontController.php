@@ -4,9 +4,11 @@ class FrontController extends Controller
 	public function frontAction()
 	{
 		$products =$this->db_manager->get('product')->fetchAllProduct();
+		$categories =$this->db_manager->get('category')->fetchAllCategories();
 
 		return $this->render(array(
 			'products'=>$products,
+			'categories' =>$categories
 		));	
 
 	}
@@ -197,6 +199,38 @@ class FrontController extends Controller
 			'id' =>$id,
 			'product' =>$product));
 	}
+
+	public function searchAction(){
+		
+		$categories =$this->db_manager->get('category')->fetchAllCategories();
+
+		$name = $this->request->getPost('search_name');
+		$category_id =$this->request->getPost('category_id');
+		$products = [];
+
+		if(strlen($name)>0){
+			$products = $this->db_manager->get('product')->fetchAllProductsByName($name);
+		}
+		if(isset($category_id)){
+			$products = $this->db_manager->get('product')->fetchAllSearchProductsByCategory_id($category_id);
+		}
+		if(count($products) == 0 ){
+			return $this->render(array(
+			'search_name' =>$name,
+			'categories'=>$categories,
+			'category_id'=>$category_id,
+			'products'=>'',
+		));
+		}else{
+			return $this->render(array(
+				'search_name' =>$name,
+				'categories'=>$categories,
+				'category_id'=>$category_id,
+				'products'=>$products,
+			));
+		}
+	}
+	
 
 
 

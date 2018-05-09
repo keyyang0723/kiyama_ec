@@ -5,9 +5,10 @@ class ProductController extends Controller
 	public function indexAction()
 	{
 		$products =$this->db_manager->get('product')->fetchAllProduct();
-
+		$categories =$this->db_manager->get('category')->fetchAllCategories();
 		return $this->render(array(
 			'products'=>$products,
+			'categories'=>$categories,
 			'name'   =>'',
 			'_token' =>$this->generateCsrfToken('product/post'),
 		));	
@@ -86,6 +87,15 @@ class ProductController extends Controller
 			$errors[]=  'ファイルをアップロードできません。画像を登録できませんでした。';
 		}
 
+		if(isset($tempfile)){
+			if(filesize($tempfile) > 100000){
+				$errors[]='画像ファイルが大きすぎます';
+			}elseif($_FILES['fname']['type'] !== 'image/jpeg'){
+				$errors[]='画像はjpgを選択してください';
+			}
+		}	
+
+
 		if(count($errors)===0){
 			$imageuser = $_SESSION['Admin']['user_name'];
 			$imagetime = date('H:i:s');
@@ -122,11 +132,11 @@ class ProductController extends Controller
 
 	public function detailAction()
 	{
-		$name = $this->request->getPost('name');
-		$product = $this->db_manager->get('Product')->fetchByName($name);
+		$id = $this->request->getPost('id');
+		$product = $this->db_manager->get('Product')->fetchById($id);
 
 		return $this->render(array(
-			'name' =>$name,
+			'id' =>$id,
 			'product' =>$product));
 	}
 
@@ -187,9 +197,7 @@ class ProductController extends Controller
 			$stock ='';
 		}
 
-		if(isset($tempfile)){
-			var_dump(pathinfo($tempfile));
-			var_dump($_FILES);
+		if(isset($_FILES['fname'])){
 			if(filesize($tempfile) > 100000){
 				$errors[]='画像ファイルが大きすぎます';
 			}elseif($_FILES['fname']['type'] !== 'image/jpeg'){
@@ -206,7 +214,6 @@ class ProductController extends Controller
 		if(count($errors)===0){
 
 			if(isset($tempfile)){
-				var_dump(filesize($tempfile));
 				if(is_uploaded_file($tempfile)){
 					if(file_exists('image/'.$image_name.'.jpg')){
 						unlink('image/'.$image_name.'.jpg');
@@ -255,36 +262,36 @@ class ProductController extends Controller
 			));
 	}
 
-	public function imageAction(){
-	$tempfile = $_FILES['fname']['tmp_name'];
-	//$filename = 'gazou.php/' .$_SESSION['product']['id'].'.jpg';
-	$filename = 'image/'.$_SESSION['product']['id'].'.jpg';
-	$comment = "";
+	public function searchAction(){
+		
+		$categories =$this->db_manager->get('category')->fetchAllCategories();
 
-	if (is_uploaded_file($tempfile)) {
-	    if ( move_uploaded_file($tempfile , $filename )) {
-		$comment = "画像をアップロードしました。";
-	    } else {
-	        $comment =  "ファイルをアップロードできません。画像を登録できませんでした。";
-	    }
-	} else {
-	    $comment =  "ファイルが選択されていません。画像を登録できませんでした。";
-	} 
-    return $this->render(array(
-    	'comment' => $comment,
+		$name = $this->request->getPost('search_name');
+		$category_id =$this->request->getPost('category_id');
+		$products = [];
 
-    ));
-}
-	public function uploadAction(){
-
-    return $this->render(array(
-    	'fname'=>'',
-
-    ));
-}
-	public function gazouAction(){
-		return $this->render(array());
+		if(strlen($name)>0){
+			$products = $this->db_manager->get('product')->fetchAllProductsByName($name);
+		}
+		if(isset($category_id)){
+			$products = $this->db_manager->get('product')->fetchAllSearchProductsByCategory_id($category_id);
+		}
+		if(count($products) == 0 ){
+			return $this->render(array(
+			'search_name' =>$name,
+			'categories'=>$categories,
+			'category_id'=>$category_id,
+			'products'=>'',
+		));
+		}else{
+			return $this->render(array(
+				'search_name' =>$name,
+				'categories'=>$categories,
+				'category_id'=>$category_id,
+				'products'=>$products,
+			));
+		}
 	}
-
+	
 
 }
