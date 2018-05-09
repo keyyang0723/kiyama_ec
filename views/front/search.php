@@ -1,8 +1,10 @@
 <?php $this->setLayoutVar('title','ホーム')?>
-<?php echo $this->render('back',array());?>
-<!-- 後日削除 -->
+
 <form action="<?php echo $base_url;?>/search" method="post">
 <?php echo $this->render('search',array('categories'=>$categories,'category_id'=>''));?>
+<?php if(isset($errors) && count($errors)>0): ?>
+	<?php echo $this->render('errors',array('errors'=> $errors));?>
+<?php else:?>
 <h3>検索結果</h3>
 <div id="product">
 	<?php foreach($products as $product):?>
@@ -27,3 +29,4 @@
 		<?php endif;?>
 	<?php endforeach; ?>
 </div>
+<?php endif;?>

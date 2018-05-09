@@ -1,11 +1,10 @@
 <div>探す
-	<form action="<?php echo $base_url;?>/admin/search" method="post">
+	
 	<ul>
 		<li>商品名で検索</li>
 	
 			<input type="text" name="search_name" />
-		<input type="submit" value="調べる" />
-		
+
 		<li>カテゴリから検索</li>
 		<div id="categories">
 				<?php foreach($categories as $category):?>

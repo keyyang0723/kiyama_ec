@@ -196,8 +196,8 @@ class ProductController extends Controller
 			$errors[]='商品数は10桁以内で入力してください';
 			$stock ='';
 		}
-
-		if(isset($_FILES['fname'])){
+ 
+		if(isset($_FILES['fname']) && strlen($_FILES['fname']['type'])!=0 ){
 			if(filesize($tempfile) > 100000){
 				$errors[]='画像ファイルが大きすぎます';
 			}elseif($_FILES['fname']['type'] !== 'image/jpeg'){
@@ -265,23 +265,34 @@ class ProductController extends Controller
 	public function searchAction(){
 		
 		$categories =$this->db_manager->get('category')->fetchAllCategories();
-
-		$name = $this->request->getPost('search_name');
+		$search_name = $this->request->getPost('search_name');
+		$name = '%'.$search_name.'%';
 		$category_id =$this->request->getPost('category_id');
 		$products = [];
 
-		if(strlen($name)>0){
-			$products = $this->db_manager->get('product')->fetchAllProductsByName($name);
-		}
-		if(isset($category_id)){
+		if(strlen($search_name)>0){
+			$pros = $this->db_manager->get('product')->fetchAllProductsByName($name);
+			if(isset($category_id)){
+				foreach($pros as $pro){
+					if($pro['category_id'] == $category_id){
+						$products[] = $pro;
+					}
+				}
+			}else{
+				$products = $pros;
+			}
+		}elseif(isset($category_id)){
 			$products = $this->db_manager->get('product')->fetchAllSearchProductsByCategory_id($category_id);
 		}
+		var_dump(count($products));
 		if(count($products) == 0 ){
+			$errors[] = "該当する結果がありませんでした";
 			return $this->render(array(
 			'search_name' =>$name,
 			'categories'=>$categories,
 			'category_id'=>$category_id,
-			'products'=>'',
+			'products'=>$products,
+			'errors'=>$errors
 		));
 		}else{
 			return $this->render(array(

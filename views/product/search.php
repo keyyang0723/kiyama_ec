@@ -5,7 +5,9 @@
 <?php echo $this->render('back',array());?>
 <form action="<?php echo $base_url;?>/admin/search" method="post">
 <?php echo $this->render('search',array('categories'=>$categories,'category_id'=>''));?>
-
+<?php if(isset($errors) && count($errors)>0): ?>
+	<?php echo $this->render('errors',array('errors'=> $errors));?>
+<?php else:?>
 <h3>商品一覧</h3>
 <div id="products">
 	<?php foreach($products as $product):?>
@@ -29,3 +31,4 @@
 		</form>
 	<?php endforeach; ?>
 </div>
+<?php endif;?>	

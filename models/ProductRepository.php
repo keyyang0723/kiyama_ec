@@ -50,7 +50,7 @@ class ProductRepository extends DbRepository
 
 	public function fetchAllProductsByName($name)
 	{
-		$sql = "SELECT * FROM products WHERE name = :name";
+		$sql = "SELECT * FROM products WHERE name LIKE :name";
 		return $this->fetchAll($sql,array(
 			':name' => $name));
 	}

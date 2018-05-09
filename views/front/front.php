@@ -1,9 +1,7 @@
 <?php $this->setLayoutVar('title','ホーム')?>
-<?php echo $this->render('back',array());?>
-<!-- 後日削除 -->
 <form action="<?php echo $base_url;?>/search" method="post">
 <?php echo $this->render('search',array('categories'=>$categories,'category_id'=>''));?>
-<h3>検索結果</h3>
+<h3>商品一覧</h3>
 <div id="product">
 	<?php foreach($products as $product):?>
 		<?php if($product['is_displayed']==0):?>
