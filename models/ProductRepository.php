@@ -30,9 +30,9 @@ class ProductRepository extends DbRepository
 
 	}
 
-	public function fetchPageProduct($display_product){
+	public function fetchPageProduct($display_product,$display_number){
 		$sql = "
-			SELECT * FROM products limit $display_product,3
+			SELECT * FROM products limit $display_product,$display_number
 			";
 			return $this->fetchAll($sql
 			);

@@ -6,11 +6,8 @@
 </form>
 <h3>商品一覧</h3>
 <div id="products">
-
-	<?php echo $this->escape($number_of_products['count']);var_dump($now_page);?>
-
 	<?php for($i=1;$i<$last_page;$i++):?>
-		<a href="<?php echo $base_url;?>/admin?page=<?php echo $i; ?>"><?php echo $i.' '; ?>
+		<a href="<?php echo $base_url;?>/admin?page=<?php echo $i; ?>"><?php echo $i.' '; ?></a>
 	<?php endfor;?>
 
 

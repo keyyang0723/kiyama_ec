@@ -8,12 +8,15 @@ class ProductController extends Controller
 		$categories =$this->db_manager->get('category')->fetchAllCategories();
 		$number_of_products=$this->db_manager->get('product')->countproduct();
 
-
-		$last_page = $number_of_products['count'] /3;
+		$display_amount=3;
+		$last_page = $number_of_products['count'] /$display_amount;
 		$now_page = $this->request->getget('page');
-		$display_product = ($now_page-1)*3+1;
+		if(!$now_page){
+			$now_page=1;
+		}
+		$display_product = ($now_page-1)*$display_amount+1;
 
-		$products =$this->db_manager->get('product')->fetchPageProduct($display_product);
+		$products =$this->db_manager->get('product')->fetchPageProduct($display_product,$display_amount);
 		
 
 
