@@ -37,7 +37,7 @@
 	<h3>画像</h3>
 		<img src =<?php echo '/image/'.$image_name.'.jpg';?> >
 		<input type="hidden" name="image_name" value="<?php echo $this->escape($image_name);?>" />
-		<input type="file" name="fname">
+		<?php echo $this->render('upload',array());?>
 	<h3>表示</h3>
 		<div>
 			<select name="is_displayed">

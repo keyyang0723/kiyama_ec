@@ -22,7 +22,7 @@
 						<li>stock <?php echo $this->escape($product['stock']);?></li>
 						<li><?php echo $this->escape($product['description']);?></li>
 					</ul>
-					<input type="hidden" name="id" value="<?php echo $this->escape($product['id']);?>" />
+					<input type="hidden" name="product_id" value="<?php echo $this->escape($product['id']);?>" />
 					<input type="submit" value="商品詳細"/>
 				</div>
 			</form>

@@ -48,6 +48,15 @@ class ProductRepository extends DbRepository
 		}
 	}
 
+	public function fetchByProductId($product_id)
+	{
+		{
+		$sql = "SELECT * FROM products WHERE id = :id";
+		return $this->fetch($sql,array(
+			':id' => $product_id));
+		}
+	}
+
 	public function fetchAllProductsByName($name)
 	{
 		$sql = "SELECT * FROM products WHERE name LIKE :name";

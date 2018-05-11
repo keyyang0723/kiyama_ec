@@ -13,74 +13,124 @@ class FrontController extends Controller
 
 	}
 
+	public function detailAction()
+	{
+		$product_id = $this->request->getPost('product_id');
+		$product = $this->db_manager->get('Product')->fetchByProductId($product_id);
+		if($product === false or $product['is_displayed']==1){
+			return $this->forward404();
+		}
+		$number = $this->request->getPost('number');
+		$_SESSION['number'] = $number;
+		return $this->render(array(
+			'number' => $number,
+			'product_id' =>$product_id,
+			'product' =>$product));
+	}
+
+
 	public function formAction()
 	{	
+
+		if($this->request->isPost()){
+			$product_id = $this->request->getPost('product_id');
+			$number = $this->request->getPost('number');
+
+				return $this->render(array(
+				'product_id'	=>$product_id,
+				'customer_name' =>'',
+				'customer_address'=>'',
+				'customer_street'=>'',
+				'customer_zipcode' =>'',
+				'customer_tel'=>'',
+				'customer_email'=>'',
+				'number'=>$number,
+			));
+		}
+
+		$product_id =$_SESSION['product_id'];
+		$number = $_SESSION['number'];
+
+		$_SESSION['product_id'] = '';
+		$_SESSION['number'] = '';
 		
-
-		if(!$this->request->isPost()){
-			$id = $this->request->getGet('id');
-			$number = $this->request->getGet('number');
-			$product = $this->db_manager->get('product')->fetchById($id);
-			$_SESSION['product'] = $product;
-			$_SESSION['number']	= $number;
-
-			if(isset($_SESSION['customer_name'])){
-				$customer_name = $_SESSION['customer_name'] ;
+		
+ 		if(isset($_SESSION['customer_name'])){
+				$customer_name = $_SESSION['customer_name'];
+				$_SESSION['customer_name'] = '';
 			}else{
 				$customer_name = '';
 			}
 			if(isset($_SESSION['customer_address'])){
 				$customer_address = $_SESSION['customer_address'];
+				$_SESSION['customer_address'] = '';
 			}else{
 				$customer_address = '';
 			}
 			if(isset($_SESSION['customer_street'])){
 				$customer_street= $_SESSION['customer_street'];
+				$_SESSION['customer_street'] = '';
 			}else{
 				$customer_street = '';
 			}
 			if(isset($_SESSION['customer_zipcode'])){
 				$customer_zipcode = $_SESSION['customer_zipcode'];
+				$_SESSION['customer_zipcode'] = '';
 			}else{
 				$customer_zipcode = '';
 			}
 			if(isset($_SESSION['customer_tel'])){
 				$customer_tel = $_SESSION['customer_tel'];
+				$_SESSION['customer_tel'] = '';
 			}else{
 				$customer_tel = '';
 			}
 			if(isset($_SESSION['customer_email'])){
 				$customer_email = $_SESSION['customer_email'];
+				$_SESSION['customer_email'] = '';
 			}else{
 				$customer_email = '';
 			}
+			if(isset($_SESSION['errors'])){
+				$errors = $_SESSION['errors'];
+			}else{
+				$errors = [];
+			}
 
-				return $this->render(array(
-				'id'	=>$id,
-				'product'=>$product,
-				'customer_name' =>$customer_name,
-				'customer_address'=>$customer_address,
-				'customer_street'=>$customer_street,
-				'customer_zipcode' =>$customer_zipcode,
-				'customer_tel'=>$customer_tel,
-				'customer_email'=>$customer_email,
-				'number'=>$number,
+		return $this->render(array(
+			'number'=>$number,
+			'customer_name' =>$customer_name,
+			'customer_address'=>$customer_address,
+			'customer_street'=>$customer_street,
+			'customer_zipcode' =>$customer_zipcode,
+			'customer_tel'=>$customer_tel,
+			'customer_email'=>$customer_email,
+			'errors' =>$errors,
+			'product_id' =>$product_id,
 			));
-		}else{
-			$product =$_SESSION['product'];
-			$number = $_SESSION['number'];
-		}
+	}
+
+	public function confAction()
+	{	
 		
-
-
+		
 		$customer_name = $this->request->getPost('customer_name');
 		$customer_address = $this->request->getPost('customer_address');
 		$customer_street= $this->request->getPost('customer_street');
 		$customer_zipcode = $this->request->getPost('customer_zipcode');
 		$customer_tel = $this->request->getPost('customer_tel');
 		$customer_email = $this->request->getPost('customer_email');
-		
+		$product_id = $this->request->getPost('product_id');
+		$product = $this->db_manager->get('product')->fetchByProductId($product_id);
+		$tax_rate = "1.08";
+		$number = $this->request->getPost('number');
+		if(!$this->request->isPost() or $product === false or $number === false){
+			$this->forward404();
+		}
+		$price = $product['price']*$number*$tax_rate;
+		$errors = [];
 
+		
 
 		if(!strlen($customer_name)){
 			$errors[] ='お名前を入力してください';
@@ -101,25 +151,27 @@ class FrontController extends Controller
 			$errors[] ='メールアドレスを入力してください';
 		}
 
-		$_SESSION['product'] = $product;
-		$_SESSION['customer_name'] =$customer_name;
-		$_SESSION['customer_address']=$customer_address;
-		$_SESSION['customer_street']=$customer_street;
-		$_SESSION['customer_zipcode'] =$customer_zipcode;
-		$_SESSION['customer_tel']=$customer_tel;
-		$_SESSION['customer_email']=$customer_email;
-		$_SESSION['tax_rate']="1.08";
-		$_SESSION['number'] =$number;
+		$_SESSION['errors'] = $errors;
+		$_SESSION['customer_name'] = $customer_name;
+		$_SESSION['customer_address'] = $customer_address;
+		$_SESSION['customer_street'] = $customer_street;
+		$_SESSION['customer_zipcode'] = $customer_zipcode;
+		$_SESSION['customer_tel'] = $customer_tel;
+		$_SESSION['customer_email'] = $customer_email;
+		$_SESSION['product_id'] = $product_id;
+		$_SESSION['number'] = $number;
+		
 
+		if(count($errors)!==0){
+		
+			return $this->redirect('/form');
+		
+		}else{
 
-		if(count($errors)===0){
 			
-			return $this->redirect('/conf');
-		}
-		
-		
-		return $this->render(array(
+			return $this->render(array(
 			'number'=>$number,
+			'product_id' => $product_id,
 			'product'=>$product,
 			'customer_name' =>$customer_name,
 			'customer_address'=>$customer_address,
@@ -127,59 +179,93 @@ class FrontController extends Controller
 			'customer_zipcode' =>$customer_zipcode,
 			'customer_tel'=>$customer_tel,
 			'customer_email'=>$customer_email,
-			'errors' =>$errors,
-			));
-	}
-
-	public function confAction()
-	{	
-		$customer_name = $_SESSION['customer_name'] ;
-		$customer_address = $_SESSION['customer_address'];
-		$customer_street= $_SESSION['customer_street'];
-		$customer_zipcode = $_SESSION['customer_zipcode'];
-		$customer_tel = $_SESSION['customer_tel'];
-		$customer_email = $_SESSION['customer_email'];
-		$product_id = $_SESSION['product']['id'];
-		$tax_rate = $_SESSION['tax_rate'];
-		$number = $_SESSION['number'];
-		$price = $_SESSION['product']['price']*$number;
-		if(!$this->request->isPost()){
-		
-		return $this->render(array(
+			'tax_rate' =>$tax_rate,
+			'price' =>$price
+			
 		));
-		}else{
-
-			$this->db_manager->get('Order')->insertOrder($customer_name,$customer_address,$customer_street,$customer_zipcode,
-			$customer_tel,$customer_email,$product_id,$price,$tax_rate);
-			$this->db_manager->get('product')->reduce($product_id,$number);
-			return $this->redirect('/finish');
 		}
 	}
 
-	public function finishAction()
-	{
-
-		$customer_name = $_SESSION['customer_name'] ;
-		$customer_address = $_SESSION['customer_address'];
-		$customer_street= $_SESSION['customer_street'];
-		$customer_zipcode = $_SESSION['customer_zipcode'];
-		$customer_tel = $_SESSION['customer_tel'];
-		$customer_email = $_SESSION['customer_email'];
-		//session_destroy();
-		return $this->render(array(
-			
-		));
-	}
-	public function detailAction()
-	{
-		$id = $this->request->getGet('id');
-		$product = $this->db_manager->get('Product')->fetchById($id);
+	public function postAction()
+	{	
+		if(!$this->request->isPost()){
+			$this->forward404();
+		}
+		
+		$customer_name = $this->request->getPost('customer_name');
+		$customer_address = $this->request->getPost('customer_address');
+		$customer_street= $this->request->getPost('customer_street');
+		$customer_zipcode = $this->request->getPost('customer_zipcode');
+		$customer_tel = $this->request->getPost('customer_tel');
+		$customer_email = $this->request->getPost('customer_email');
+		$product_id = $this->request->getPost('product_id');
+		$product = $this->db_manager->get('product')->fetchByProductId($product_id);
+		$tax_rate = $this->request->getPost('tax_rate');
 		$number = $this->request->getPost('number');
-		$_SESSION['number'] = $number;
-		return $this->render(array(
-			'number' => $number,
-			'id' =>$id,
-			'product' =>$product));
+		$price = $this->request->getPost('price');
+		$errors = [];
+
+		if(!strlen($customer_name)){
+			$errors[] ='お名前を入力してください';
+		}
+		if(!strlen($customer_address)){
+			$errors[] ='住所を入力してください';
+		}
+		if(!strlen($customer_street)){
+			$errors[] ='番地を入力してください';
+		}
+		if(!strlen($customer_zipcode)){
+			$errors[] ='住所番号を入力してください';
+		}
+		if(!strlen($customer_tel)){
+			$errors[] ='電話番号を入力してください';
+		}
+		if(!strlen($customer_email)){
+			$errors[] ='メールアドレスを入力してください';
+		}
+
+		if(ctype_digit($price)=== FALSE ){
+			$errors[]='値段は半角数字で入力してください1';
+		}
+
+		if(ctype_digit($number)=== FALSE ){
+			$errors[]='値段は半角数字で入力してください2';
+		}
+
+		if($tax_rate=== FALSE ){
+			$errors[]='値段は半角数字で入力してください3';
+		}
+
+		
+		if(count($errors)!==0){
+		
+			$this->forward404();
+		
+		}
+		
+		// $this->db_manager->get('Order')->insertOrder($customer_name,$customer_address,$customer_street,$customer_zipcode,
+		// 	$customer_tel,$customer_email,$product_id,$price,$tax_rate);
+		// 	$this->db_manager->get('product')->reduce($product_id,$number);
+
+		return $this->redirect('/finish');
+		// return $this->render(array(
+		// 	'number'=>$number,
+		// 	'product_id' => $product_id,
+		// 	'product'=>$product,
+		// 	'customer_name' =>$customer_name,
+		// 	'customer_address'=>$customer_address,
+		// 	'customer_street'=>$customer_street,
+		// 	'customer_zipcode' =>$customer_zipcode,
+		// 	'customer_tel'=>$customer_tel,
+		// 	'customer_email'=>$customer_email,
+		// 	'tax_rate' =>$tax_rate,
+		// 	'price' =>$price
+			
+		// ));
+	}
+	
+	public function finishAction(){
+		return $this->render(array());
 	}
 
 	public function searchAction(){

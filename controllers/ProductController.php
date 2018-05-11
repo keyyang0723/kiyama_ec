@@ -20,6 +20,8 @@ class ProductController extends Controller
 
 	public function registAction()
 	{
+		
+		
 		$products =$this->db_manager->get('product')->fetchAllProduct();
 		$categories =$this->db_manager->get('category')->fetchAllCategories();
 		if(!$this->request->isPost()){
@@ -97,13 +99,14 @@ class ProductController extends Controller
 
 
 		if(count($errors)===0){
-			$imageuser = $_SESSION['Admin']['user_name'];
-			$imagetime = date('H:i:s');
+			$user = $this->session->get('admin');
+			$imageuser = $user['user_name'];
+			$imagetime = date('H:i:s');$user = $this->session->get('user');
 			$image_name = sha1($imageuser.$imagetime);
 			$filename = 'image/'.$image_name.'.jpg';
 			move_uploaded_file($tempfile , $filename);
 
-			$user = $this->session->get('user');
+			var_dump($user);
 			$this->db_manager->get('Product')->insert($name,$description,$category_id,$price,$image,$stock,$image_name);
 			$product =$this->db_manager->get('product')->fetchByName($name);
 			$_SESSION['product'] = $product;
@@ -135,6 +138,10 @@ class ProductController extends Controller
 		$id = $this->request->getPost('id');
 		$product = $this->db_manager->get('Product')->fetchById($id);
 
+
+		if($product === false){
+			return $this->forward404();
+		}
 		return $this->render(array(
 			'id' =>$id,
 			'product' =>$product));
@@ -198,7 +205,7 @@ class ProductController extends Controller
 		}
  
 		if(isset($_FILES['fname']) && strlen($_FILES['fname']['type'])!=0 ){
-			if(filesize($tempfile) > 100000){
+			if(filesize($tempfile) > 1000000){
 				$errors[]='画像ファイルが大きすぎます';
 			}elseif($_FILES['fname']['type'] !== 'image/jpeg'){
 				$errors[]='画像はjpgを選択してください';
@@ -218,7 +225,8 @@ class ProductController extends Controller
 					if(file_exists('image/'.$image_name.'.jpg')){
 						unlink('image/'.$image_name.'.jpg');
 					}
-					$imageuser = $_SESSION['admin']['user_name'];
+					$user = $this->session->get('admin');
+					$imageuser = $user['user_name'];
 					$imagetime = date('H:i:s');
 					$image_name = sha1($imageuser.$imagetime);
 					$filename = 'image/'.$image_name.'.jpg';

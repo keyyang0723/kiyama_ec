@@ -5,11 +5,15 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <title><?php if (isset($title)): echo $this->escape($title) .'-';
     endif; ?>Mini Blog</title>
+
+    
+    <!-- BootstrapのCSS読み込み -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="/css/style.css" />
  </head>
  <body>
  	<div id="header">
- 		<h1><a href="<?php echo $base_url; ?>/">Kiyama_ec</a></h1>
+ 		<h1><a href="<?php echo $base_url; ?>/">Kiyamazon</a></h1>
  	</div>
  	
  	<div id="main">
