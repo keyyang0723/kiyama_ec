@@ -24,10 +24,26 @@ class ProductRepository extends DbRepository
 
 	public function fetchAllProduct(){
 		$sql = "
-			SELECT * FROM products
+			SELECT * FROM products 
 			";
 			return $this->fetchAll($sql);
 
+	}
+
+	public function fetchPageProduct($display_product){
+		$sql = "
+			SELECT * FROM products limit $display_product,3
+			";
+			return $this->fetchAll($sql
+			);
+
+	}
+
+	public function countProduct(){
+		$sql = "
+			SELECT COUNT(id) as count FROM products 
+			";
+			return $this->fetch($sql);
 	}
 
 	public function fetchByName($name)

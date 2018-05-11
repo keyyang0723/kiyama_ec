@@ -6,9 +6,25 @@ class ProductController extends Controller
 	{
 		$products =$this->db_manager->get('product')->fetchAllProduct();
 		$categories =$this->db_manager->get('category')->fetchAllCategories();
+		$number_of_products=$this->db_manager->get('product')->countproduct();
+
+
+		$last_page = $number_of_products['count'] /3;
+		$now_page = $this->request->getget('page');
+		$display_product = ($now_page-1)*3+1;
+
+		$products =$this->db_manager->get('product')->fetchPageProduct($display_product);
+		
+
+
+
 		return $this->render(array(
 			'products'=>$products,
+			'last_page'=>$last_page,
+			'now_page'=>$now_page,
+			'display_product' =>$display_product,
 			'categories'=>$categories,
+			'number_of_products'=>$number_of_products,
 			'name'   =>'',
 			'_token' =>$this->generateCsrfToken('product/post'),
 		));	
