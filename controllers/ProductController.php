@@ -4,32 +4,26 @@ class ProductController extends Controller
 {
 	public function indexAction()
 	{
-		$products =$this->db_manager->get('product')->fetchAllProduct();
-		$categories =$this->db_manager->get('category')->fetchAllCategories();
-		$number_of_products=$this->db_manager->get('product')->countproduct();
+		$number_of_products	= $this->db_manager->get('product')->countproduct();
+		$display_amount	    = 15;
+		$last_page 		    = ceil($number_of_products['count'] / $display_amount);
+		$now_page           = $this->request->getget('page') ? $this->request->getget('page') : 1;
+		$display_product    = floor(($now_page-1)*$display_amount);
 
-		$display_amount=3;
-		$last_page = $number_of_products['count'] /$display_amount;
-		$now_page = $this->request->getget('page');
-		if(!$now_page){
-			$now_page=1;
-		}
-		$display_product = ($now_page-1)*$display_amount+1;
-
-		$products =$this->db_manager->get('product')->fetchPageProduct($display_product,$display_amount);
+		$products 		    = $this->db_manager->get('product')->fetchPageProduct($display_product,$display_amount);
+		$categories 		= $this->db_manager->get('category')->fetchAllCategories();
 		
 
 
 
 		return $this->render(array(
-			'products'=>$products,
-			'last_page'=>$last_page,
-			'now_page'=>$now_page,
-			'display_product' =>$display_product,
-			'categories'=>$categories,
-			'number_of_products'=>$number_of_products,
-			'name'   =>'',
-			'_token' =>$this->generateCsrfToken('product/post'),
+			'products'			=> $products,
+			'last_page'			=> $last_page,
+			'now_page'			=> $now_page,
+			'display_product' 	=> $display_product,
+			'categories'		=> $categories,
+			'number_of_products'=> $number_of_products,
+			'name'   			=> '',
 		));	
 
 
@@ -41,88 +35,88 @@ class ProductController extends Controller
 	{
 		
 		
-		$products =$this->db_manager->get('product')->fetchAllProduct();
-		$categories =$this->db_manager->get('category')->fetchAllCategories();
+		$products 	= $this->db_manager->get('product')->fetchAllProduct();
+		$categories = $this->db_manager->get('category')->fetchAllCategories();
 		if(!$this->request->isPost()){
 		
 		return $this->render(array(
-			'products'=>$products,
-			'name'   =>'',
-			'description'=>'',
-			'categories'=>$categories,
-			'category_id'=>'',
-			'price'       =>'',
-			'image'	  =>'',
-			'stock'	  =>'',
-			'fname'  =>'',
-			'_token' =>$this->generateCsrfToken('product/post'),
+			'products'		=> $products,
+			'name'   		=> '',
+			'description'	=> '',
+			'categories' 	=> $categories,
+			'category_id'	=> '',
+			'price'       	=> '',
+			'image'	  		=> '',
+			'stock'	  		=> '',
+			'fname'  		=> '',
 		));	
 		}
 
-		$name = $this->request->getPost('name');
-		$description = $this->request->getPost('description');
-		$price = $this->request->getPost('price');
-		$stock = $this->request->getPost('stock');
-		$category_id = $this->request->getPost('category_id');
-		$image = $this->request->getPost('image');
-		$body = $this->request->getPost('body');
-		$tempfile = $_FILES['fname']['tmp_name'];
+		$name 			= $this->request->getPost('name');
+		$description 	= $this->request->getPost('description');
+		$price 			= $this->request->getPost('price');
+		$stock 			= $this->request->getPost('stock');
+		$category_id 	= $this->request->getPost('category_id');
+		$image 			= $this->request->getPost('image');
+		$body 			= $this->request->getPost('body');
+		$tempfile 		= $_FILES['fname']['tmp_name'];
 
 		$errors = array();
 		if(!strlen($name)){
-			$errors[]='商品名を入力してください';
+			$errors[] = '商品名を入力してください';
 		}else if(mb_strlen($name) > 50){
-			$errors[]='商品名は50文字以内で入力してください';
+			$errors[] = '商品名は50文字以内で入力してください';
 			$name ='';
 		}
 
 		if(!strlen($description)){
-			$errors[]='説明を入力してください';
+			$errors[] = '説明を入力してください';
 		}else if(mb_strlen($description) > 200){
-			$errors[]='説明は200文字以内で入力してください';
-			$description ='';
+			$errors[] = '説明は200文字以内で入力してください';
+			$description = '';
 		}
 		if(!strlen($price)){
-			$errors[]='値段を入力してください';
-		}elseif(ctype_digit($price)=== FALSE ){
-			$errors[]='値段は半角数字で入力してください';
+			$errors[] = '値段を入力してください';
+		}elseif(ctype_digit($price) === FALSE ){
+			$errors[] = '値段は半角数字で入力してください';
 		}else if(mb_strlen($price) > 10){
-			$errors[]='値段は10桁以下で入力してください';
+			$errors[] = '値段は10桁以下で入力してください';
 			$price ='';
 		}
 
 		if(!isset($category_id)){
-			$errors[]='カテゴリを選択してください';
+			$errors[] = 'カテゴリを選択してください';
 		}
 
 		if(!strlen($stock)){
-			$errors[]='個数を入力してください';
+			$errors[] = '個数を入力してください';
 		}elseif(!ctype_digit($stock)){
-			$errors[]='個数は半角数字で入力してください';
+			$errors[] = '個数は半角数字で入力してください';
 		}else if(mb_strlen($stock) > 10){
-			$errors[]='商品名は10桁以内で入力してください';
-			$stock ='';
+			$errors[] = '商品名は10桁以内で入力してください';
+			$stock = '';
 		}
 
 		if(!is_uploaded_file($tempfile)){
-			$errors[]=  'ファイルをアップロードできません。画像を登録できませんでした。';
+			$errors[] =  'ファイルをアップロードできません。画像を登録できませんでした。';
 		}
 
 		if(isset($tempfile)){
 			if(filesize($tempfile) > 100000){
-				$errors[]='画像ファイルが大きすぎます';
+				$errors[] = '画像ファイルが大きすぎます';
 			}elseif($_FILES['fname']['type'] !== 'image/jpeg'){
-				$errors[]='画像はjpgを選択してください';
+				$errors[] = '画像はjpgを選択してください';
 			}
 		}	
 
 
-		if(count($errors)===0){
-			$user = $this->session->get('admin');
-			$imageuser = $user['user_name'];
-			$imagetime = date('H:i:s');$user = $this->session->get('user');
+		if(count($errors) === 0){
+			$user       = $this->session->get('admin');
+			$imageuser  = $user['user_name'];
+			$imagetime  = date('H:i:s');$user = $this->session->get('user');
 			$image_name = sha1($imageuser.$imagetime);
-			$filename = 'image/'.$image_name.'.jpg';
+			$filename   = 'image/'.$image_name.'.jpg';
+
 			move_uploaded_file($tempfile , $filename);
 
 			var_dump($user);

@@ -1,5 +1,5 @@
 <div id="nav">
- 	<p>
+ 	<p class="link">
 		<?php if($session->isAuthenticated()):?>
 			<a href="<?php echo $base_url;?>/admin">ホーム</a>
 			<a href="<?php echo $base_url;?>/admin/product/regist">商品登録</a>

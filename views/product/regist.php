@@ -2,7 +2,7 @@
 <?php echo $this->render('back',array());?>
 
 <form action="<?php echo $base_url;?>/admin/product/regist/post" method="post" enctype="multipart/form-data">
-	<input type="hidden" name="_token" value="<?php echo $this->escape($_token);?>" />
+
 
 	<?php if(isset($errors) && count($errors)>0): ?>
 	<?php echo $this->render('errors',array('errors'=> $errors));?>

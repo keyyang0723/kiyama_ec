@@ -1,4 +1,4 @@
-<div >探す
+<div class="sidebar">探す
 	
 	<ul>
 		<li>商品名で検索</li>

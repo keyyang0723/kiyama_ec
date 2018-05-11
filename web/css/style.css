@@ -1,18 +1,25 @@
-/*body{
+body{
 	margin: 0;
 	padding: 0;
 	color: #000000;
 
 }
 
-a{
-	color:#3399cc;
-}
 
+
+h1{
+	color:white;
+}
+a{
+
+}
 #header{
-	backgroungd-color: #DDDDDD;
+	background-color: #000033;
 	padding: 20px;
 	border-bottom: 3px solid #CCCCCC;
+	position: relative;
+	  top: 10px;
+	  left: 10px;
 }
 
 #header h1{
@@ -20,27 +27,45 @@ a{
 }
 
 #header h1 a{
-	color: #000000;
+	color: white;
 	text-decoration: none;
 }
 
 #header h1 a:hover{
 	background-color: #BBBBBB;
 }
-
-#nav{
-	margin: 0 30px;
-}
-
 #main{
 	margin:0 30px;
 }
 
-div.product_contents{
+
+#nav{
+	margin: 0 10px;
+	border-bottom: 3px solid #CCCCCC;
+}
+
+div.sidebar{
+	margin:0 10px;
+	height:2000px;
+	width: 200px;
+	float:left;
+}
+div.front{
+	position : relative ;
+	margin-left:250px;
+	}
+
+
+ul.product_contents{
+	height: 350px;
+	width: 350px;
 	padding: 10px;
 	border-bottom: 2px solid #CCCCCC;
-	margin-bottom: 10px;
+	margin: 10px;
+	float:left;
 }
+
+
 
 ul.error_list{
 	border: 1px solid #FF0000;
@@ -51,9 +76,31 @@ ul.error_list{
 
 ul.error_list li{
 	color:#FF0000;
-}*/
+}
+div.hoge{
+	width: 300px;
+	height: 200px;
+	position: relative;
+}
 img{
- max-width: 150px;
+ max-width: 200px;
+ max-height: 200px;
    height: auto;
+    position: absolute;
+    bottom:0;
 }
 
+div.page_bottom{
+	position : absolute ;
+ 	bottom : 0;
+
+}
+div.page_bottom{
+	position : absolute ;
+ 	bottom : 0;
+
+}
+
+p.link{
+	margin-left:150px;
+}
