@@ -1,4 +1,4 @@
-<div class="sidebar">探す
+<div class="form-inline">探す
 	
 	<ul>
 		<li>商品名で検索</li>

@@ -36,6 +36,7 @@ a{
 }
 #main{
 	margin:0 30px;
+	height: 2000px;
 }
 
 
@@ -53,6 +54,7 @@ div.sidebar{
 div.front{
 	position : relative ;
 	margin-left:250px;
+	height: 2000px;
 	}
 
 
@@ -95,7 +97,7 @@ div.page_bottom{
  	bottom : 0;
 
 }
-div.page_bottom{
+h4.page_bottom{
 	position : absolute ;
  	bottom : 0;
 

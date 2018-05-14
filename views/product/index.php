@@ -8,11 +8,11 @@
 
 <div class="front">
 	<h3>商品一覧</h3>
-	<a class="page_top">
+	<h4 class="page_top">
 		<?php for($i=1;$i<=$last_page;$i++):?>
 			<a href="<?php echo $base_url;?>/admin?page=<?php echo $i; ?>"><?php echo $i.' '; ?></a>
 		<?php endfor;?>
-	</a>
+	</h4>
 
 	<?php foreach($products as $product):?>
 		<ul class="product_contents">
@@ -33,10 +33,10 @@
 			</form>
 		</ul>
 	<?php endforeach; ?>
-	<a class="page_bottom">
+	<!-- <h4 class="page_bottom">
 		<?php for($i=1;$i<=$last_page;$i++):?>
 			<a href="<?php echo $base_url;?>/admin?page=<?php echo $i; ?>"><?php echo $i.' '; ?></a>
 		<?php endfor;?>
-	</a>
+	</h4> -->
 </div>
 
