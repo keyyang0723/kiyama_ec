@@ -21,6 +21,11 @@ class OrderController extends Controller
 	}
 
 	public function editAction(){
+		
+		if(!$this->session->isAuthenticated()){
+			return $this->redirect('/account/signin');
+		}
+
 		if(!$this->request->isPost()){
 			$id = $this->request->getGet('id');
 			$order = $this->db_manager->get('order')->fetchById($id);

@@ -3,11 +3,17 @@
 class ProductController extends Controller
 {
 	public function indexAction()
-	{
+	{	
+		if(!$this->session->isAuthenticated()){
+			return $this->redirect('/account/signin');
+		}
+
 		$number_of_products	= $this->db_manager->get('product')->countproduct();
 		$display_amount	    = 15;
 		$last_page 		    = ceil($number_of_products['count'] / $display_amount);
 		$now_page           = $this->request->getget('page') ? $this->request->getget('page') : 1;
+		$next_page          = $now_page+1;
+		$prev_page          = $now_page-1;
 		$display_product    = floor(($now_page-1)*$display_amount);
 
 		$products 		    = $this->db_manager->get('product')->fetchPageProduct($display_product,$display_amount);
@@ -23,6 +29,8 @@ class ProductController extends Controller
 			'display_product' 	=> $display_product,
 			'categories'		=> $categories,
 			'number_of_products'=> $number_of_products,
+			'next_page'         => $next_page,
+			'prev_page'         => $prev_page,
 			'name'   			=> '',
 		));	
 
@@ -33,7 +41,9 @@ class ProductController extends Controller
 
 	public function registAction()
 	{
-		
+		if(!$this->session->isAuthenticated()){
+			return $this->redirect('/account/signin');
+		}
 		
 		$products 	= $this->db_manager->get('product')->fetchAllProduct();
 		$categories = $this->db_manager->get('category')->fetchAllCategories();
@@ -148,12 +158,15 @@ class ProductController extends Controller
 
 	public function detailAction()
 	{
-		$id = $this->request->getPost('id');
+		if(!$this->session->isAuthenticated()){
+			return $this->redirect('/account/signin');
+		}
+		$id = $this->request->getGet('id');
 		$product = $this->db_manager->get('Product')->fetchById($id);
 
 
 		if($product === false){
-			return $this->forward404();
+			return $this->redirect('/admin/errorpage');
 		}
 		return $this->render(array(
 			'id' =>$id,
@@ -162,7 +175,10 @@ class ProductController extends Controller
 
 	public function editAction()
 	{
-		
+		if(!$this->session->isAuthenticated()){
+			return $this->redirect('/account/signin');
+		}
+
 		$categories =$this->db_manager->get('category')->fetchAllCategories();
 		$name = $this->request->getPost('name');
 		$description = $this->request->getPost('description');
@@ -285,6 +301,11 @@ class ProductController extends Controller
 
 	public function searchAction(){
 		
+		if(!$this->session->isAuthenticated()){
+			return $this->redirect('/account/signin');
+		}
+
+		
 		$categories =$this->db_manager->get('category')->fetchAllCategories();
 		$search_name = $this->request->getPost('search_name');
 		$name = '%'.$search_name.'%';
@@ -294,12 +315,12 @@ class ProductController extends Controller
 		if(strlen($search_name)>0 && isset($category_id)){
 			$products = $this->db_manager->get('product')->fetchAllProductsByNameAndCtegory_id($name,$category_id);
 		}
-		elseif(strlen($search_name)>0 && !isset($category_id)){
-			$products = $this->db_manager->get('product')->fetchAllProductsByName($name);
+		// elseif(strlen($search_name)>0 && !isset($category_id)){
+		// 	$products = $this->db_manager->get('product')->fetchAllProductsByName($name);
 
-		}elseif(!strlen($search_name)>0 && isset($category_id)){
-			$products = $this->db_manager->get('product')->fetchAllSearchProductsByCategory_id($category_id);
-		}
+		// }elseif(!strlen($search_name)>0 && isset($category_id)){
+		// 	$products = $this->db_manager->get('product')->fetchAllSearchProductsByCategory_id($category_id);
+		// }
 		if(count($products) == 0 ){
 			$errors[] = "該当する結果がありませんでした";
 			return $this->render(array(
@@ -317,6 +338,11 @@ class ProductController extends Controller
 				'products'=>$products,
 			));
 		}
+	}
+
+	public function errorpageAction()
+	{
+		return $this->render(array());
 	}
 	
 

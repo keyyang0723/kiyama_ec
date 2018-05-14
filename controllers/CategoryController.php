@@ -3,7 +3,9 @@ class CategoryController extends Controller
 {
 	public function categoryAction()
 	{
-
+		if(!$this->session->isAuthenticated()){
+			return $this->redirect('/account/signin');
+		}
 		$categories =$this->db_manager->get('category')->fetchAllCategories();
 		return $this->render(array(
 				'categories' =>$categories,
@@ -11,7 +13,11 @@ class CategoryController extends Controller
 	}
 
 	public function addAction()
-	{
+	{	
+		if(!$this->session->isAuthenticated()){
+			return $this->redirect('/account/signin');
+		}
+
 		if(!$this->request->isPost()){
 			return $this->render(array(
 			'name'   =>'',));
@@ -49,7 +55,10 @@ class CategoryController extends Controller
 
 
 	public function deleteAction()
-	{
+	{	
+		if(!$this->session->isAuthenticated()){
+			return $this->redirect('/account/signin');
+		}
 		if(!$this->request->isPost()){
 
 		$categories =$this->db_manager->get('category')->fetchAllCategories();

@@ -15,10 +15,10 @@ class FrontController extends Controller
 
 	public function detailAction()
 	{
-		$product_id = $this->request->getPost('product_id');
+		$product_id = $this->request->getGet('product_id');
 		$product = $this->db_manager->get('Product')->fetchByProductId($product_id);
 		if($product === false or $product['is_displayed']==1){
-			return $this->forward404();
+			return $this->redirect('/errorpage');
 		}
 		$number = $this->request->getPost('number');
 		$_SESSION['number'] = $number;
@@ -304,6 +304,11 @@ class FrontController extends Controller
 				'products'=>$products,
 			));
 		}
+	}
+
+	public function errorpageAction()
+	{
+		return $this->render(array());
 	}
 	
 

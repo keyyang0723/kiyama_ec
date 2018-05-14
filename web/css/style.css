@@ -35,8 +35,11 @@ a{
 	background-color: #BBBBBB;
 }
 #main{
-	margin:0 30px;
-	height: 2000px;
+	margin:0 10px;
+}
+#footer{
+	background-color:#f0f0f0;
+	height: 300px;
 }
 
 
@@ -44,20 +47,30 @@ a{
 	margin: 0 10px;
 	border-bottom: 3px solid #CCCCCC;
 }
-
-div.sidebar{
+#front{
+	display: flex;
 	margin:0 10px;
-	height:2000px;
-	width: 200px;
-	float:left;
 }
-div.front{
-	position : relative ;
-	margin-left:250px;
-	height: 2000px;
+
+#sidebar{
+    display: flex;
+  /*  align-items: end;
+    position: -webkit-sticky;
+    position: sticky;*/
+    top: 10px;
+    width: 250px;
+    height: auto;
+  
+}
+#center{
+	overflow:hidden;
+	margin-left:50px;
+	height: 100%;
 	}
 
-
+div.product{
+	overflow: hidden;
+}
 ul.product_contents{
 	height: 350px;
 	width: 350px;
@@ -92,17 +105,13 @@ img{
     bottom:0;
 }
 
-div.page_bottom{
-	position : absolute ;
- 	bottom : 0;
+div.pager{
 
+	
+	text-align: center;
 }
-h4.page_bottom{
-	position : absolute ;
- 	bottom : 0;
 
-}
 
 p.link{
-	margin-left:150px;
+	margin-left:100px;
 }

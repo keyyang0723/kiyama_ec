@@ -83,13 +83,16 @@ class ProductRepository extends DbRepository
 	public function fetchAllSearchProductsByCategory_id($category_id)
 	{
 		$sql = "SELECT * FROM products WHERE category_id = :category_id";
-		return $this->fetchALL($sql,array(
+		return $this->fetchAll($sql,array(
 			':category_id' => $category_id));
 	}
 
 	public function fetchAllProductsByNameAndCtegory_id($name,$category_id){
 
-		$sql = "SELECT * FROM products WHERE category_id = :category_id AND name LIKE :name";
+
+
+		$sql = "SELECT * FROM products WHERE category_id = :category_id AND name LIKE :name"
+		;
 		return $this->fetchAll($sql,array(
 			':name' => $name,
 			':category_id' => $category_id

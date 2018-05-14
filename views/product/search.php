@@ -1,14 +1,18 @@
 <?php $this->setLayoutVar('title','検索結果')?>
-
-<h2>検索結果</h2>
-
 <?php echo $this->render('back',array());?>
-<form action="<?php echo $base_url;?>/admin/search" method="post">
-<?php echo $this->render('search',array('categories'=>$categories,'category_id'=>$category_id,'search_name'=>$search_name));?>
+<div id="front">
+
+	<div id="sidebar">
+		<form  action="<?php echo $base_url;?>/admin/search" method="post">
+		<?php echo $this->render('search',array('categories'=>$categories,'category_id'=>'','search_name'=>''));?>
+		</form>
+	</div>
+
 <?php if(isset($errors) && count($errors)>0): ?>
 	<?php echo $this->render('errors',array('errors'=> $errors));?>
 <?php else:?>
-<h3>商品一覧</h3>
+
+<h3>検索結果</h3>
 <div id="products">
 	<?php foreach($products as $product):?>
 		<form action="<?php echo $base_url;?>/admin/product/<?php echo $this->escape($product['id']);?>" method="post">

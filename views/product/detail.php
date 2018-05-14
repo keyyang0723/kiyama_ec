@@ -12,7 +12,9 @@
 	<input type="hidden" name="description" value="<?php echo $this->escape($product['description']);?>" />
 	<input type="hidden" name="image_name" value="<?php echo $this->escape($product['image_name']);?>" />
 	<input type="hidden" name="is_displayed" value="<?php echo $this->escape($product['is_displayed']);?>" />
-		<div class="status_content">
+
+
+<div class="status_content">
 
 			<h2><?php echo $this->escape($product['name']);?></h2>
 			<div>管理番号
