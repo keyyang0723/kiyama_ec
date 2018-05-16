@@ -54,26 +54,25 @@ a{
 
 #sidebar{
     display: flex;
-  /*  align-items: end;
-    position: -webkit-sticky;
-    position: sticky;*/
     top: 10px;
     width: 250px;
     height: auto;
   
 }
 #center{
-	overflow:hidden;
-	margin-left:50px;
-	height: 100%;
+	margin:50px; 
+	width: 100%;
+	
 	}
 
 div.product{
 	overflow: hidden;
+	width: 100%;
+
 }
 ul.product_contents{
 	height: 350px;
-	width: 350px;
+	width: 30%;
 	padding: 10px;
 	border-bottom: 2px solid #CCCCCC;
 	margin: 10px;
@@ -98,16 +97,14 @@ div.hoge{
 	position: relative;
 }
 img{
- max-width: 200px;
- max-height: 200px;
-   height: auto;
+    max-width: 200px;
+    max-height: 200px;
+    height: auto;
     position: absolute;
     bottom:0;
 }
 
 div.pager{
-
-	
 	text-align: center;
 }
 

@@ -3,12 +3,32 @@ class FrontController extends Controller
 {
 	public function frontAction()
 	{
-		$products =$this->db_manager->get('product')->fetchAllProduct();
-		$categories =$this->db_manager->get('category')->fetchAllCategories();
+
+		$number_of_products	= $this->db_manager->get('product')->countProductRemoveIsdisplayed();
+		$display_amount	    = 15;
+		$last_page 		    = ceil($number_of_products['count'] / $display_amount);
+		$now_page           = $this->request->getget('page') ? $this->request->getget('page') : 1;
+		$next_page          = $now_page+1;
+		$prev_page          = $now_page-1;
+		$display_product    = floor(($now_page-1)*$display_amount);
+
+		$products 		    = $this->db_manager->get('product')->fetchPageProductDisIs_displayed($display_product,$display_amount);
+		$categories 		= $this->db_manager->get('category')->fetchAllCategories();
+		
 
 		return $this->render(array(
 			'products'=>$products,
-			'categories' =>$categories
+			'categories' =>$categories,
+
+			'products'			=> $products,
+			'last_page'			=> $last_page,
+			'now_page'			=> $now_page,
+			'display_product' 	=> $display_product,
+			'categories'		=> $categories,
+			'number_of_products'=> $number_of_products,
+			'next_page'         => $next_page,
+			'prev_page'         => $prev_page,
+			'name'   			=> '',
 		));	
 
 	}
@@ -243,25 +263,9 @@ class FrontController extends Controller
 		
 		}
 		
-		// $this->db_manager->get('Order')->insertOrder($customer_name,$customer_address,$customer_street,$customer_zipcode,
-		// 	$customer_tel,$customer_email,$product_id,$price,$tax_rate);
-		// 	$this->db_manager->get('product')->reduce($product_id,$number);
 
 		return $this->redirect('/finish');
-		// return $this->render(array(
-		// 	'number'=>$number,
-		// 	'product_id' => $product_id,
-		// 	'product'=>$product,
-		// 	'customer_name' =>$customer_name,
-		// 	'customer_address'=>$customer_address,
-		// 	'customer_street'=>$customer_street,
-		// 	'customer_zipcode' =>$customer_zipcode,
-		// 	'customer_tel'=>$customer_tel,
-		// 	'customer_email'=>$customer_email,
-		// 	'tax_rate' =>$tax_rate,
-		// 	'price' =>$price
-			
-		// ));
+		
 	}
 	
 	public function finishAction(){
@@ -270,31 +274,39 @@ class FrontController extends Controller
 
 	public function searchAction(){
 		
-		$categories =$this->db_manager->get('category')->fetchAllCategories();
+		$categories         = $this->db_manager->get('category')->fetchAllCategories();
+		$search_name        = $this->request->getPost('search_name');
+		$category_id        = $this->request->getPost('category_id');
+		$products           = [];
 
-		$search_name = $this->request->getPost('search_name');
-		$name = '%'.$search_name.'%';
-		$category_id =$this->request->getPost('category_id');
-		$products = [];
+		$number_of_products	= $this->db_manager->get('product')->countSearchProductNotIsdisplayed($search_name,$category_id);
+
+		$display_amount	    = 15;
+		$last_page 		    = ceil($number_of_products['count'] / $display_amount);
+		$now_page           = $this->request->getget('page') ? $this->request->getget('page') : 1;
+		$next_page          = $now_page+1;
+		$prev_page          = $now_page-1;
+		$display_product    = floor(($now_page-1)*$display_amount);
 
 		
-		if(strlen($search_name)>0 && isset($category_id)){
-			$products = $this->db_manager->get('product')->fetchAllProductsByNameAndCtegory_id($name,$category_id);
-		}
-		elseif(strlen($search_name)>0 && !isset($category_id)){
-			$products = $this->db_manager->get('product')->fetchAllProductsByName($name);
-
-		}elseif(!strlen($search_name)>0 && isset($category_id)){
-			$products = $this->db_manager->get('product')->fetchAllSearchProductsByCategory_id($category_id);
-		}
+		$products = $this->db_manager->get('product')->fetchAllProductsByNameAndCtegory_idDisIs_displayed($search_name,$category_id,$display_product,$display_amount);
+	
+		
 		if(count($products) == 0 ){
-			$errors[] = "該当する検索結果がありません";
+			$errors[] = "該当する結果がありませんでした";
 			return $this->render(array(
 			'search_name' =>$search_name,
 			'categories'=>$categories,
 			'category_id'=>$category_id,
 			'products'=>$products,
-			'errors'=>$errors
+			'errors'=>$errors,
+			'last_page'			=> $last_page,
+			'now_page'			=> $now_page,
+			'display_product' 	=> $display_product,
+			'categories'		=> $categories,
+			'number_of_products'=> $number_of_products,
+			'next_page'         => $next_page,
+			'prev_page'         => $prev_page,
 		));
 		}else{
 			return $this->render(array(
@@ -302,6 +314,13 @@ class FrontController extends Controller
 				'categories'=>$categories,
 				'category_id'=>$category_id,
 				'products'=>$products,
+				'last_page'			=> $last_page,
+			'now_page'			=> $now_page,
+			'display_product' 	=> $display_product,
+			'categories'		=> $categories,
+			'number_of_products'=> $number_of_products,
+			'next_page'         => $next_page,
+			'prev_page'         => $prev_page,
 			));
 		}
 	}

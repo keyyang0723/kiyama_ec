@@ -300,27 +300,30 @@ class ProductController extends Controller
 	}
 
 	public function searchAction(){
-		
+
 		if(!$this->session->isAuthenticated()){
 			return $this->redirect('/account/signin');
 		}
 
+		$categories         = $this->db_manager->get('category')->fetchAllCategories();
+		$search_name        = $this->request->getPost('search_name');
+		$category_id        = $this->request->getPost('category_id');
+		$products           = [];
+
+		$number_of_products	= $this->db_manager->get('product')->countSearchProduct($search_name,$category_id);
+
+		$display_amount	    = 15;
+		$last_page 		    = ceil($number_of_products['count'] / $display_amount);
+		$now_page           = $this->request->getget('page') ? $this->request->getget('page') : 1;
+		$next_page          = $now_page+1;
+		$prev_page          = $now_page-1;
+		$display_product    = floor(($now_page-1)*$display_amount);
+
 		
-		$categories =$this->db_manager->get('category')->fetchAllCategories();
-		$search_name = $this->request->getPost('search_name');
-		$name = '%'.$search_name.'%';
-		$category_id =$this->request->getPost('category_id');
-		$products = [];
-
-		if(strlen($search_name)>0 && isset($category_id)){
-			$products = $this->db_manager->get('product')->fetchAllProductsByNameAndCtegory_id($name,$category_id);
-		}
-		// elseif(strlen($search_name)>0 && !isset($category_id)){
-		// 	$products = $this->db_manager->get('product')->fetchAllProductsByName($name);
-
-		// }elseif(!strlen($search_name)>0 && isset($category_id)){
-		// 	$products = $this->db_manager->get('product')->fetchAllSearchProductsByCategory_id($category_id);
-		// }
+		$products = $this->db_manager->get('product')->fetchAllProductsByNameAndCtegory_id($search_name,$category_id,
+			$display_product,$display_amount);
+	
+		
 		if(count($products) == 0 ){
 			$errors[] = "該当する結果がありませんでした";
 			return $this->render(array(
@@ -328,7 +331,14 @@ class ProductController extends Controller
 			'categories'=>$categories,
 			'category_id'=>$category_id,
 			'products'=>$products,
-			'errors'=>$errors
+			'errors'=>$errors,
+			'last_page'			=> $last_page,
+			'now_page'			=> $now_page,
+			'display_product' 	=> $display_product,
+			'categories'		=> $categories,
+			'number_of_products'=> $number_of_products,
+			'next_page'         => $next_page,
+			'prev_page'         => $prev_page,
 		));
 		}else{
 			return $this->render(array(
@@ -336,6 +346,13 @@ class ProductController extends Controller
 				'categories'=>$categories,
 				'category_id'=>$category_id,
 				'products'=>$products,
+				'last_page'			=> $last_page,
+			'now_page'			=> $now_page,
+			'display_product' 	=> $display_product,
+			'categories'		=> $categories,
+			'number_of_products'=> $number_of_products,
+			'next_page'         => $next_page,
+			'prev_page'         => $prev_page,
 			));
 		}
 	}

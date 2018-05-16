@@ -30,9 +30,18 @@ class ProductRepository extends DbRepository
 
 	}
 
-	public function fetchPageProduct($display_product,$display_number){
+	public function fetchPageProduct($display_product,$display_amount){
 		$sql = "
-			SELECT * FROM products limit $display_product,$display_number
+			SELECT * FROM products LIMIT $display_product,$display_amount
+			";
+			return $this->fetchAll($sql
+			);
+
+	}
+
+	public function fetchPageProductDisIs_displayed($display_product,$display_amount){
+		$sql = "
+			SELECT * FROM products WHERE NOT (is_displayed = 1) LIMIT $display_product,$display_amount
 			";
 			return $this->fetchAll($sql
 			);
@@ -42,6 +51,13 @@ class ProductRepository extends DbRepository
 	public function countProduct(){
 		$sql = "
 			SELECT COUNT(id) as count FROM products 
+			";
+			return $this->fetch($sql);
+	}
+
+	public function countProductRemoveIsdisplayed(){
+		$sql = "
+			SELECT COUNT(id) as count FROM products WHERE NOT (is_displayed = 1)
 			";
 			return $this->fetch($sql);
 	}
@@ -73,31 +89,139 @@ class ProductRepository extends DbRepository
 		}
 	}
 
-	public function fetchAllProductsByName($name)
-	{
-		$sql = "SELECT * FROM products WHERE name LIKE :name";
-		return $this->fetchAll($sql,array(
-			':name' => $name));
+
+	public function fetchAllProductsByNameAndCtegory_id($search_name,$category_id,$display_product,$display_amount){
+
+
+
+		$sql = "SELECT * FROM products";
+        $where = [];
+        $param = [];
+        if ( strlen($search_name)>0 ){
+            $where[] = "name LIKE :name";
+            $param[':name']  = '%'.$search_name.'%';
+        }
+        if ( isset($category_id)) {
+            $where[] = "category_id = :category_id";
+            $param[':category_id'] = $category_id;
+        }
+
+        if(strlen($search_name)==0 && !isset($category_id)){
+        	
+        	return [];
+
+        }
+
+        if ( count($where)>0) {
+            $sql .= " WHERE " . (implode(" AND ",$where));
+        }
+
+			$sql .= " limit $display_product,$display_amount
+			";      
+        return $this->fetchAll($sql,$param
+          
+        );
+
+	
 	}
 
-	public function fetchAllSearchProductsByCategory_id($category_id)
-	{
-		$sql = "SELECT * FROM products WHERE category_id = :category_id";
-		return $this->fetchAll($sql,array(
-			':category_id' => $category_id));
+	public function fetchAllProductsByNameAndCtegory_idDisIs_displayed($search_name,$category_id,$display_product,$display_amount){
+
+
+
+		$sql = "SELECT * FROM products";
+        $where = [];
+        $param = [];
+        $where[] = "NOT (is_displayed = 1)";
+        if ( strlen($search_name)>0 ){
+            $where[] = "name LIKE :name";
+            $param[':name']  = '%'.$search_name.'%';
+        }
+        if ( isset($category_id)) {
+            $where[] = "category_id = :category_id";
+            $param[':category_id'] = $category_id;
+        }
+
+        if(strlen($search_name)==0 && !isset($category_id)){
+        	
+        	return [];
+
+        }
+
+        if ( count($where)>0) {
+            $sql .= " WHERE " . (implode(" AND ",$where));
+        }
+
+			$sql .= " limit $display_product,$display_amount
+			";      
+        return $this->fetchAll($sql,$param
+          
+        );
+
+	
 	}
 
-	public function fetchAllProductsByNameAndCtegory_id($name,$category_id){
+	public function countSearchProduct($search_name,$category_id){
 
 
+		$sql   = "SELECT COUNT(id) as count FROM products";
+        $where = [];
+        $param = [];
+        if ( strlen($search_name)>0 ){
+            $where[] = "name LIKE :name";
+            $param[':name']  = '%'.$search_name.'%';
+        }
+        if ( isset($category_id)) {
+            $where[] = "category_id = :category_id";
+            $param[':category_id'] = $category_id;
+        }
 
-		$sql = "SELECT * FROM products WHERE category_id = :category_id AND name LIKE :name"
-		;
-		return $this->fetchAll($sql,array(
-			':name' => $name,
-			':category_id' => $category_id
-		));
-	}
+         if(strlen($search_name)==0 && !isset($category_id)){
+        	
+        	return 0;
+
+        }
+
+        if ( count($where)>0) {
+            $sql .= " WHERE " . (implode(" AND ",$where));
+        }
+       
+        return $this->fetch($sql,$param
+          
+        );
+    }
+
+    public function countSearchProductNotIsdisplayed($search_name,$category_id){
+
+
+		$sql   = "SELECT COUNT(id) as count FROM products";
+        $where = [];
+        $param = [];
+        $where[] = "NOT (is_displayed = 1)";
+        if ( strlen($search_name)>0 ){
+            $where[] = "name LIKE :name";
+            $param[':name']  = '%'.$search_name.'%';
+        }
+        if ( isset($category_id)) {
+            $where[] = "category_id = :category_id";
+            $param[':category_id'] = $category_id;
+        }
+
+         if(strlen($search_name)==0 && !isset($category_id)){
+        	
+        	return 0;
+
+        }
+
+        if ( count($where)>0) {
+            $sql .= " WHERE " . (implode(" AND ",$where));
+        }
+       
+        return $this->fetch($sql,$param
+          
+        );
+    }
+		
 
 	public function edit($name,$description,$category_id,$price,$image,$stock,$is_displayed,$id,$image_name)
 	{
