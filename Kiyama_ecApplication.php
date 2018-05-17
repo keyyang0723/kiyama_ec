@@ -77,7 +77,7 @@ class Kiyama_ecApplication extends Application
 				
 
 
-
+		);
 	}
 
 	protected function configure()
