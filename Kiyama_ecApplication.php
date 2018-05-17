@@ -77,15 +77,15 @@ class Kiyama_ecApplication extends Application
 				
 
 
-		);
+
 	}
 
 	protected function configure()
 	{
 		$this->db_manager->connect('maseter',array(
-		    'dsn'      =>'mysql:dbname=kiyama_ec;host=127.0.0.1',
+		    'dsn'      =>'mysql:dbname=kiyama_ec;host=localhost',
 		    'user'     =>'root',
-		    'password'  =>'root',
+		    'password'  =>'2488',
 		 ));
 	}
 }
