@@ -1,6 +1,6 @@
 <?php
 
-class ProductRepository extends DbRepository
+class productRepository extends DbRepository
 {
 	public function insert($name,$description,$category_id,$price,$image,$stock,$image_name)
 	{

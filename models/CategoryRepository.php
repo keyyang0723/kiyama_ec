@@ -1,6 +1,6 @@
 <?php
 
-class CategoryRepository extends DbRepository
+class categoryRepository extends DbRepository
 {
 	public function insert($name)
 	{

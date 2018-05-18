@@ -1,6 +1,6 @@
 <?php
 
-class OrderRepository extends DbRepository
+class orderRepository extends DbRepository
 {
 	public function fetchAllOrderList(){
 		$sql = "
