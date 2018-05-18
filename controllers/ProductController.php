@@ -164,7 +164,7 @@ class ProductController extends Controller
 		$id = $this->request->getGet('id');
 		$product = $this->db_manager->get('Product')->fetchById($id);
 
-
+		var_dump($_GET);
 		// if($product === false){
 		// 	return $this->redirect('/admin/errorpage');
 		// }
