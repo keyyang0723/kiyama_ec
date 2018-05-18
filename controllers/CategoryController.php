@@ -36,7 +36,7 @@ class CategoryController extends Controller
 
 
 		if(count($errors)===0){
-			$this->db_manager->get('Category')->insert($name);
+			$this->db_manager->get('category')->insert($name);
 
 			return $this->redirect('/admin/category');
 		}

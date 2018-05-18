@@ -36,7 +36,7 @@ class FrontController extends Controller
 	public function detailAction()
 	{
 		$product_id = $this->request->getGet('product_id');
-		$product = $this->db_manager->get('Product')->fetchByProductId($product_id);
+		$product = $this->db_manager->get('product')->fetchByProductId($product_id);
 		if($product === false or $product['is_displayed']==1){
 			return $this->redirect('/errorpage');
 		}

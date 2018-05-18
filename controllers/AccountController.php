@@ -46,11 +46,11 @@ class AccountController extends Controller
 		}
 
 		if(count($errors)=== 0 ){
-			$this->db_manager->get('Admin')->insert($user_name,$password);
+			$this->db_manager->get('admin')->insert($user_name,$password);
 			$this->session->setAuthenticated(true);
 
-			$user = $this->db_manager->get('Admin')->fetchByUserName($user_name);
-			$this->session->set('Admin',$user);
+			$user = $this->db_manager->get('admin')->fetchByUserName($user_name);
+			$this->session->set('admin',$user);
 
 			return $this->redirect('/admin');
 		}
@@ -118,7 +118,7 @@ class AccountController extends Controller
 		}
 
 		if(count($errors)===0){
-			$user_repository = $this->db_manager->get('Admin');
+			$user_repository = $this->db_manager->get('admin');
 			$user = $user_repository->fetchByUserName($user_name);
 
 			if(!$user
