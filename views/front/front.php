@@ -8,7 +8,7 @@
 		</form>
 	</div>
 		
-	<div class="center">
+	<div id="center">
 		<h3>商品一覧</h3>
 
 		<div class="pager">
@@ -33,7 +33,7 @@
 						<form action="<?php echo $base_url;?>/<?php echo $this->escape($product['id']);?>/detail" method="get">
 							<div class="hoge">							
 								<?php if(isset($product['image_name'])):?>
-								<img src =<?php echo '/image/'.$product['image_name'].'.jpg';?> >
+								<img class="main" src =<?php echo '/image/'.$product['image_name'].'.jpg';?> >
 								<?php endif;?>
 							</div>
 

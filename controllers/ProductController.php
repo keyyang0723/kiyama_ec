@@ -129,7 +129,6 @@ class ProductController extends Controller
 
 			move_uploaded_file($tempfile , $filename);
 
-			var_dump($user);
 			$this->db_manager->get('Product')->insert($name,$description,$category_id,$price,$image,$stock,$image_name);
 			$product =$this->db_manager->get('product')->fetchByName($name);
 			$_SESSION['product'] = $product;
@@ -164,10 +163,10 @@ class ProductController extends Controller
 		$id = $this->request->getGet('id');
 		$product = $this->db_manager->get('Product')->fetchById($id);
 
-		var_dump($_GET);
-		// if($product === false){
-		// 	return $this->redirect('/admin/errorpage');
-		// }
+
+		if($product === false){
+			return $this->redirect('/admin/errorpage');
+		}
 		return $this->render(array(
 			'id' =>$id,
 			'product' =>$product));

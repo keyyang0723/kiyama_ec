@@ -41,6 +41,9 @@ a{
 	background-color:#f0f0f0;
 	height: 300px;
 }
+#order{
+	
+}
 
 
 #nav{
@@ -49,18 +52,26 @@ a{
 }
 #front{
 	display: flex;
-	margin:0 10px;
+	margin:20px 10px;
+	justify-content: center;
 }
+#detail{
+	justify-content: center;
+	display: flex;
+	width: 60%;
+	height:60%;
+}
+
 
 #sidebar{
     display: flex;
     top: 10px;
-    width: 250px;
+    width: 230px;
     height: auto;
   
 }
 #center{
-	margin:50px; 
+	margin:0; 
 	width: 100%;
 	
 	}
@@ -96,19 +107,61 @@ div.hoge{
 	height: 200px;
 	position: relative;
 }
-img{
+img.main{
     max-width: 200px;
     max-height: 200px;
     height: auto;
     position: absolute;
     bottom:0;
 }
+img.detail{
+	width: 100%;
+	height:auto;
+	
+	
+}
+div.detail_image{
+	
+	height: 60%;
+	width: 70%;
+	
+}
+
+ul.product_detail{
+	width: 30%;
+}
 
 div.pager{
 	text-align: center;
+}
+div.form{
+	margin:20px 10px;
 }
 
 
 p.link{
 	margin-left:100px;
 }
+
+
+table, th, td {
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+  line-height: 1.5;
+}
+
+table.order th {
+  width: 150px;
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+}
+table.order td {
+  width: 350px;
+  padding: 10px;
+  vertical-align: top;
+ }
+
+tr:nth-child(even) {
+  background: #d9d9d9;
+ }
