@@ -6,8 +6,9 @@
 	<?php if(isset($errors) && count($errors)>0): ?>
 		<?php echo $this->render('errors',array('errors'=> $errors));?>
 	<?php endif;?>
-
-	<!-- <input type="hidden" name="id" value="<?php echo $this->escape($id);?>" /> -->
+	<?php if(isset($id)):?>
+		<input type="hidden" name="id" value="<?php echo $this->escape($id);?>" /> 
+	<?php endif;?>
 		<div>
 			<h3>商品名</h3>
 			<input type="text" name="name" value="<?php echo $this->escape($name);?>">
@@ -58,8 +59,12 @@
 			</select>
 		</div>
 	<p>
-		<input type="submit" value="編集する"/>
-		<input type="submit" name="delite" value="削除する"/>
+		<?php if(isset($id)):?>
+			<input type="submit" value="編集する"/>
+			<input type="submit" name="delite" value="削除する"/>
+		<?php else:?>
+			<input type="submit" value="登録する"/>
+		<?php endif;?>
 	</p>
 </form>
 </div>

@@ -93,14 +93,14 @@ class ProductController extends Controller
 		$id = $this->request->getPost('id');
 		$is_displayed = $this->request->getPost('is_displayed');
 		$image_name = $this->request->getPost('image_name');
-
+		
 		if(isset($_FILES['fname'])){
 			$tempfile = $_FILES['fname']['tmp_name'];
 		}
 
 
 		$delite = $this ->request->getPost('delite');
-
+		var_dump($delite,$id);
 		$errors = array();
 		if(!strlen($name)){
 			$errors[]='商品名を入力してください';
@@ -150,7 +150,7 @@ class ProductController extends Controller
 			$this->db_manager->get('product')->delete($id);
 			return $this->redirect('/admin');
 		}
-
+		
 		if(count($errors)===0){
 
 			if(isset($tempfile)){
@@ -168,8 +168,12 @@ class ProductController extends Controller
 			}else{
 
 			}
-			
-			$this->db_manager->get('Product')->edit($name,$description,$category_id,$price,$image,$stock,$is_displayed,$id,$image_name);
+			if($id===null){
+				$this->db_manager->get('Product')->insert($name,$description,$category_id,$price,$image,$stock,$image_name);
+
+				return $this->redirect('/admin');
+			}else{
+			$this->db_manager->get('Product')->edit($name,$description,$category_id,$price,$image,$stock,$is_displayed,$id,$image_name);}
 			return $this->render(array(
 				'errors'  => $errors,
 				'name'   =>$name,
