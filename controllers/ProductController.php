@@ -100,7 +100,7 @@ class ProductController extends Controller
 
 
 		$delite = $this ->request->getPost('delite');
-		var_dump($delite,$id);
+	
 		$errors = array();
 		if(!strlen($name)){
 			$errors[]='商品名を入力してください';
