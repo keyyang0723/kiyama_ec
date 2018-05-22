@@ -26,16 +26,21 @@
 				</ul>
 
 				<div>
-					個数を選択してください
-					<select name='number'>
-						<?php for($i=1;$i<=$product['stock'];$i++):?>
-						<option value="<?php echo $i;?>"/><?php echo $i;?></option>
-					<?php endfor;?>
-					</select>
+					個数を選択してください<br/>
+					<?php if($product['stock']==0):?>
+						<a style="color:red;"">SOLD OUT!!<br/></a>
+					<?php else :?>
+						<select name='number'>
+								<?php for($i=1;$i<=$product['stock'];$i++):?>
+								<option value="<?php echo $i;?>"/><?php echo $i;?></option>
+								<?php endfor;?>					
+						</select>
 				</div>
-
-				<input type="submit" value="購入する"/>
+				<input type="submit" value="購入する"/><br/>
+				<?php endif?>
+				<a href="<?php echo $base_url;?>/">ホームへ戻る</a>
 			</form>
 		</div>
+		
 	</div>
 </div>

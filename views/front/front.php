@@ -39,10 +39,9 @@
 
 							<li><?php echo $this->escape($product['name']);?></li>
 							<li>price <?php echo $this->escape($product['price']);?></li>
-							<li>stock <?php echo $this->escape($product['stock']);?></li>
+							<li>stock <?php echo $this->escape($product['stock']);?> <?php if($product['stock']==0){echo "soldout!";}?></li>
 							<li><?php echo $this->escape($product['description']);?></li>
 
-							<input type="hidden" name="product_id" value="<?php echo $this->escape($product['id']);?>" />
 							<input type="submit" value="商品詳細"/>
 						</form>
 					<?php endif;?>

@@ -35,6 +35,7 @@
 				<?php echo $this->escape($product['description']);?></li>
 				<input type="submit" value="詳細編集"/>
 			</form>
+			<a href="<?php echo $base_url;?>/admin">ホームに戻る</a>
 		</ul>
 	</div>
 </div>

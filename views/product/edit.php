@@ -7,7 +7,7 @@
 		<?php echo $this->render('errors',array('errors'=> $errors));?>
 	<?php endif;?>
 
-	<input type="hidden" name="id" value="<?php echo $this->escape($id);?>" />
+	<!-- <input type="hidden" name="id" value="<?php echo $this->escape($id);?>" /> -->
 		<div>
 			<h3>商品名</h3>
 			<input type="text" name="name" value="<?php echo $this->escape($name);?>">
@@ -40,9 +40,12 @@
 		</div>
 		<div >
 			<h3>画像</h3>
-			<div class="hoge">
-			<img class="main" src =<?php echo '/image/'.$image_name.'.jpg';?> >
-		</div>
+
+				<?php if(strlen($image_name)!=0):?>
+					<div class="hoge">
+						<img class="main" src =<?php echo '/image/'.$image_name.'.jpg';?> >
+					</div>
+				<?php endif?>
 			<input type="hidden" name="image_name" value="<?php echo $this->escape($image_name);?>" />
 			<?php echo $this->render('upload',array());?>
 		</div>

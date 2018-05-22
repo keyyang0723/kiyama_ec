@@ -35,7 +35,11 @@ class FrontController extends Controller
 
 	public function detailAction()
 	{
-		$product_id = $this->request->getGet('product_id');
+		//$product_id = $this->request->getGet('product_id');
+		$path_info = $this->request->getPathInfo();
+		$parms = explode('/',$path_info);
+		$product_id = $parms[1];
+		
 		$product = $this->db_manager->get('product')->fetchByProductId($product_id);
 		if($product === false or $product['is_displayed']==1){
 			return $this->redirect('/errorpage');
@@ -262,7 +266,8 @@ class FrontController extends Controller
 			$this->forward404();
 		
 		}
-		
+		$this->db_manager->get('order')->insertOrder($customer_name,$customer_address,$customer_street,$customer_zipcode,
+		$customer_tel,$customer_email,$product_id,$price,$tax_rate);
 
 		return $this->redirect('/finish');
 		

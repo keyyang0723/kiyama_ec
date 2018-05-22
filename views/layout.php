@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <title><?php if (isset($title)): echo $this->escape($title) .'-';
-    endif; ?>Mini Blog</title>
+    endif; ?>Kiyamazon</title>
 
     
     <!-- BootstrapのCSS読み込み -->
