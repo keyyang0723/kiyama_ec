@@ -31,7 +31,7 @@
 		<div class="product">
 			<?php foreach($products as $product):?>
 				<ul class="product_contents">
-					<form action="<?php echo $base_url;?>/admin/product/<?php echo $this->escape($product['id']);?>" method="get">
+					<form action="<?php echo $base_url;?>/admin/product/<?php echo $this->escape($product['id']);?>" method="post">
 							<div class="hoge">
 								<?php if(isset($product['image_name'])):?>
 								<img class="main" src =<?php echo '/image/'.$product['image_name'].'.jpg';?> class="product_image">

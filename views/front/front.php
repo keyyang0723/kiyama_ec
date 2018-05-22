@@ -30,7 +30,7 @@
 			<?php foreach($products as $product):?>
 				<ul class="product_contents">
 					<?php if($product['is_displayed']==0):?>
-						<form action="<?php echo $base_url;?>/<?php echo $this->escape($product['id']);?>/detail" method="get">
+						<form action="<?php echo $base_url;?>/<?php echo $this->escape($product['id']);?>/detail" method="post">
 							<div class="hoge">							
 								<?php if(isset($product['image_name'])):?>
 								<img class="main" src =<?php echo '/image/'.$product['image_name'].'.jpg';?> >
