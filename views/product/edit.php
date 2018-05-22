@@ -1,7 +1,7 @@
 <?php $this->setLayoutVar('title','詳細編集')?>
 <?php echo $this->render('back',array());?>
 <div class="form">
-	<form action="<?php echo $base_url;?>/admin/product/<?php echo $this->escape($name);?>/edit" method="post" enctype="multipart/form-data">
+	<form action="<?php echo $base_url;?>/admin/product/edit" method="post" enctype="multipart/form-data">
 
 	<?php if(isset($errors) && count($errors)>0): ?>
 		<?php echo $this->render('errors',array('errors'=> $errors));?>

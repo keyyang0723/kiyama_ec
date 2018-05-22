@@ -8,7 +8,7 @@
 				<th>注文番号</th><th>顧客名</th><th>料金</th><th>注文日時</th><th>編集日時</th><th></th>
 			</tr>
 		</thead>
-		
+
 		<?php foreach($orders as $order):?>
 			<tbody>
 				<tr>
@@ -22,7 +22,7 @@
 							<td><?php echo $this->escape($order['updated_at']);?></td>
 						
 							<td>
-								<input type="submit" value="編集"/>	
+								<input type="submit" value="詳細"/>	
 							</td>
 					</form>
 				</tr>

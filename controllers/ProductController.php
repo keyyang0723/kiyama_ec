@@ -44,8 +44,9 @@ class ProductController extends Controller
 		if(!$this->session->isAuthenticated()){
 			return $this->redirect('/account/signin');
 		}
-		$id = $this->request->getPathInfo();
-		$id = substr($id,15);
+		$path_info = $this->request->getPathInfo();
+		$parms = explode('/',$path_info);
+		$id = $parms[3];
 		//$id = $this->request->getGet('id');
 		$product = $this->db_manager->get('Product')->fetchById($id);
 

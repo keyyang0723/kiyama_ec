@@ -19,12 +19,10 @@ class Kiyama_ecApplication extends Application
 				'/admin/search'
 				 =>array('controller'=>'product','action'=>'search'),
 				 '/admin/product/regist'
-				 =>array('controller'=>'product','action'=>'regist'),
-				 '/admin/product/regist/post'
-				 =>array('controller'=>'product','action'=>'regist'),
+				 =>array('controller'=>'product','action'=>'edit'),
 				 '/admin/product/edit'
 				 =>array('controller'=>'product','action'=>'edit'),
-				 '/admin/product/:name'
+				 '/admin/product/:id'
 				 =>array('controller'=>'product','action'=>'detail'),
 				 '/admin/product/:name/edit'
 				 =>array('controller'=>'product','action'=>'edit'),
