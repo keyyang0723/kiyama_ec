@@ -146,12 +146,12 @@ class FrontController extends Controller
 		$customer_email = $this->request->getPost('customer_email');
 		$product_id = $this->request->getPost('product_id');
 		$product = $this->db_manager->get('product')->fetchByProductId($product_id);
-		$tax_rate = "1.08";
+		$tax_rate = "0.08";
 		$number = $this->request->getPost('number');
 		if(!$this->request->isPost() or $product === false or $number === false){
 			$this->forward404();
 		}
-		$price = $product['price']*$number*$tax_rate;
+		$price = $product['price']*$number+$product['price']*$number*$tax_rate;
 		$errors = [];
 
 		

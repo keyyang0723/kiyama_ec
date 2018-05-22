@@ -140,7 +140,8 @@ class ProductController extends Controller
 		if(isset($_FILES['fname']) && strlen($_FILES['fname']['type'])!=0 ){
 			if(filesize($tempfile) > 1000000){
 				$errors[]='画像ファイルが大きすぎます';
-			}elseif($_FILES['fname']['type'] !== 'image/jpeg'){
+			}
+			if($_FILES['fname']['type'] !== 'image/jpeg'){
 				$errors[]='画像はjpgを選択してください';
 			}
 		}	
