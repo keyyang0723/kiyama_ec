@@ -33,6 +33,80 @@ class FrontController extends Controller
 
 	// }
 
+	public function frontAction(){
+		
+		$categories         = $this->db_manager->get('category')->fetchAllCategories();
+		$search_name        = $this->request->getPost('search_name');
+		$category_id        = $this->request->getPost('category_id');
+		$products           = [];
+
+		
+		if(strlen($search_name) == 0 && strlen($category_id) == 0){
+			$number_of_products = $this->db_manager->get('product')->countProductRemoveIsdisplayed();
+			
+		}else{
+			$number_of_products	= $this->db_manager->get('product')->countSearchProductNotIsdisplayed($search_name,$category_id);
+		}
+
+
+		$display_amount	    = 15;
+		$last_page 		    = ceil($number_of_products['count'] / $display_amount);
+		$now_page           = $this->request->getget('page') ? $this->request->getget('page') : 1;
+		$next_page          = $now_page+1;
+		$prev_page          = $now_page-1;
+		$display_product    = floor(($now_page-1)*$display_amount);
+
+		
+		
+		
+		if(strlen($search_name) == 0 && strlen($category_id) == 0){
+			$products = $this->db_manager->get('product')->fetchPageProduct($display_product,$display_amount);
+
+		}else{
+		$products = $this->db_manager->get('product')->fetchAllProductsByNameAndCtegory_idDisIs_displayed($search_name,$category_id,$display_product,$display_amount);}
+	
+		
+		
+		if(count($products) == 0 ){
+			$errors[] = "該当する結果がありませんでした";
+			return $this->render(array(
+			'search_name' =>$search_name,
+			'categories'=>$categories,
+			'category_id'=>$category_id,
+			'products'=>$products,
+			'errors'=>$errors,
+			'last_page'			=> $last_page,
+			'now_page'			=> $now_page,
+			'display_product' 	=> $display_product,
+			'categories'		=> $categories,
+			'number_of_products'=> $number_of_products,
+			'next_page'         => $next_page,
+			'prev_page'         => $prev_page,
+		));
+		}else{
+			return $this->render(array(
+				'search_name' =>$search_name,
+				'categories'=>$categories,
+				'category_id'=>$category_id,
+				'products'=>$products,
+				'last_page'			=> $last_page,
+			'now_page'			=> $now_page,
+			'display_product' 	=> $display_product,
+			'categories'		=> $categories,
+			'number_of_products'=> $number_of_products,
+			'next_page'         => $next_page,
+			'prev_page'         => $prev_page,
+			));
+		}
+	}
+
+	public function errorpageAction()
+	{
+		return $this->render(array());
+	}
+	
+
+
 	public function detailAction()
 	{
 		//$product_id = $this->request->getGet('product_id');
@@ -333,65 +407,7 @@ class FrontController extends Controller
 		return $this->render(array());
 	}
 
-	public function frontAction(){
-		
-		$categories         = $this->db_manager->get('category')->fetchAllCategories();
-		$search_name        = $this->request->getPost('search_name');
-		$category_id        = $this->request->getPost('category_id');
-		$products           = [];
-
-		$number_of_products	= $this->db_manager->get('product')->countSearchProductNotIsdisplayed($search_name,$category_id);
-
-		$display_amount	    = 15;
-		$last_page 		    = ceil($number_of_products['count'] / $display_amount);
-		$now_page           = $this->request->getget('page') ? $this->request->getget('page') : 1;
-		$next_page          = $now_page+1;
-		$prev_page          = $now_page-1;
-		$display_product    = floor(($now_page-1)*$display_amount);
-
-		
-		$products = $this->db_manager->get('product')->fetchAllProductsByNameAndCtegory_idDisIs_displayed($search_name,$category_id,$display_product,$display_amount);
 	
-		
-		if(count($products) == 0 ){
-			$errors[] = "該当する結果がありませんでした";
-			return $this->render(array(
-			'search_name' =>$search_name,
-			'categories'=>$categories,
-			'category_id'=>$category_id,
-			'products'=>$products,
-			'errors'=>$errors,
-			'last_page'			=> $last_page,
-			'now_page'			=> $now_page,
-			'display_product' 	=> $display_product,
-			'categories'		=> $categories,
-			'number_of_products'=> $number_of_products,
-			'next_page'         => $next_page,
-			'prev_page'         => $prev_page,
-		));
-		}else{
-			return $this->render(array(
-				'search_name' =>$search_name,
-				'categories'=>$categories,
-				'category_id'=>$category_id,
-				'products'=>$products,
-				'last_page'			=> $last_page,
-			'now_page'			=> $now_page,
-			'display_product' 	=> $display_product,
-			'categories'		=> $categories,
-			'number_of_products'=> $number_of_products,
-			'next_page'         => $next_page,
-			'prev_page'         => $prev_page,
-			));
-		}
-	}
-
-	public function errorpageAction()
-	{
-		return $this->render(array());
-	}
-	
-
 
 
 }

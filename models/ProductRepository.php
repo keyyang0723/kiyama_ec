@@ -22,13 +22,6 @@ class productRepository extends DbRepository
 
 
 
-	// public function fetchAllProduct(){
-	// 	$sql = "
-	// 		SELECT * FROM products 
-	// 		";
-	// 		return $this->fetchAll($sql);
-
-	// }
 
 	public function fetchPageProduct($display_product,$display_amount){
 		$sql = "
@@ -39,14 +32,14 @@ class productRepository extends DbRepository
 
 	}
 
-	// public function fetchPageProductDisIs_displayed($display_product,$display_amount){
-	// 	$sql = "
-	// 		SELECT * FROM products WHERE NOT (is_displayed = 1) LIMIT $display_product,$display_amount
-	// 		";
-	// 		return $this->fetchAll($sql
-	// 		);
+	public function fetchPageProductDisIs_displayed($display_product,$display_amount){
+		$sql = "
+			SELECT * FROM products WHERE NOT (is_displayed = 1) LIMIT $display_product,$display_amount
+			";
+			return $this->fetchAll($sql
+			);
 
-	// }
+	}
 
 	public function countProduct(){
 		$sql = "
@@ -55,12 +48,12 @@ class productRepository extends DbRepository
 			return $this->fetch($sql);
 	}
 
-	// public function countProductRemoveIsdisplayed(){
-	// 	$sql = "
-	// 		SELECT COUNT(id) as count FROM products WHERE NOT (is_displayed = 1)
-	// 		";
-	// 		return $this->fetch($sql);
-	// }
+	public function countProductRemoveIsdisplayed(){
+		$sql = "
+			SELECT COUNT(id) as count FROM products WHERE NOT (is_displayed = 1)
+			";
+			return $this->fetch($sql);
+	}
 
 	public function fetchByName($name)
 	{
