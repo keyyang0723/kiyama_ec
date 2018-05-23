@@ -109,7 +109,7 @@ class productRepository extends DbRepository
 
         if(strlen($search_name)==0 && strlen($category_id)<0){
         		$sql .= " LIMIT $display_product,$display_amount
-			";      
+			";      var_dump($sql);
         return $this->fetchAll($sql,$param
           
         );
