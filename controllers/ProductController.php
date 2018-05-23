@@ -227,10 +227,13 @@ class ProductController extends Controller
 		$next_page          = $now_page+1;
 		$prev_page          = $now_page-1;
 		$display_product    = floor(($now_page-1)*$display_amount);
-
-	
+		var_dump($search_name,$category_id);
+		if(strlen($search_name) == 0 && strlen($category_id) == 0){
+			$products = $this->db_manager->get('product')->fetchPageProduct($display_product,$display_amount);
+			echo 1111;
+		}else{
 		$products = $this->db_manager->get('product')->fetchAllProductsByNameAndCtegory_id($search_name,$category_id,
-			$display_product,$display_amount);
+			$display_product,$display_amount);}
 	
 		
 		if(count($products) == 0 ){

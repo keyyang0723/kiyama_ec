@@ -30,14 +30,14 @@ class productRepository extends DbRepository
 
 	// }
 
-	// public function fetchPageProduct($display_product,$display_amount){
-		// $sql = "
-		// 	SELECT * FROM products LIMIT $display_product,$display_amount
-		// 	";
-	// 		return $this->fetchAll($sql
-	// 		);
+	public function fetchPageProduct($display_product,$display_amount){
+		$sql = "
+			SELECT * FROM products LIMIT $display_product,$display_amount
+			";
+			return $this->fetchAll($sql
+			);
 
-	// }
+	}
 
 	// public function fetchPageProductDisIs_displayed($display_product,$display_amount){
 	// 	$sql = "
@@ -97,7 +97,7 @@ class productRepository extends DbRepository
 		$sql = "SELECT * FROM products";
         $where = [];
         $param = [];
-        echo 111;
+       
         if ( strlen($search_name)>0 ){
             $where[] = "name LIKE :name";
             $param[':name']  = '%'.$search_name.'%';
@@ -110,15 +110,15 @@ class productRepository extends DbRepository
 
         }
 
-        if(strlen($search_name) == 0 && strlen($category_id) == 0){
-        		$sql = "
-			SELECT * FROM products LIMIT $display_product,$display_amount
-			";
-        return $this->fetchAll($sql,$param
+   //      if(strlen($search_name) == 0 && strlen($category_id) == 0){
+   //      		$sql .= " LIMIT $display_product,$display_amount
+			// ";     
+			// echo 444; 
+   //      return $this->fetchAll($sql,$param
           
-        );
+   //      );
         
-        }
+   //      }
 
         if ( count($where)>0) {
             $sql .= " WHERE " . (implode(" AND ",$where));
@@ -163,7 +163,7 @@ class productRepository extends DbRepository
         	$sql .= " WHERE " . (implode(" AND ",$where));
 			$sql .= " LIMIT $display_product,$display_amount
 			";      
-			
+
         return $this->fetchAll($sql,$param
          
         );
