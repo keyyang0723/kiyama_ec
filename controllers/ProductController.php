@@ -231,7 +231,7 @@ class ProductController extends Controller
 	
 		$products = $this->db_manager->get('product')->fetchAllProductsByNameAndCtegory_id($search_name,$category_id,
 			$display_product,$display_amount);
-	var_dump($search_name,$category_id);
+	var_dump($search_name,$category_id,$number_of_products);
 		
 		if(count($products) == 0 ){
 			$errors[] = "該当する結果がありませんでした";
