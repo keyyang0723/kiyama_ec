@@ -22,45 +22,45 @@ class productRepository extends DbRepository
 
 
 
-	public function fetchAllProduct(){
-		$sql = "
-			SELECT * FROM products 
-			";
-			return $this->fetchAll($sql);
+	// public function fetchAllProduct(){
+	// 	$sql = "
+	// 		SELECT * FROM products 
+	// 		";
+	// 		return $this->fetchAll($sql);
 
-	}
+	// }
 
-	public function fetchPageProduct($display_product,$display_amount){
-		$sql = "
-			SELECT * FROM products LIMIT $display_product,$display_amount
-			";
-			return $this->fetchAll($sql
-			);
+	// public function fetchPageProduct($display_product,$display_amount){
+	// 	$sql = "
+	// 		SELECT * FROM products LIMIT $display_product,$display_amount
+	// 		";
+	// 		return $this->fetchAll($sql
+	// 		);
 
-	}
+	// }
 
-	public function fetchPageProductDisIs_displayed($display_product,$display_amount){
-		$sql = "
-			SELECT * FROM products WHERE NOT (is_displayed = 1) LIMIT $display_product,$display_amount
-			";
-			return $this->fetchAll($sql
-			);
+	// public function fetchPageProductDisIs_displayed($display_product,$display_amount){
+	// 	$sql = "
+	// 		SELECT * FROM products WHERE NOT (is_displayed = 1) LIMIT $display_product,$display_amount
+	// 		";
+	// 		return $this->fetchAll($sql
+	// 		);
 
-	}
+	// }
 
-	public function countProduct(){
-		$sql = "
-			SELECT COUNT(id) as count FROM products 
-			";
-			return $this->fetch($sql);
-	}
+	// public function countProduct(){
+	// 	$sql = "
+	// 		SELECT COUNT(id) as count FROM products 
+	// 		";
+	// 		return $this->fetch($sql);
+	// }
 
-	public function countProductRemoveIsdisplayed(){
-		$sql = "
-			SELECT COUNT(id) as count FROM products WHERE NOT (is_displayed = 1)
-			";
-			return $this->fetch($sql);
-	}
+	// public function countProductRemoveIsdisplayed(){
+	// 	$sql = "
+	// 		SELECT COUNT(id) as count FROM products WHERE NOT (is_displayed = 1)
+	// 		";
+	// 		return $this->fetch($sql);
+	// }
 
 	public function fetchByName($name)
 	{
@@ -110,15 +110,15 @@ class productRepository extends DbRepository
 
         }
 
-        if(strlen($search_name)==0 && strlen($category_id)==0){
-        		$sql .= " LIMIT $display_product,$display_amount
-			";     
-			echo 444; 
-        return $this->fetchAll($sql,$param
+   //      if(strlen($search_name) == 0 && strlen($category_id) == 0){
+   //      		$sql .= " LIMIT $display_product,$display_amount
+			// ";     
+			// echo 444; 
+   //      return $this->fetchAll($sql,$param
           
-        );
+   //      );
         
-        }
+   //      }
 
         if ( count($where)>0) {
             $sql .= " WHERE " . (implode(" AND ",$where));
@@ -163,8 +163,9 @@ class productRepository extends DbRepository
         	$sql .= " WHERE " . (implode(" AND ",$where));
 			$sql .= " LIMIT $display_product,$display_amount
 			";      
+			
         return $this->fetchAll($sql,$param
-          
+         
         );
 
 	
@@ -185,12 +186,12 @@ class productRepository extends DbRepository
             $param[':category_id'] = $category_id;
         }
 
-         if(strlen($search_name)==0 &&strlen($category_id) == 0){
+        //  if(strlen($search_name)==0 &&strlen($category_id) == 0){
         	
-        	return $this->fetch($sql,$param
-        );
+        // 	return $this->fetch($sql,$param
+        // );
 
-        }
+        // }
 
         if ( count($where)>0) {
             $sql .= " WHERE " . (implode(" AND ",$where));
