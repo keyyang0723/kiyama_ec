@@ -27,7 +27,7 @@
 				<?php echo ' > '; ?>
 			<?php endif;?>
 		</div>
-
+<?php var_dump($products);?>
 		<div class="product">
 			<?php foreach($products as $product):?>
 				<ul class="product_contents">

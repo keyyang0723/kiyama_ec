@@ -30,6 +30,7 @@
 			<?php if(isset($errors) && count($errors)>0): ?>
 				<?php echo $this->render('errors',array('errors'=> $errors));?>
 			<?php else:?>
+				<?php var_dump($products);?>
 			<?php foreach($products as $product):?>
 				<ul class="product_contents">
 					<form action="<?php echo $base_url;?>/admin/product/<?php echo $this->escape($product['id']);?>" method="get">
