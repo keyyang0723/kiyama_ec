@@ -1,6 +1,6 @@
 <?php $this->setLayoutVar('title','注文フォーム')?>
 
-	<div class="form">
+<div class="form">
 	<form action="<?php echo $base_url;?>/conf" method="post">
 		<input type="hidden" name="product_id" value="<?php echo $this->escape($product_id);?>" />
 		<input type="hidden" name="number" value="<?php echo $this->escape($number);?>" />
@@ -29,5 +29,5 @@
 
 		<input type="submit" value="注文確認画面へ" />
 	</form>
-	</div>
+</div>
 
