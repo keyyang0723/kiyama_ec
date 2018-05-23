@@ -94,12 +94,12 @@ class productRepository extends DbRepository
         if ( strlen($search_name)>0 ){
             $where[] = "name LIKE :name";
             $param[':name']  = '%'.$search_name.'%';
-            echo 222;
+           
         }
         if ( strlen($category_id)>0) {
             $where[] = "category_id = :category_id";
             $param[':category_id'] = $category_id;
-            echo 3333;
+           
 
         }
 
@@ -119,7 +119,7 @@ class productRepository extends DbRepository
 
 			$sql .= " LIMIT $display_product,$display_amount
 			";      
-			 echo 555;
+			
         return $this->fetchAll($sql,$param
           
         );
