@@ -107,11 +107,13 @@ class productRepository extends DbRepository
 
         }
 
-        // if(strlen($search_name)==0 && !isset($category_id)){
-        	
-        // 	return [];
-
-        // }
+        if(strlen($search_name)==0 && strlen($category_id)<0){
+        		$sql .= " limit $display_product,$display_amount
+			";      
+        return $this->fetchAll($sql,$param
+          
+        );
+        }
 
         if ( count($where)>0) {
             $sql .= " WHERE " . (implode(" AND ",$where));
@@ -149,10 +151,10 @@ class productRepository extends DbRepository
 
         // }
 
-        if ( count($where)>0) {
-            $sql .= " WHERE " . (implode(" AND ",$where));
-        }
-
+        // if ( count($where)>0) {
+        //     $sql .= " WHERE " . (implode(" AND ",$where));
+        // }
+        	$sql .= " WHERE " . (implode(" AND ",$where));
 			$sql .= " limit $display_product,$display_amount
 			";      
         return $this->fetchAll($sql,$param
@@ -168,20 +170,21 @@ class productRepository extends DbRepository
 		$sql   = "SELECT COUNT(id) as count FROM products";
         $where = [];
         $param = [];
-        if ( strlen($search_name)>0 ){
+        if ( strlen($search_name) >0 ){
             $where[] = "name LIKE :name";
             $param[':name']  = '%'.$search_name.'%';
         }
-        if ( strlen($category_id)>0) {
+        if ( strlen($category_id) >0) {
             $where[] = "category_id = :category_id";
             $param[':category_id'] = $category_id;
         }
 
-        //  if(strlen($search_name)==0 && !isset($category_id)){
+         if(strlen($search_name)==0 &&strlen($category_id) < 0){
         	
-        // 	return 0;
+        	return $this->fetch($sql,$param
+        );
 
-        // }
+        }
 
         if ( count($where)>0) {
             $sql .= " WHERE " . (implode(" AND ",$where));
@@ -194,30 +197,27 @@ class productRepository extends DbRepository
 
     public function countSearchProductNotIsdisplayed($search_name,$category_id){
 
-
-		$sql   = "SELECT COUNT(id) as count FROM products";
-        $where = [];
-        $param = [];
+    	
+		$sql     = "SELECT COUNT(id) as count FROM products";
+        $where   = [];
+        $param   = [];
         $where[] = "NOT (is_displayed = 1)";
-        if ( strlen($search_name)>0 ){
-            $where[] = "name LIKE :name";
+
+        if ( strlen($search_name) > 0){
+            $where[]         = "name LIKE :name";
             $param[':name']  = '%'.$search_name.'%';
         }
-        if ( strlen($category_id)>0) {
-            $where[] = "category_id = :category_id";
+        if ( strlen($category_id) > 0) {
+            $where[]               = "category_id = :category_id";
             $param[':category_id'] = $category_id;
         }
 
-        //  if(strlen($search_name)==0 && !isset($category_id)){
-        	
-        // 	return 0;
 
+        // if ( count($where)>0) {
+        //     $sql .= " WHERE " . (implode(" AND ",$where));
         // }
-
-        if ( count($where)>0) {
-            $sql .= " WHERE " . (implode(" AND ",$where));
-        }
-       
+        $sql .= " WHERE " . (implode(" AND ",$where));
+        
         return $this->fetch($sql,$param
           
         );

@@ -228,7 +228,7 @@ class ProductController extends Controller
 		$prev_page          = $now_page-1;
 		$display_product    = floor(($now_page-1)*$display_amount);
 
-		
+	
 		$products = $this->db_manager->get('product')->fetchAllProductsByNameAndCtegory_id($search_name,$category_id,
 			$display_product,$display_amount);
 	
@@ -236,11 +236,11 @@ class ProductController extends Controller
 		if(count($products) == 0 ){
 			$errors[] = "該当する結果がありませんでした";
 			return $this->render(array(
-			'search_name' =>$search_name,
-			'categories'=>$categories,
-			'category_id'=>$category_id,
-			'products'=>$products,
-			'errors'=>$errors,
+			'search_name'       => $search_name,
+			'categories'        => $categories,
+			'category_id'       => $category_id,
+			'products'          => $products,
+			'errors'            => $errors,
 			'last_page'			=> $last_page,
 			'now_page'			=> $now_page,
 			'display_product' 	=> $display_product,
