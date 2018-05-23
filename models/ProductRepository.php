@@ -97,22 +97,27 @@ class productRepository extends DbRepository
 		$sql = "SELECT * FROM products";
         $where = [];
         $param = [];
+        echo 111;
         if ( strlen($search_name)>0 ){
             $where[] = "name LIKE :name";
             $param[':name']  = '%'.$search_name.'%';
+            echo 222;
         }
         if ( strlen($category_id)>0) {
             $where[] = "category_id = :category_id";
             $param[':category_id'] = $category_id;
+            echo 3333;
 
         }
 
-        if(strlen($search_name)==0 && strlen($category_id)<0){
+        if(strlen($search_name)==0 && strlen($category_id)==0){
         		$sql .= " LIMIT $display_product,$display_amount
-			";      var_dump($sql);
+			";     
+			echo 444; 
         return $this->fetchAll($sql,$param
           
         );
+        
         }
 
         if ( count($where)>0) {
@@ -121,11 +126,11 @@ class productRepository extends DbRepository
 
 			$sql .= " LIMIT $display_product,$display_amount
 			";      
-			var_dump($sql);
+			 echo 555;
         return $this->fetchAll($sql,$param
           
         );
-
+       
 	
 	}
 
@@ -180,7 +185,7 @@ class productRepository extends DbRepository
             $param[':category_id'] = $category_id;
         }
 
-         if(strlen($search_name)==0 &&strlen($category_id) < 0){
+         if(strlen($search_name)==0 &&strlen($category_id) == 0){
         	
         	return $this->fetch($sql,$param
         );
