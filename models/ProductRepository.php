@@ -108,7 +108,7 @@ class productRepository extends DbRepository
         }
 
         if(strlen($search_name)==0 && strlen($category_id)<0){
-        		$sql .= " limit $display_product,$display_amount
+        		$sql .= " LIMIT $display_product,$display_amount
 			";      
         return $this->fetchAll($sql,$param
           
@@ -119,8 +119,9 @@ class productRepository extends DbRepository
             $sql .= " WHERE " . (implode(" AND ",$where));
         }
 
-			$sql .= " limit $display_product,$display_amount
+			$sql .= " LIMIT $display_product,$display_amount
 			";      
+			var_dump($sql);
         return $this->fetchAll($sql,$param
           
         );
@@ -155,7 +156,7 @@ class productRepository extends DbRepository
         //     $sql .= " WHERE " . (implode(" AND ",$where));
         // }
         	$sql .= " WHERE " . (implode(" AND ",$where));
-			$sql .= " limit $display_product,$display_amount
+			$sql .= " LIMIT $display_product,$display_amount
 			";      
         return $this->fetchAll($sql,$param
           
