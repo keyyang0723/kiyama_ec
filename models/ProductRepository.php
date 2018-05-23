@@ -48,12 +48,12 @@ class productRepository extends DbRepository
 
 	// }
 
-	// public function countProduct(){
-	// 	$sql = "
-	// 		SELECT COUNT(id) as count FROM products 
-	// 		";
-	// 		return $this->fetch($sql);
-	// }
+	public function countProduct(){
+		$sql = "
+			SELECT COUNT(id) as count FROM products 
+			";
+			return $this->fetch($sql);
+	}
 
 	// public function countProductRemoveIsdisplayed(){
 	// 	$sql = "

@@ -219,8 +219,12 @@ class ProductController extends Controller
 		$category_id        = $this->request->getPost('category_id');
 		$products           = [];
 
-		$number_of_products	= $this->db_manager->get('product')->countSearchProduct($search_name,$category_id);
-
+		if(strlen($search_name) == 0 && strlen($category_id) == 0){
+			$number_of_products = $this->db_manager->get('product')->countProduct();
+			
+		}else{
+			$number_of_products	= $this->db_manager->get('product')->countSearchProduct($search_name,$category_id);
+		}
 		$display_amount	    = 15;
 		$last_page 		    = ceil($number_of_products['count'] / $display_amount);
 		$now_page           = $this->request->getget('page') ? $this->request->getget('page') : 1;
@@ -230,7 +234,7 @@ class ProductController extends Controller
 		var_dump($search_name,$category_id);
 		if(strlen($search_name) == 0 && strlen($category_id) == 0){
 			$products = $this->db_manager->get('product')->fetchPageProduct($display_product,$display_amount);
-			echo 1111;
+
 		}else{
 		$products = $this->db_manager->get('product')->fetchAllProductsByNameAndCtegory_id($search_name,$category_id,
 			$display_product,$display_amount);}
