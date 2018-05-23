@@ -36,6 +36,10 @@
 			<?php echo $this->escape($order['customer_email']);?>
 		</li>
 		<li>
+			個数
+			<?php echo $this->escape($order['number']);?>
+		</li>
+		<li>
 			料金
 			<?php echo $this->escape($order['price']);?>
 		</li>

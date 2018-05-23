@@ -11,15 +11,15 @@ class orderRepository extends DbRepository
 	}
 
 	public function insertOrder($customer_name,$customer_address,$customer_street,$customer_zipcode,
-		$customer_tel,$customer_email,$product_id,$price,$tax_rate)
+		$customer_tel,$customer_email,$product_id,$price,$tax_rate,$number)
 	{
 		$now = new Datetime();
 
 		$sql="
 			INSERT INTO orders(customer_name,customer_address,customer_street,customer_zipcode,
-		customer_tel,customer_email,product_id,price,tax_rate,created_at,updated_at)
+		customer_tel,customer_email,product_id,price,tax_rate,created_at,updated_at, number)
 				VALUES(:customer_name,:customer_address,:customer_street,:customer_zipcode,
-		:customer_tel,:customer_email,:product_id,:price,:tax_rate,:created_at,:updated_at)
+		:customer_tel,:customer_email,:product_id,:price,:tax_rate,:created_at,:updated_at,:number)
 		";
 
 		$stm= $this->execute($sql,array(
@@ -32,6 +32,7 @@ class orderRepository extends DbRepository
 			':product_id' =>$product_id,
 			':price' =>$price,
 			':tax_rate' =>$tax_rate,
+			':number'   =>$number,
 			':created_at' => $now->format('Y-m-d H:i:s'),
 			':updated_at' => $now->format('Y-m-d H:i:s'),
 		));
@@ -45,7 +46,7 @@ class orderRepository extends DbRepository
 	}
 
 	public function edit($customer_name,$customer_address,$customer_street,$customer_zipcode,
-		$customer_tel,$customer_email,$product_id,$price,$tax_rate,$id)
+		$customer_tel,$customer_email,$product_id,$price,$tax_rate,$id,$number)
 	{
 		$now = new Datetime();
 
@@ -60,7 +61,8 @@ class orderRepository extends DbRepository
 			product_id = :product_id,
 			price = :price,
 			tax_rate = :tax_rate,
-			updated_at = :updated_at
+			updated_at = :updated_at,
+			number     = :number
 			WHERE id = :id
 		";
 
@@ -76,6 +78,7 @@ class orderRepository extends DbRepository
 			':price' =>$price,
 			':tax_rate' =>$tax_rate,
 			':updated_at' => $now->format('Y-m-d H:i:s'),
+			'number'      =>$number,
 		));
 	}
 	public function delete($id)

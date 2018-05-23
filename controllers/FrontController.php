@@ -1,37 +1,37 @@
 <?php
 class FrontController extends Controller
 {
-	public function frontAction()
-	{
+	// public function frontAction()
+	// {
 
-		$number_of_products	= $this->db_manager->get('product')->countProductRemoveIsdisplayed();
-		$display_amount	    = 15;
-		$last_page 		    = ceil($number_of_products['count'] / $display_amount);
-		$now_page           = $this->request->getget('page') ? $this->request->getget('page') : 1;
-		$next_page          = $now_page+1;
-		$prev_page          = $now_page-1;
-		$display_product    = floor(($now_page-1)*$display_amount);
+	// 	$number_of_products	= $this->db_manager->get('product')->countProductRemoveIsdisplayed();
+	// 	$display_amount	    = 15;
+	// 	$last_page 		    = ceil($number_of_products['count'] / $display_amount);
+	// 	$now_page           = $this->request->getget('page') ? $this->request->getget('page') : 1;
+	// 	$next_page          = $now_page+1;
+	// 	$prev_page          = $now_page-1;
+	// 	$display_product    = floor(($now_page-1)*$display_amount);
 
-		$products 		    = $this->db_manager->get('product')->fetchPageProductDisIs_displayed($display_product,$display_amount);
-		$categories 		= $this->db_manager->get('category')->fetchAllCategories();
+	// 	$products 		    = $this->db_manager->get('product')->fetchPageProductDisIs_displayed($display_product,$display_amount);
+	// 	$categories 		= $this->db_manager->get('category')->fetchAllCategories();
 		
 
-		return $this->render(array(
-			'products'=>$products,
-			'categories' =>$categories,
+	// 	return $this->render(array(
+	// 		'products'=>$products,
+	// 		'categories' =>$categories,
 
-			'products'			=> $products,
-			'last_page'			=> $last_page,
-			'now_page'			=> $now_page,
-			'display_product' 	=> $display_product,
-			'categories'		=> $categories,
-			'number_of_products'=> $number_of_products,
-			'next_page'         => $next_page,
-			'prev_page'         => $prev_page,
-			'name'   			=> '',
-		));	
+	// 		'products'			=> $products,
+	// 		'last_page'			=> $last_page,
+	// 		'now_page'			=> $now_page,
+	// 		'display_product' 	=> $display_product,
+	// 		'categories'		=> $categories,
+	// 		'number_of_products'=> $number_of_products,
+	// 		'next_page'         => $next_page,
+	// 		'prev_page'         => $prev_page,
+	// 		'name'   			=> '',
+	// 	));	
 
-	}
+	// }
 
 	public function detailAction()
 	{
@@ -120,7 +120,7 @@ class FrontController extends Controller
 			}else{
 				$errors = [];
 			}
-
+ 	
 		return $this->render(array(
 			'number'=>$number,
 			'customer_name' =>$customer_name,
@@ -158,22 +158,51 @@ class FrontController extends Controller
 
 		if(!strlen($customer_name)){
 			$errors[] ='お名前を入力してください';
+		}else if(mb_strlen($customer_name) > 50){
+			$errors[]='お名前は50文字以内で入力してください';
+			$customer_name ='';
 		}
+
 		if(!strlen($customer_address)){
 			$errors[] ='住所を入力してください';
+		}else if(mb_strlen($customer_address) > 50){
+			$errors[]='住所は50文字以内で入力してください';
+			$customer_address ='';
 		}
+
 		if(!strlen($customer_street)){
 			$errors[] ='番地を入力してください';
+		}else if(mb_strlen($customer_street) > 50){
+			$errors[]='番地は50文字以内で入力してください';
+			$customer_street ='';
 		}
+
 		if(!strlen($customer_zipcode)){
 			$errors[] ='住所番号を入力してください';
+		}else if(ctype_digit($customer_zipcode)=== FALSE ){
+			$errors[]='住所番号は-無し半角数字で入力してください';
+		}else if(mb_strlen($customer_zipcode) != 7){
+			$errors[]='住所番号は7桁で入力してください';
+			$customer_zipcode ='';
 		}
+
 		if(!strlen($customer_tel)){
 			$errors[] ='電話番号を入力してください';
+		}else if(ctype_digit($customer_tel)=== FALSE ){
+			$errors[]='電話番号は-無し半角数字で入力してください';
+		}else if(mb_strlen($customer_tel) > 12){
+			$errors[]='電話番号は12桁以下で入力してください';
+			$customer_tel ='';
 		}
+
 		if(!strlen($customer_email)){
 			$errors[] ='メールアドレスを入力してください';
+		}else if(mb_strlen($customer_email) > 50){
+			$errors[]='メールアドレスは50文字以内で入力してください';
+			$customer_email ='';
 		}
+
+
 
 		$_SESSION['errors'] = $errors;
 		$_SESSION['customer_name'] = $customer_name;
@@ -231,21 +260,48 @@ class FrontController extends Controller
 
 		if(!strlen($customer_name)){
 			$errors[] ='お名前を入力してください';
+		}else if(mb_strlen($customer_name) > 50){
+			$errors[]='お名前は50文字以内で入力してください';
+			$customer_name ='';
 		}
+
 		if(!strlen($customer_address)){
 			$errors[] ='住所を入力してください';
+		}else if(mb_strlen($customer_address) > 50){
+			$errors[]='住所は50文字以内で入力してください';
+			$customer_address ='';
 		}
+
 		if(!strlen($customer_street)){
 			$errors[] ='番地を入力してください';
+		}else if(mb_strlen($customer_street) > 50){
+			$errors[]='番地は50文字以内で入力してください';
+			$customer_street ='';
 		}
+
 		if(!strlen($customer_zipcode)){
 			$errors[] ='住所番号を入力してください';
+		}else if(ctype_digit($customer_zipcode)=== FALSE ){
+			$errors[]='住所番号は-無し半角数字で入力してください';
+		}else if(mb_strlen($customer_zipcode) != 7){
+			$errors[]='住所番号は7桁で入力してください';
+			$customer_zipcode ='';
 		}
+
 		if(!strlen($customer_tel)){
 			$errors[] ='電話番号を入力してください';
+		}else if(ctype_digit($customer_tel)=== FALSE ){
+			$errors[]='電話番号は-無し半角数字で入力してください';
+		}else if(mb_strlen($customer_tel) > 12){
+			$errors[]='電話番号は12桁以下で入力してください';
+			$customer_tel ='';
 		}
+
 		if(!strlen($customer_email)){
 			$errors[] ='メールアドレスを入力してください';
+		}else if(mb_strlen($customer_email) > 50){
+			$errors[]='メールアドレスは50文字以内で入力してください';
+			$customer_email ='';
 		}
 
 		if(ctype_digit($price)=== FALSE ){
@@ -267,7 +323,7 @@ class FrontController extends Controller
 		
 		}
 		$this->db_manager->get('order')->insertOrder($customer_name,$customer_address,$customer_street,$customer_zipcode,
-		$customer_tel,$customer_email,$product_id,$price,$tax_rate);
+		$customer_tel,$customer_email,$product_id,$price,$tax_rate,$number);
 
 		return $this->redirect('/finish');
 		
@@ -277,7 +333,7 @@ class FrontController extends Controller
 		return $this->render(array());
 	}
 
-	public function searchAction(){
+	public function frontAction(){
 		
 		$categories         = $this->db_manager->get('category')->fetchAllCategories();
 		$search_name        = $this->request->getPost('search_name');

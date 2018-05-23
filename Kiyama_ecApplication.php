@@ -17,7 +17,7 @@ class Kiyama_ecApplication extends Application
 				'/admin'
 				 =>array('controller'=>'product','action'=>'index'),
 				'/admin/search'
-				 =>array('controller'=>'product','action'=>'search'),
+				 =>array('controller'=>'product','action'=>'index'),
 				 '/admin/product/regist'
 				 =>array('controller'=>'product','action'=>'edit'),
 				 '/admin/product/edit'
@@ -67,7 +67,7 @@ class Kiyama_ecApplication extends Application
 				 '/finish'
 				 =>array('controller' =>'front','action'=>'finish'),
 				 '/search'
-				 =>array('controller' =>'front','action'=>'search'),
+				 =>array('controller' =>'front','action'=>'front'),
 				 '/form'
 				 =>array('controller' =>'front','action'=>'form'),
 				 // '/:name'
@@ -83,9 +83,9 @@ class Kiyama_ecApplication extends Application
 	protected function configure()
 	{
 		$this->db_manager->connect('maseter',array(
-		    'dsn'      =>'mysql:dbname=kiyama_ec;host=localhost',
+		    'dsn'      =>'mysql:dbname=kiyama_ec;host=127.0.0.1',
 		    'user'     =>'root',
-		    'password'  =>'2488',
+		    'password'  =>'root',
 		 ));
 	}
 }

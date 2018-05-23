@@ -101,16 +101,17 @@ class productRepository extends DbRepository
             $where[] = "name LIKE :name";
             $param[':name']  = '%'.$search_name.'%';
         }
-        if ( isset($category_id)) {
+        if ( strlen($category_id)>0) {
             $where[] = "category_id = :category_id";
             $param[':category_id'] = $category_id;
+
         }
 
-        if(strlen($search_name)==0 && !isset($category_id)){
+        // if(strlen($search_name)==0 && !isset($category_id)){
         	
-        	return [];
+        // 	return [];
 
-        }
+        // }
 
         if ( count($where)>0) {
             $sql .= " WHERE " . (implode(" AND ",$where));
@@ -137,16 +138,16 @@ class productRepository extends DbRepository
             $where[] = "name LIKE :name";
             $param[':name']  = '%'.$search_name.'%';
         }
-        if ( isset($category_id)) {
+        if ( strlen($category_id)>0) {
             $where[] = "category_id = :category_id";
             $param[':category_id'] = $category_id;
         }
 
-        if(strlen($search_name)==0 && !isset($category_id)){
+        // if(strlen($search_name)==0 && !isset($category_id)){
         	
-        	return [];
+        // 	return [];
 
-        }
+        // }
 
         if ( count($where)>0) {
             $sql .= " WHERE " . (implode(" AND ",$where));
@@ -171,16 +172,16 @@ class productRepository extends DbRepository
             $where[] = "name LIKE :name";
             $param[':name']  = '%'.$search_name.'%';
         }
-        if ( isset($category_id)) {
+        if ( strlen($category_id)>0) {
             $where[] = "category_id = :category_id";
             $param[':category_id'] = $category_id;
         }
 
-         if(strlen($search_name)==0 && !isset($category_id)){
+        //  if(strlen($search_name)==0 && !isset($category_id)){
         	
-        	return 0;
+        // 	return 0;
 
-        }
+        // }
 
         if ( count($where)>0) {
             $sql .= " WHERE " . (implode(" AND ",$where));
@@ -202,16 +203,16 @@ class productRepository extends DbRepository
             $where[] = "name LIKE :name";
             $param[':name']  = '%'.$search_name.'%';
         }
-        if ( isset($category_id)) {
+        if ( strlen($category_id)>0) {
             $where[] = "category_id = :category_id";
             $param[':category_id'] = $category_id;
         }
 
-         if(strlen($search_name)==0 && !isset($category_id)){
+        //  if(strlen($search_name)==0 && !isset($category_id)){
         	
-        	return 0;
+        // 	return 0;
 
-        }
+        // }
 
         if ( count($where)>0) {
             $sql .= " WHERE " . (implode(" AND ",$where));

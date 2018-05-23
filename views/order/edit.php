@@ -2,6 +2,9 @@
 <?php echo $this->render('back',array());?>
 <form action="<?php echo $base_url;?>/admin/order/<?php echo $this->escape($order['id']);?>/edit" method="post">
 	<input type="hidden" name='id' value="<?php echo $this->escape($order['id']);?>"/>
+	<?php if(isset($errors) && count($errors)>0): ?>
+		<?php echo $this->render('errors',array('errors'=> $errors));?>
+	<?php endif;?>
 	<ul>
 		<li>
 			注文番号
@@ -34,6 +37,10 @@
 		<li>
 			メールアドレス
 		<input type="text" name="customer_email" value="<?php echo $this->escape($customer_email);?>">
+		</li>
+		<li>
+			個数
+			<input type="text" name="number" value="<?php echo $this->escape($number);?>">
 		</li>
 		<li>
 			料金

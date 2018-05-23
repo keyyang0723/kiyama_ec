@@ -33,7 +33,7 @@
 						<form action="<?php echo $base_url;?>/<?php echo $this->escape($product['id']);?>/detail" method="post">
 							<div class="hoge">							
 								<?php if(isset($product['image_name'])):?>
-								<img class="main" src =<?php echo '/image/'.$product['image_name'].'.jpg';?> >
+								<a href="<?php echo $base_url;?>/<?php echo $this->escape($product['id']);?>/detail"><img class="main" src =<?php echo '/image/'.$product['image_name'].'.jpg';?> ></a>
 								<?php endif;?>
 							</div>
 
