@@ -60,7 +60,7 @@ class FrontController extends Controller
 		
 		
 		if(strlen($search_name) == 0 && strlen($category_id) == 0){
-			$products = $this->db_manager->get('product')->fetchPageProduct($display_product,$display_amount);
+			$products = $this->db_manager->get('product')->fetchPageProductDisIs_displayed($display_product,$display_amount);
 
 		}else{
 		$products = $this->db_manager->get('product')->fetchAllProductsByNameAndCtegory_idDisIs_displayed($search_name,$category_id,$display_product,$display_amount);}
