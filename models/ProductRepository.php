@@ -31,9 +31,9 @@ class productRepository extends DbRepository
 	// }
 
 	// public function fetchPageProduct($display_product,$display_amount){
-	// 	$sql = "
-	// 		SELECT * FROM products LIMIT $display_product,$display_amount
-	// 		";
+		// $sql = "
+		// 	SELECT * FROM products LIMIT $display_product,$display_amount
+		// 	";
 	// 		return $this->fetchAll($sql
 	// 		);
 
@@ -110,15 +110,15 @@ class productRepository extends DbRepository
 
         }
 
-   //      if(strlen($search_name) == 0 && strlen($category_id) == 0){
-   //      		$sql .= " LIMIT $display_product,$display_amount
-			// ";     
-			// echo 444; 
-   //      return $this->fetchAll($sql,$param
+        if(strlen($search_name) == 0 && strlen($category_id) == 0){
+        		$sql = "
+			SELECT * FROM products LIMIT $display_product,$display_amount
+			";
+        return $this->fetchAll($sql,$param
           
-   //      );
+        );
         
-   //      }
+        }
 
         if ( count($where)>0) {
             $sql .= " WHERE " . (implode(" AND ",$where));
