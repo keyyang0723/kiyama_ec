@@ -15,65 +15,62 @@ class Kiyama_ecApplication extends Application
 		return array(
 
 				'/admin'
-				 =>array('controller'=>'product','action'=>'index'),
+				 => array('controller' => 'product','action'=>'index'),
 				'/admin/search'
-				 =>array('controller'=>'product','action'=>'index'),
+				 => array('controller' => 'product','action'=>'index'),
 				 '/admin/product/regist'
-				 =>array('controller'=>'product','action'=>'edit'),
+				 => array('controller' => 'product','action'=>'edit'),
 				 '/admin/product/edit'
-				 =>array('controller'=>'product','action'=>'edit'),
+				 => array('controller' => 'product','action'=>'edit'),
 				 '/admin/product/:id'
-				 =>array('controller'=>'product','action'=>'detail'),
+				 => array('controller' => 'product','action'=>'detail'),
 				 '/admin/product/:name/edit'
-				 =>array('controller'=>'product','action'=>'edit'),
+				 => array('controller' => 'product','action'=>'edit'),
 				 '/admin/errorpage'
-				 =>array('controller'=>'product','action'=>'errorpage'),
-
+				 => array('controller' => 'product','action'=>'errorpage'),
 				 '/admin/upload'
-				  =>array('controller'=>'product','action'=>'upload'),
+				 => array('controller' => 'product','action'=>'upload'),
 				 '/admin/image'
-				 =>array('controller'=>'product','action'=>'image'),
+				 => array('controller' => 'product','action'=>'image'),
 
 				 '/admin/category'
-				 =>array('controller'=>'category','action'=>'category'),
+				 => array('controller' => 'category','action'=>'category'),
 				 '/admin/category/:action'
-				 =>array('controller'=>'category','action'=>':action'),
+				 => array('controller' => 'category','action'=>':action'),
 				 '/admin/category/add/post'
-				 =>array('controller'=>'category','action'=>'add'),
+				 => array('controller' => 'category','action'=>'add'),
 				 '/admin/category/delete/post'
-				 =>array('controller'=>'category','action'=>'delete'),
+				 => array('controller' => 'category','action'=>'delete'),
 
 				 '/admin/order'
-				 =>array('controller'=>'order','action'=>'orderlist'),
+				 => array('controller' => 'order','action'=>'orderlist'),
 				 '/admin/order/:id'
-				 =>array('controller'=>'order','action'=>'detail'),
+				 => array('controller' => 'order','action'=>'detail'),
 				  '/admin/order/:id/edit'
-				 =>array('controller'=>'order','action'=>'edit'),
+				 => array('controller' => 'order','action'=>'edit'),
 
 				
 				'/account'
-				 =>array('controller' =>'account','action' =>'index'),
+				 => array('controller' => 'account','action' =>'index'),
 				 '/account/:action'
-				 =>array('controller'=> 'account'),
+				 => array('controller' => 'account'),
 
 				 '/'
-				 =>array('controller' =>'front','action'=>'front'),
+				 => array('controller' => 'front','action'=>'front'),
 				 '/errorpage'
-				 =>array('controller' =>'front','action'=>'errorpage'),
+				 => array('controller' => 'front','action'=>'errorpage'),
 				  '/conf'
-				 =>array('controller' =>'front','action'=>'conf'),
+				 => array('controller' => 'front','action'=>'conf'),
 				 '/conf/post'
-				 =>array('controller' =>'front','action'=>'post'),
+				 => array('controller' => 'front','action'=>'post'),
 				 '/finish'
-				 =>array('controller' =>'front','action'=>'finish'),
+				 => array('controller' => 'front','action'=>'finish'),
 				 '/search'
-				 =>array('controller' =>'front','action'=>'front'),
+				 => array('controller' => 'front','action'=>'front'),
 				 '/form'
-				 =>array('controller' =>'front','action'=>'form'),
-				 // '/:name'
-				 // =>array('controller' =>'front','action'=>'form'),
+				 => array('controller' => 'front','action'=>'form'),
 				 '/:name/detail'
-				 =>array('controller' =>'front','action'=>'detail'),
+				 => array('controller' => 'front','action'=>'detail'),
 				
 
 
@@ -83,9 +80,9 @@ class Kiyama_ecApplication extends Application
 	protected function configure()
 	{
 		$this->db_manager->connect('maseter',array(
-		    'dsn'      =>'mysql:dbname=kiyama_ec;host=localhost',
-		    'user'     =>'root',
-		    'password'  =>'2488',
+		    'dsn'       => 'mysql:dbname=kiyama_ec;host=localhost',
+		    'user'      => 'root',
+		    'password'  => '2488',
 		 ));
 	}
 }

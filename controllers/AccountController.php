@@ -8,15 +8,15 @@ class AccountController extends Controller
 	public function signupAction()
 	{
 		return $this->render(array(
-			'user_name' =>'',
-			'password'  =>'',
+			'user_name' => '',
+			'password'  => '',
 		 	'_token'    => $this->generateCsrfToken('account/signup'),
 		));
 	}
 
 	public function registerAction()
 	{
-		if(!$this->request->isPost()){
+		if(!$this ->request->isPost()){
 			$this->forward404();
 		}
 	
@@ -28,8 +28,7 @@ class AccountController extends Controller
 
 		$user_name = $this->request->getPost('user_name');
 		$password  = $this->request->getPost('password');
-
-		$errors = array();
+		$errors    = array();
 
 		if(!strlen($user_name)){
 			$errors[] ='ユーザIDを入力してください';
@@ -56,10 +55,10 @@ class AccountController extends Controller
 		}
 
 		return $this->render(array(
-			'user_name' =>$user_name,
-			'password'  =>$password,
-			'errors'    =>$errors,
-			'_token'    =>$this->generateCsrfToken('account/signup'),
+			'user_name' => $user_name,
+			'password'  => $password,
+			'errors'    => $errors,
+			'_token'    => $this->generateCsrfToken('account/signup'),
 		),'signup');
 
 
@@ -68,10 +67,7 @@ class AccountController extends Controller
 	public function indexAction()
 	{
 		$admin = $this->session->get('admin');
-		return $this->render(array(
-			'admin'=>$admin,
-
-		));
+		return $this->render(array('admin'=>$admin));
 	}
 
 
@@ -82,9 +78,9 @@ class AccountController extends Controller
 		}
 
 		return $this->render(array(
-			'user_name'  =>'',
-			'password'   =>'',
-			'_token'     =>$this->generateCsrfToken('account/signin'),
+			'user_name'  => '',
+			'password'   => '',
+			'_token'     => $this->generateCsrfToken('account/signin'),
 		));
 
 	}
@@ -107,8 +103,7 @@ class AccountController extends Controller
 
 		$user_name = $this->request->getPost('user_name');
 		$password  = $this->request->getPost('password');
-
-		$errors  = array();
+		$errors    = array();
 
 		if(!strlen($user_name)){
 			$errors[] = 'ユーザIDを入力してください';
@@ -117,12 +112,11 @@ class AccountController extends Controller
 			$errors[] = 'パスワードを入力してください';
 		}
 
-		if(count($errors)===0){
+		if(count($errors) === 0){
 			$user_repository = $this->db_manager->get('admin');
-			$user = $user_repository->fetchByUserName($user_name);
+			$user            = $user_repository->fetchByUserName($user_name);
 
-			if(!$user
-				|| !password_verify ( $password , $user['password'] )
+			if(!$user  || !password_verify ( $password , $user['password'] )
 			){
 				$errors[] = 'ユーザIDかパスワードが不正です';
 			}else{
@@ -134,10 +128,10 @@ class AccountController extends Controller
 		}
 
 		return $this->render(array(
-			'user_name' =>$user_name,
-			'password'  =>$password,
-			'errors'    =>$errors,
-			'_token'    =>$this->generateCsrfToken('account/signin'),
+			'user_name' => $user_name,
+			'password'  => $password,
+			'errors'    => $errors,
+			'_token'    => $this->generateCsrfToken('account/signin'),
 		),'signin');
 	}
 
