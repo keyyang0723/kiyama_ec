@@ -134,7 +134,7 @@ class ProductController extends Controller
 		if(!$this->request->isPost()){
 		
 		return $this->render(array(
-			'products'		=> $products,
+			
 			'name'   		=> '',
 			'description'	=> '',
 			'categories' 	=> $categories,

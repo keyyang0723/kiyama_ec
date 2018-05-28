@@ -176,24 +176,19 @@ class productRepository extends DbRepository
         $param   = [];
         $where[] = "NOT (is_displayed = 1)";
 
-        if ( strlen($search_name) > 0){
-            $where[]         = "name LIKE :name";
-            $param[':name']  = '%'.$search_name.'%';
+        if ( strlen($search_name)  > 0){
+            $where[]               = "name LIKE :name";
+            $param[':name']        = '%'.$search_name.'%';
         }
-        if ( strlen($category_id) > 0) {
+
+        if ( strlen($category_id)  > 0) {
             $where[]               = "category_id = :category_id";
             $param[':category_id'] = $category_id;
         }
 
-
-        // if ( count($where)>0) {
-        //     $sql .= " WHERE " . (implode(" AND ",$where));
-        // }
         $sql .= " WHERE " . (implode(" AND ",$where));
         
-        return $this->fetch($sql,$param
-          
-        );
+        return $this->fetch($sql,$param);
     }
 		
 
@@ -201,27 +196,27 @@ class productRepository extends DbRepository
 	{
 		$sql = "
 			UPDATE products SET 
-				name = :name,
-				description = :description,
-				category_id = :category_id,
-				price = :price,
-				stock = :stock,
-				image = :image,
+				name         = :name,
+				description  = :description,
+				category_id  = :category_id,
+				price        = :price,
+				stock        = :stock,
+				image        = :image,
 				is_displayed = :is_displayed,
-				image_name = :image_name
+				image_name   = :image_name
 				WHERE id = :id
 				";
 
 		$stmt = $this->execute($sql,array(
-			':name'    =>$name,
-			':description'=>$description,
-			':category_id'=>$category_id,
-			':price'       =>$price,
-			':image'	  =>$image,
-			':stock'	  =>$stock,
-			':is_displayed' =>$is_displayed,
-			':image_name' =>$image_name,
-			':id'		=>$id,
+			':name'         => $name,
+			':description'  => $description,
+			':category_id'  => $category_id,
+			':price'        => $price,
+			':image'	    => $image,
+			':stock'	    => $stock,
+			':is_displayed' => $is_displayed,
+			':image_name'   => $image_name,
+			':id'           => $id
 		));
 	}
 	public function delete($id)
@@ -241,8 +236,8 @@ class productRepository extends DbRepository
 			";
 
 		$stmt = $this->execute($sql,array(
-			':id'=> $product_id,
-			':num'=>$number,
+			':id'  => $product_id,
+			':num' => $number,
 			));
 	}
 }
