@@ -38,8 +38,13 @@
 							</div>
 
 							<li><?php echo $this->escape($product['name']);?></li>
-							<li>price <?php echo $this->escape($product['price']);?></li>
-							<li>stock <?php echo $this->escape($product['stock']);?> <?php if($product['stock']==0){echo "soldout!";}?></li>
+							<li>price <?php echo '¥'.$this->escape(number_format($product['price'])).'+TAX';?></li>
+							<li><?php if($product['stock'] == 0):?>
+								<a style = "color:red;"">SOLD OUT!!<br/></a>
+								<?php else:?>
+								stock <?php echo $this->escape($product['stock']);?>
+								<?php endif;?></li>
+								 
 							<li><?php echo $this->escape($product['description']);?></li>
 
 							<input type="submit" value="商品詳細"/>

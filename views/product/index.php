@@ -37,7 +37,7 @@
 								<?php endif;?>
 							</div>
 							<li><?php echo $this->escape($product['name']);?></li>
-							<li>price <?php echo $this->escape($product['price']);?></li>
+							<li>price <?php echo '¥'.$this->escape(number_format($product['price']));?></li>
 							<li>stock <?php echo $this->escape($product['stock']);?></li>
 							<!-- <li><?php echo $this->escape($product['description']);?></li> -->
 							<?php if($product['is_displayed']==1):?><li style="color:red;">非表示中！<?php endif;?></li>

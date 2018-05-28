@@ -26,7 +26,7 @@
 				<?php echo $this->escape($product['id']);?></li>
 
 			<li>price
-				<?php echo $this->escape($product['price']);?></li>
+				<?php echo '¥'.$this->escape(number_format($product['price']));?></li>
 			<li>
 				stock
 				<?php echo $this->escape($product['stock']);?></li>

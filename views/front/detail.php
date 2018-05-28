@@ -15,7 +15,7 @@
 					<h2><?php echo $this->escape($product['name']);?></h2>
 
 					<li>price
-						<?php echo $this->escape($product['price']);?>				
+						<?php echo '¥'.$this->escape(number_format($product['price'])).'+TAX';?>				
 					</li>
 					<li>stock
 						<?php echo $this->escape($product['stock']);?>

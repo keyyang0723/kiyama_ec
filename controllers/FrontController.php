@@ -117,11 +117,9 @@ class FrontController extends Controller
 		if($product === false or $product['is_displayed']==1){
 			return $this->redirect('/errorpage');
 		}
-		// $number             ='';　
-		// $number= $this->request->getPost('number');
-		// $_SESSION['number'] = $number;
+	
 		return $this->render(array(
-			// 'number'     => $number,
+			
 			'product_id' => $product_id,
 			'product'    => $product));
 	}
