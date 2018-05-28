@@ -14,7 +14,7 @@
  </head>
  <body>
  	<div id="header">
- 		<h1><a href="<?php echo $base_url; ?>/">Kiyamazon</a></h1>
+ 		<h1><a href="<?php echo $base_url; ?>/">Kiyamazon<a style="font-size: 50%;">.com</a></a></h1>
  	</div>
  	
  	<div id="main">

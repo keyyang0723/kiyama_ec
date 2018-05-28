@@ -36,6 +36,8 @@ a{
 	margin: 0 10px;
 }
 #footer{
+	
+	text-align: center;
 	background-color:#f0f0f0;
 	height: 200px;
 }
