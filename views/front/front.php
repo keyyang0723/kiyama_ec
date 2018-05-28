@@ -37,7 +37,7 @@
 								<?php endif;?>
 							</div>
 							<ul class="product_contents">
-							<li><?php echo $this->escape($product['name']);?></li>
+							<a class="product_name"><?php echo $this->escape($product['name']);?></li>
 							<li>price <?php echo '¥'.$this->escape(number_format($product['price'])).'+TAX';?></li>
 							<li><?php if($product['stock'] == 0):?>
 								<a style = "color:red;"">SOLD OUT!!<br/></a>

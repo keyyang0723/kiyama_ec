@@ -81,7 +81,7 @@ div.product{
 }
 div.product_contents{
 	height: 350px;
-	width: 30%;
+	width: 31%;
 	border-bottom: 2px solid #CCCCCC;
 	float:left;
 	margin: 10px;
@@ -174,6 +174,10 @@ table.order td {
   padding: 10px;
   vertical-align: top;
  }
+ ul.product_contents li{
+ 	font-size: 80%;
+ 	color:grey;
+ }
 
 tr:nth-child(even) {
   background: #d9d9d9;
@@ -181,4 +185,7 @@ tr:nth-child(even) {
 
  li{
  	font-family: 'Source Sans Pro', sans-serif;
+ }
+ a.product_name{
+ 	font-size: 120%;
  }

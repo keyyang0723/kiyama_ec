@@ -30,23 +30,23 @@
 		<div class="product">
 			<?php foreach($products as $product):?>
 				<div class="product_contents">
-							<div class="image">
-								<?php if(isset($product['image_name'])):?>
-								<a href="<?php echo $base_url;?>/admin/product/<?php echo $this->escape($product['id']);?>"><img class="main" src =<?php echo '/image/'.$product['image_name'].'.jpg';?> class="product_image"></a>
-								<?php endif;?>
-							</div>
-							<ul class="product_contents">
-							<li><?php echo $this->escape($product['name']);?></li>
+					<div class="image">
+						<?php if(isset($product['image_name'])):?>
+						<a href="<?php echo $base_url;?>/admin/product/<?php echo $this->escape($product['id']);?>"><img class="main" src =<?php echo '/image/'.$product['image_name'].'.jpg';?> class="product_image"></a>
+						<?php endif;?>
+					</div>
+					<ul class="product_contents">
+							<a class="product_name"><?php echo $this->escape($product['name']);?></a>
 							<li>price <?php echo '¥'.$this->escape(number_format($product['price']));?></li>
 							<li>stock <?php echo $this->escape($product['stock']);?></li>
 							<!-- <li><?php echo $this->escape($product['description']);?></li> -->
 							<?php if($product['is_displayed']==1):?><li style="color:red;">非表示中！<?php endif;?></li>
 						
 						<form action="<?php echo $base_url;?>/admin/product/<?php echo $this->escape($product['id']);?>" method="post">
-						<input type="submit" value="詳細表示"/>					
-					</form>
-				</ul>
-			</div>
+							<input type="submit" value="詳細表示"/>					
+						</form>
+					</ul>
+				</div>
 			<?php endforeach; ?>
 		</div>
 		<div class="pager">
