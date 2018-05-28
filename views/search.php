@@ -1,4 +1,5 @@
-<ul>商品を探す
+<ul class="search">
+	<a>商品を探す</a>
 	<li>商品名で検索</li>	
 		<input type="text" name="search_name" value="<?php echo $this->escape($search_name)?>" />
 
@@ -15,8 +16,6 @@
 					<?php echo '全て';?>
 				</div>
 		</div>
-	<p>
-		<input type="submit" value="調べる" />
-	</p>
-</ul>
 
+</ul>
+<input style="width: 50%;"type="submit" value="調べる" />

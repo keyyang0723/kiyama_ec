@@ -9,7 +9,7 @@
 	</div>
 		
 	<div id="center">
-		<h3>商品一覧</h3>
+		<h2>商品一覧</h2>
 
 		<div class="pager">
 			<?php if($prev_page>=1):?>

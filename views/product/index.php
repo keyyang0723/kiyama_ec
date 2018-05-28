@@ -10,7 +10,7 @@
 	</div>
 
 	<div id="center">
-		<h3>商品一覧</h3>
+		<h2>商品一覧</h2>
 
 		<div class="pager">
 			<?php if($prev_page>=1):?>
@@ -43,7 +43,7 @@
 							<?php if($product['is_displayed']==1):?><li style="color:red;">非表示中！<?php endif;?></li>
 						
 						<form action="<?php echo $base_url;?>/admin/product/<?php echo $this->escape($product['id']);?>" method="post">
-							<input type="submit" value="詳細表示"/>					
+							<input type="submit" value="詳細表示" />					
 						</form>
 					</ul>
 				</div>

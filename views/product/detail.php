@@ -8,7 +8,7 @@
 			<?php endif;?>
 		</div>
 
-		<ul class="product_detail">
+		<div class="product_detail">
 			<form action="<?php echo $base_url;?>/admin/product/<?php echo $this->escape($product['id']);?>/edit" method="post">
 				<input type="hidden" name="name" value="<?php echo $this->escape($product['name']);?>" />
 				<input type="hidden" name="id" value="<?php echo $this->escape($product['id']);?>" />
@@ -22,20 +22,22 @@
 				<input type="hidden" name="is_displayed" value="<?php echo $this->escape($product['is_displayed']);?>" />
 
 			<h2><?php echo $this->escape($product['name']);?></h2>
-			<li>管理番号
-				<?php echo $this->escape($product['id']);?></li>
+			<ul class="product_detail">
+				<li>管理番号
+					<?php echo $this->escape($product['id']);?></li>
 
-			<li>price
-				<?php echo '¥'.$this->escape(number_format($product['price']));?></li>
-			<li>
-				stock
-				<?php echo $this->escape($product['stock']);?></li>
-			<li>
-				説明
-				<?php echo $this->escape($product['description']);?></li>
-				<input type="submit" value="詳細編集"/>
+				<li>price
+					<?php echo '¥'.$this->escape(number_format($product['price']));?></li>
+				<li>
+					stock
+					<?php echo $this->escape($product['stock']);?></li>
+				<li>
+					説明<br/>
+					<a class="discription"><?php echo $this->escape($product['description']);?></a></li>
+				</ul>
+					<input type="submit" class="detail" value="詳細編集"/>
 			</form>
 			<a href="<?php echo $base_url;?>/admin">ホームに戻る</a>
-		</ul>
+		</div>
 	</div>
 </div>
