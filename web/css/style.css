@@ -79,13 +79,18 @@ div.product{
 	width: 100%;
 
 }
-ul.product_contents{
+div.product_contents{
 	height: 350px;
 	width: 30%;
-	padding: 10px;
 	border-bottom: 2px solid #CCCCCC;
-	margin: 10px;
 	float:left;
+	margin: 10px;
+	justify-content: center;
+	
+}
+ul.product_contents{
+	
+	width: 100%;
 }
 
 
@@ -100,16 +105,26 @@ ul.error_list{
 ul.error_list li{
 	color:#FF0000;
 }
-div.hoge{
-	width: 300px;
+div.image{
+	width: 100%;
 	height: 200px;
-	position: relative;
+
+	
 }
 img.main{
+	display: block;
     max-width: 200px;
     max-height: 200px;
     height: auto;
-    position: absolute;
+    margin: 10px auto;
+    bottom:0;
+}
+img.edit{
+	
+    max-width: 200px;
+    max-height: 200px;
+    height: auto;
+    margin: 10px auto;
     bottom:0;
 }
 img.detail{

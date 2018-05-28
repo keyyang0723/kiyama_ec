@@ -129,7 +129,7 @@ class ProductController extends Controller
 			return $this->redirect('/account/signin');
 		}
 
-		$products 	= $this->db_manager->get('product')->fetchAllProduct();
+		
 		$categories = $this->db_manager->get('category')->fetchAllCategories();
 		if(!$this->request->isPost()){
 		

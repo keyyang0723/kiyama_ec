@@ -43,8 +43,8 @@
 			<h3>画像</h3>
 
 				<?php if(strlen($image_name)!=0):?>
-					<div class="hoge">
-						<img class="main" src =<?php echo '/image/'.$image_name.'.jpg';?> >
+					<div class="main">
+						<img class="edit" src =<?php echo '/image/'.$image_name.'.jpg';?> >
 					</div>
 				<?php endif?>
 			<input type="hidden" name="image_name" value="<?php echo $this->escape($image_name);?>" />

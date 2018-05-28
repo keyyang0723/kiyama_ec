@@ -28,15 +28,15 @@
 		</div>
 		<div class="product">
 			<?php foreach($products as $product):?>
-				<ul class="product_contents">
+				<div class="product_contents">
 					<?php if($product['is_displayed']==0):?>
-						<form action="<?php echo $base_url;?>/<?php echo $this->escape($product['id']);?>/detail" method="post">
-							<div class="hoge">							
+						
+							<div class="image">							
 								<?php if(isset($product['image_name'])):?>
 								<a href="<?php echo $base_url;?>/<?php echo $this->escape($product['id']);?>/detail"><img class="main" src =<?php echo '/image/'.$product['image_name'].'.jpg';?> ></a>
 								<?php endif;?>
 							</div>
-
+							<ul class="product_contents">
 							<li><?php echo $this->escape($product['name']);?></li>
 							<li>price <?php echo '¥'.$this->escape(number_format($product['price'])).'+TAX';?></li>
 							<li><?php if($product['stock'] == 0):?>
@@ -45,12 +45,13 @@
 								stock <?php echo $this->escape($product['stock']);?>
 								<?php endif;?></li>
 								 
-							<li><?php echo $this->escape($product['description']);?></li>
-
+							<!-- <li><?php echo $this->escape($product['description']);?></li> -->
+							<form action="<?php echo $base_url;?>/<?php echo $this->escape($product['id']);?>/detail" method="post">
 							<input type="submit" value="商品詳細"/>
 						</form>
 					<?php endif;?>
 				</ul>
+			</div>
 			<?php endforeach; ?>
 		</div>
 		<div class="pager">
