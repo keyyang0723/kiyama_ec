@@ -26,7 +26,7 @@
 					<div class="stock">
 						個数を選択してください<br/>
 						<?php if($product['stock']==0):?>
-							<a style = "color:red;"">SOLD OUT!!<br/></a>
+							<a class="soldout">SOLD OUT!!<br/></a>
 						<?php else :?>
 							<div class="select" style="width: 100%;">
 								<select name = 'number' >

@@ -8,12 +8,10 @@ body{
 h1{
 	color:white;
 }
-a{
 
-}
 #header{
 	background-color: #000033;
-	padding: 20px;
+	padding: 10px 80px;
 	border-bottom: 3px solid #CCCCCC;
 	position: relative;
 	  top: 5px;
@@ -36,7 +34,7 @@ a{
 	margin: 0 10px;
 }
 #footer{
-	
+
 	text-align: center;
 	background-color:#f0f0f0;
 	height: 200px;
@@ -148,6 +146,13 @@ div.detail_image{
 	height: 60%;
 	width: 70%;
 	
+}
+
+div.stock{
+	font-size: 80%;
+}
+a.soldout{
+	color:red;
 }
 
 ul.product_detail{
