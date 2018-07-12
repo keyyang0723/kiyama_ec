@@ -2,43 +2,7 @@
 
 class ProductController extends Controller
 {
-	// public function indexAction()
-	// {	
-	// 	if(!$this->session->isAuthenticated()){
-	// 		return $this->redirect('/account/signin');
-	// 	}
-
-	// 	$number_of_products	= $this->db_manager->get('product')->countproduct();
-	// 	$display_amount	    = 15;
-	// 	$last_page 		    = ceil($number_of_products['count'] / $display_amount);
-	// 	$now_page           = $this->request->getget('page') ? $this->request->getget('page') : 1;
-	// 	$next_page          = $now_page+1;
-	// 	$prev_page          = $now_page-1;
-	// 	$display_product    = floor(($now_page-1)*$display_amount);
-
-	// 	$products 		    = $this->db_manager->get('product')->fetchPageProduct($display_product,$display_amount);
-	// 	$categories 		= $this->db_manager->get('category')->fetchAllCategories();
-		
-
-
-
-	// 	return $this->render(array(
-	// 		'products'			=> $products,
-	// 		'last_page'			=> $last_page,
-	// 		'now_page'			=> $now_page,
-	// 		'display_product' 	=> $display_product,
-	// 		'categories'		=> $categories,
-	// 		'number_of_products'=> $number_of_products,
-	// 		'next_page'         => $next_page,
-	// 		'prev_page'         => $prev_page,
-	// 		'name'   			=> '',
-	// 	));	
-
-
-
-	// }
-
-
+	
 	public function indexAction(){
 
 		if(!$this->session->isAuthenticated()){

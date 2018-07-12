@@ -103,8 +103,8 @@ input.detail{
 }
 
 ul.error_list{
-	border: 1px solid #FF0000;
-	background-color: #FFCCCC;
+	/*border: 1px solid #FF0000;
+	background-color: #FFCCCC;*/
 	padding-top: 10px;
 	padding-bottom: 10px;
 }

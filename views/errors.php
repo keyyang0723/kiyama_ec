@@ -1,6 +1,6 @@
 <ul class="error_list">
 	 <?php foreach ($errors as $error): ?>
-	 <ls><?php echo $this->escape($error);?></ls>
+	 <li><?php echo $this->escape($error);?></li><br/>
 	<?php endforeach; ?>
 </ul>
 	
