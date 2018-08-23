@@ -1,4 +1,14 @@
+<!-- 使用してないページ -->
+
+
+
+<h1>test</h1>
+
+
 <?php $this->setLayoutVar('title','ホーム')?>
+
+<?php echo $this->render('front_bar',array());?>
+
 <div id="front">
 	<div id="sidebar">
 		<form action="<?php echo $base_url;?>/search" method="post">

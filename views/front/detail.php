@@ -1,4 +1,6 @@
 <?php $this->setLayoutVar('title',$product['name'])?>
+
+<?php echo $this->render('back',array());?>
 <div id = "front">
 	<div id = "detail">	
 		<div class = "detail_image">

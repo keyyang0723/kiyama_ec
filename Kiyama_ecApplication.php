@@ -69,8 +69,22 @@ class Kiyama_ecApplication extends Application
 				 => array('controller' => 'front','action'=>'front'),
 				 '/form'
 				 => array('controller' => 'front','action'=>'form'),
+				 '/insertcart'
+				 => array('controller' => 'front','action'=>'insertcart'),
+				 '/deletecart'
+				 => array('controller' => 'front','action'=>'deletecart'),
 				 '/:name/detail'
 				 => array('controller' => 'front','action'=>'detail'),
+
+				 '/customer'
+				 => array('controller' => 'customer','action'=>'index'),
+				 '/customer/:action'
+				 => array('controller' => 'customer'),
+
+				 '/mypage/:name'
+				 =>array('controller'=>'mypage','action'=>'main'),
+				  '/mypage/:name/:action'
+				 => array('controller' => 'mypage'),
 				
 
 

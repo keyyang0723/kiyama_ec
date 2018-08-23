@@ -4,7 +4,6 @@
 
 <p>
 	 ユーザID:
-	 <?php var_dump($admin,$_SESSION);?>
 	 <a href="<?php echo $base_url;?>/admin/<?php echo $this->escape($admin['user_
 	 name']); ?>">
 	 <strong><?php echo $this->escape($admin['user_name']);?></strong>

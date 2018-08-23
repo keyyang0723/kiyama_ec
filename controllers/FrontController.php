@@ -1,40 +1,9 @@
 <?php
 class FrontController extends Controller
 {
-	// public function frontAction()
-	// {
-
-	// 	$number_of_products	= $this->db_manager->get('product')->countProductRemoveIsdisplayed();
-	// 	$display_amount	    = 15;
-	// 	$last_page 		    = ceil($number_of_products['count'] / $display_amount);
-	// 	$now_page           = $this->request->getget('page') ? $this->request->getget('page') : 1;
-	// 	$next_page          = $now_page+1;
-	// 	$prev_page          = $now_page-1;
-	// 	$display_product    = floor(($now_page-1)*$display_amount);
-
-	// 	$products 		    = $this->db_manager->get('product')->fetchPageProductDisIs_displayed($display_product,$display_amount);
-	// 	$categories 		= $this->db_manager->get('category')->fetchAllCategories();
-		
-
-	// 	return $this->render(array(
-	// 		'products'=>$products,
-	// 		'categories' =>$categories,
-
-	// 		'products'			=> $products,
-	// 		'last_page'			=> $last_page,
-	// 		'now_page'			=> $now_page,
-	// 		'display_product' 	=> $display_product,
-	// 		'categories'		=> $categories,
-	// 		'number_of_products'=> $number_of_products,
-	// 		'next_page'         => $next_page,
-	// 		'prev_page'         => $prev_page,
-	// 		'name'   			=> '',
-	// 	));	
-
-	// }
-
 	public function frontAction(){
-		
+		$customer = $this->session->get('customer');
+
 		$categories         = $this->db_manager->get('category')->fetchAllCategories();
 		$search_name        = $this->request->getPost('search_name');
 		$category_id        = $this->request->getPost('category_id');
@@ -82,6 +51,7 @@ class FrontController extends Controller
 			'number_of_products'=> $number_of_products,
 			'next_page'         => $next_page,
 			'prev_page'         => $prev_page,
+			'customer'          => $customer,
 		));
 		}else{
 			return $this->render(array(
@@ -96,6 +66,7 @@ class FrontController extends Controller
 			'number_of_products'=> $number_of_products,
 			'next_page'         => $next_page,
 			'prev_page'         => $prev_page,
+			'customer'          => $customer,
 			));
 		}
 	}
@@ -406,6 +377,26 @@ class FrontController extends Controller
 		return $this->render(array());
 	}
 
+	public function insertcartAction(){
+		$product_id = $this->request->getPost('product_id');
+		$customer = $this->session->get('customer');
+	    if($this->db_manager->get('cart')->isNotRegisted($customer['customer_id'],$product_id)){
+		   $this->db_manager->get('cart')->insertCart($customer['customer_id'],$product_id);
+	    }
+		
+		return $this->redirect('/');
+	}
+
+	public function deletecartAction(){
+		$cart_id = $this->request->getPost('cart_id');
+		$customer = $this->session->get('customer');
+		var_dump($customer);
+	    if($this->db_manager->get('cart')->isRegisted($cart_id)){
+		   $this->db_manager->get('cart')->deleteCart($cart_id);
+	    }
+		
+		return $this->redirect('/mypage/'.$customer['customer_name'].'/cart');
+	}
 	
 
 

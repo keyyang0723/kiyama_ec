@@ -5,15 +5,7 @@ class AccountController extends Controller
 	protected $auth_actions = array('index','signout');
 
 
-	public function signupAction()
-	{
-		return $this->render(array(
-			'user_name' => '',
-			'password'  => '',
-		 	'_token'    => $this->generateCsrfToken('account/signup'),
-		));
-	}
-
+	
 	public function registerAction()
 	{
 		if(!$this ->request->isPost()){
@@ -68,6 +60,15 @@ class AccountController extends Controller
 	{
 		$admin = $this->session->get('admin');
 		return $this->render(array('admin'=>$admin));
+	}
+
+	public function signupAction()
+	{
+		return $this->render(array(
+			'user_name' => '',
+			'password'  => '',
+		 	'_token'    => $this->generateCsrfToken('account/signup'),
+		));
 	}
 
 

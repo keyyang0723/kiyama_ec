@@ -1,5 +1,7 @@
 <?php $this->setLayoutVar('title','ホーム')?>
 
+<?php echo $this->render('front_bar',array('customer'=> $customer,));?>
+
 <div id="front">
 
 	<div class="sidebar">
@@ -37,7 +39,7 @@
 								<?php endif;?>
 							</div>
 							<ul class="product_contents">
-							<a class="product_name"><?php echo $this->escape($product['name']);?></li>
+							<a class="product_name"><?php echo $this->escape($product['name']);?></a>
 							<li>price <?php echo '¥'.$this->escape(number_format($product['price'])).'+TAX';?></li>
 							<li><?php if($product['stock'] == 0):?>
 								<a style = "color:red;"">SOLD OUT!!<br/></a>
@@ -48,6 +50,10 @@
 							<!-- <li><?php echo $this->escape($product['description']);?></li> -->
 							<form action="<?php echo $base_url;?>/<?php echo $this->escape($product['id']);?>/detail" method="post">
 							<input type="submit" value="商品詳細"/>
+						</form>
+						<form action="<?php echo $base_url;?>/insertcart" method="post">
+							<input type = "hidden" name="product_id" value = "<?php echo $this->escape($product['id']);?>" />
+							<input type="submit" value="カートに入れる"/>
 						</form>
 					<?php endif;?>
 				</ul>

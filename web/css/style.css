@@ -53,6 +53,11 @@ h1{
 	margin:20px 100px;
 	justify-content: center;
 }
+#mypage{
+	display: flex;
+	margin:20px 100px;
+	justify-content: center;
+}
 #detail{
 	justify-content: center;
 	display: flex;
@@ -70,7 +75,7 @@ h1{
 }
 #center{
 	margin:0; 
-	width: 100%;
+	width: 80%;
 	
 	}
 #categories{
@@ -231,6 +236,21 @@ ul.search li{
 	font-size: 90%;
 	margin-top:20px;
 	margin-bottom:10px;
+}
+
+
+ul.sidebar{
+	margin-top: 50px;
+ 	margin-right: 50px;
+}
+ul.sidebar li{
+	font-size: 90%;
+	margin-top:20px;
+	margin-bottom:10px;
+}
+
+ul.sidebar p{
+	font-size: 120%;
 }
 div.cate{
 	margin-top:5px;

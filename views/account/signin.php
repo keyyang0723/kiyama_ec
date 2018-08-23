@@ -2,10 +2,10 @@
 <?php echo $this->render('back',array());?>
 <h2>ログイン</h2>
 
-<!-- <p>
+<p>
 	 <a href="<?php echo $base_url;?>/account/signup">新規ユーザ登録</a>
 </p>
- -->
+
 <form action="<?php echo $base_url;?>/account/authenticate" method="post">
 	<input type="hidden" name="_token" value="<?php echo $this->escape($_token);?>"/>
 

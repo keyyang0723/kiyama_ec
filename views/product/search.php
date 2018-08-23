@@ -1,3 +1,7 @@
+<!-- 使用してないページ -->
+
+<h1>test</h1>
+
 <?php $this->setLayoutVar('title','検索結果')?>
 <?php echo $this->render('back',array());?>
 <div id="front">
