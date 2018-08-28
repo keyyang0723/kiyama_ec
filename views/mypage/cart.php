@@ -6,7 +6,15 @@
 	</div>
 	<div id="center">
 		<h2>カート内一覧</h2>
+		<?php if(count($cart_items) == 0 ):?>
+				<h2>・現在カートは空です</h2>
+		<?php else:?>
+		<div class="buy">
+			<a href="<?php echo $base_url;?>/mypage/<?php echo $customer['customer_name']?>/purchase">購入画面へ</a>
+		</div>
+
 		<div class="product">
+
 			<?php foreach($cart_items as $product):?>
 				<div class="product_contents">
 					<?php if($product['is_displayed']==0):?>				
@@ -32,9 +40,14 @@
 								<input type="submit" value="カートから削除"/>
 							</form>
 						</ul>
+						
 					<?php endif;?>
 				</div>
-			<?php endforeach; ?>
+			<?php endforeach;?>
 		</div>
+		<div class="buy">
+			<a href="<?php echo $base_url;?>/mypage/<?php echo $customer['customer_name']?>/purchase">購入画面へ</a>
+		</div>
+	<?php endif?>
 	</div>
 </div>

@@ -45,16 +45,18 @@
 								<a style = "color:red;"">SOLD OUT!!<br/></a>
 								<?php else:?>
 								stock <?php echo $this->escape($product['stock']);?>
-								<?php endif;?></li>
+								</li>
+								<form action="<?php echo $base_url;?>/insertcart" method="post">
+							<input type = "hidden" name="product_id" value = "<?php echo $this->escape($product['id']);?>" />
+							<input type="submit" value="カートに入れる"/>
+						</form>
+						<?php endif;?>
 								 
 							<!-- <li><?php echo $this->escape($product['description']);?></li> -->
 							<form action="<?php echo $base_url;?>/<?php echo $this->escape($product['id']);?>/detail" method="post">
 							<input type="submit" value="商品詳細"/>
 						</form>
-						<form action="<?php echo $base_url;?>/insertcart" method="post">
-							<input type = "hidden" name="product_id" value = "<?php echo $this->escape($product['id']);?>" />
-							<input type="submit" value="カートに入れる"/>
-						</form>
+
 					<?php endif;?>
 				</ul>
 			</div>

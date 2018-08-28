@@ -104,7 +104,6 @@ class ProductController extends Controller
 			'categories' 	=> $categories,
 			'category_id'	=> '',
 			'price'       	=> '',
-			'image'	  		=> '',
 			'stock'	  		=> '',
 			'fname'  		=> '',
 			'image_name'    => '',
@@ -118,7 +117,6 @@ class ProductController extends Controller
 		$price        = $this->request->getPost('price');
 		$stock        = $this->request->getPost('stock');
 		$category_id  = $this->request->getPost('category_id');
-		$image        = $this->request->getPost('image');
 		$id           = $this->request->getPost('id');
 		$is_displayed = $this->request->getPost('is_displayed');
 		$image_name   = $this->request->getPost('image_name');
@@ -198,11 +196,11 @@ class ProductController extends Controller
 
 			}
 			if($id === null){
-				$this->db_manager->get('Product')->insert($name,$description,$category_id,$price,$image,$stock,$image_name);
+				$this->db_manager->get('Product')->insert($name,$description,$category_id,$price,$stock,$image_name);
 
 				return $this->redirect('/admin');
 			}else{
-			$this->db_manager->get('Product')->edit($name,$description,$category_id,$price,$image,$stock,$is_displayed,$id,$image_name);}
+			$this->db_manager->get('Product')->edit($name,$description,$category_id,$price,$stock,$is_displayed,$id,$image_name);}
 			return $this->render(array(
 				'errors'       => $errors,
 				'name'         => $name,
@@ -210,7 +208,6 @@ class ProductController extends Controller
 				'categories'   => $categories,
 				'category_id'  => $category_id,
 				'price'        => $price,
-				'image'	       => $image,
 				'stock'	       => $stock,
 				'is_displayed' => $is_displayed,
 				'image_name'   => $image_name,
@@ -226,7 +223,6 @@ class ProductController extends Controller
 				'categories'   => $categories,
 				'category_id'  => $category_id,
 				'price'        => $price,
-				'image'	       => $image,
 				'stock'	       => $stock,
 				'is_displayed' => $is_displayed,
 				'image_name'   => $image_name,

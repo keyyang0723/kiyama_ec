@@ -10,7 +10,7 @@
 		</div>
 
 		<div class = "product_detail">
-				<form action = "<?php echo $base_url;?>/form"  method = "post">
+				<form action = "<?php echo $base_url;?>/purchase"  method = "post">
 					<input type = "hidden" name="product_id" value = "<?php echo $this->escape($product_id);?>" />
 		
 				<ul class="product_detail">
@@ -39,9 +39,15 @@
 							</div>
 					</div>
 				<input class="detail" type = "submit" value = "購入する"/><br/>
-				<?php endif?>
+				</form>
+				
+				<form action="<?php echo $base_url;?>/insertcart" method="post">
+							<input type = "hidden" name="product_id" value = "<?php echo $this->escape($product['id']);?>" />
+							<input type="submit" value="カートに入れる"/>
+						</form>
+						<?php endif?>
 				<a href = "<?php echo $base_url;?>/">ホームへ戻る</a>
-			</form>
+			
 			
 		</div>
 		

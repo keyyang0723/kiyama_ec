@@ -12,19 +12,25 @@ class cartRepository extends DbRepository{
 	}
 	public 
 	function fetchByCustomer_id($customer_id){
-		$sql ="SELECT * FROM cart INNER JOIN products  ON cart.product_id = products.id WHERE customer_id = :customer_id ";
+		$sql ="SELECT * FROM cart INNER JOIN products  
+		ON cart.product_id = products.id 
+		WHERE customer_id = :customer_id 
+		AND cart.bought = 0 ";
 		return $this->fetchAll($sql,array(':customer_id'=>$customer_id));
 	}
 
 	public function isNotRegisted($customer_id,$product_id)
 	{
-		$sql = "SELECT COUNT(customer_id) as count FROM cart WHERE customer_id = :customer_id and  product_id = :product_id";
+		$sql = "SELECT COUNT(customer_id) as count FROM cart 
+		WHERE customer_id = :customer_id 
+		and  product_id = :product_id
+		and bought = 0";
 
 		$row = $this->fetch($sql,array(
 			':customer_id' => $customer_id,
 			':product_id'  => $product_id,
 		));
-		if($row['count']==='0'){
+		if($row['count'] === '0'){
 			return true;
 		}
 		return false;

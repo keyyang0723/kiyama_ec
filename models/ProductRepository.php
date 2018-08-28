@@ -2,11 +2,11 @@
 
 class productRepository extends DbRepository
 {
-	public function insert($name,$description,$category_id,$price,$image,$stock,$image_name)
+	public function insert($name,$description,$category_id,$price,$stock,$image_name)
 	{
 		$sql = " 
-			INSERT INTO products(name,description,category_id,price,image,stock,image_name)
-			VALUES(:name,:description,:category_id,:price,:image,:stock,:image_name)
+			INSERT INTO products(name,description,category_id,price,stock,image_name)
+			VALUES(:name,:description,:category_id,:price,:stock,:image_name)
 			";
 
 		$stmt = $this->execute($sql,array(
@@ -14,7 +14,7 @@ class productRepository extends DbRepository
 			':description' => $description,
 			':category_id' => $category_id,
 			':price'       => $price,
-			':image'	   => $image,
+			
 			':stock'	   => $stock,
 			':image_name'  => $image_name,
 		));
@@ -192,7 +192,7 @@ class productRepository extends DbRepository
     }
 		
 
-	public function edit($name,$description,$category_id,$price,$image,$stock,$is_displayed,$id,$image_name)
+	public function edit($name,$description,$category_id,$price,$stock,$is_displayed,$id,$image_name)
 	{
 		$sql = "
 			UPDATE products SET 
@@ -201,7 +201,7 @@ class productRepository extends DbRepository
 				category_id  = :category_id,
 				price        = :price,
 				stock        = :stock,
-				image        = :image,
+				
 				is_displayed = :is_displayed,
 				image_name   = :image_name
 				WHERE id = :id
@@ -212,7 +212,7 @@ class productRepository extends DbRepository
 			':description'  => $description,
 			':category_id'  => $category_id,
 			':price'        => $price,
-			':image'	    => $image,
+			
 			':stock'	    => $stock,
 			':is_displayed' => $is_displayed,
 			':image_name'   => $image_name,

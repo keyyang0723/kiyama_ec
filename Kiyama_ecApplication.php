@@ -73,6 +73,8 @@ class Kiyama_ecApplication extends Application
 				 => array('controller' => 'front','action'=>'insertcart'),
 				 '/deletecart'
 				 => array('controller' => 'front','action'=>'deletecart'),
+				  '/purchase'
+				 => array('controller' => 'front','action'=>'purchase'),
 				 '/:name/detail'
 				 => array('controller' => 'front','action'=>'detail'),
 

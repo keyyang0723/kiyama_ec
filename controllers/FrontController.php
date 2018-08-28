@@ -378,6 +378,9 @@ class FrontController extends Controller
 	}
 
 	public function insertcartAction(){
+		if(!$this->session->isAuthenticated()){
+			return $this->redirect('/customer/signin');
+		}
 		$product_id = $this->request->getPost('product_id');
 		$customer = $this->session->get('customer');
 	    if($this->db_manager->get('cart')->isNotRegisted($customer['customer_id'],$product_id)){
@@ -398,6 +401,18 @@ class FrontController extends Controller
 		return $this->redirect('/mypage/'.$customer['customer_name'].'/cart');
 	}
 	
+	public function purchaseAction(){
+		if(!$this->session->isAuthenticated()){
+			return $this->redirect('/customer/signin');
+		}
+		$product_id = $this->request->getPost('product_id');
+		$customer = $this->session->get('customer');
+	    if($this->db_manager->get('cart')->isNotRegisted($customer['customer_id'],$product_id)){
+		   $this->db_manager->get('cart')->insertCart($customer['customer_id'],$product_id);
+	    }
+		
+		return $this->redirect('/mypage/'.$customer['customer_name'].'/purchase');
+	}
 
 
 }

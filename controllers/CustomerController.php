@@ -7,15 +7,21 @@ class CustomerController extends Controller{
 
 	//登録
 	public function signupAction(){
+		$customer = $this->session->get('customer');
+
+
 		return $this->render(array(
 			'customer_name' => '',
 			'password'  => '',
 		 	'_token'    => $this->generateCsrfToken('customer/signup'),
+		 	'customer'          => $customer,
 		));
 	}
 
 	//ログイン
 	public function signinAction(){
+		$customer = $this->session->get('customer');
+
 		if($this->session->isAuthenticated()){
 			return $this->redirect('/');
 		}
@@ -24,6 +30,7 @@ class CustomerController extends Controller{
 			'customer_name'  => '',
 			'password'   => '',
 			'_token'     => $this->generateCsrfToken('customer/signin'),
+			'customer'          => $customer,
 		));
 	}
 
