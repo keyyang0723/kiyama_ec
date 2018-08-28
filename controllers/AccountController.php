@@ -26,7 +26,7 @@ class AccountController extends Controller
 			$errors[] ='ユーザIDを入力してください';
 		}else if(!preg_match('/^\w{3,20}$/',$user_name)){
 			$errors[] ='ユーザIDは半角英数字およびアンダースコアを３〜２０文字以内で入力してください';
-		}else if(!$this->db_manager->get('Admin')->isUniqueUserName($user_name)){
+		}else if(!$this->db_manager->get('admin')->isUniqueUserName($user_name)){
 			$errors[]='ユーザIDは既に使用されています';
 		}
 

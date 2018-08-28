@@ -9,7 +9,7 @@ class ProductController extends Controller
 			$this->session->clear();
 			$this->session->setAuthenticated(false);
 		}
-		
+
 		if(!$this->session->isAuthenticated()){
 			return $this->redirect('/account/signin');
 		}
@@ -78,13 +78,17 @@ class ProductController extends Controller
 
 	public function detailAction()
 	{
+		if(!$this->session->get('admin')){
+			$this->session->clear();
+			$this->session->setAuthenticated(false);
+		}
 		if(!$this->session->isAuthenticated()){
 			return $this->redirect('/account/signin');
 		}
 		$path_info = $this->request->getPathInfo();
 		$parms     = explode('/',$path_info);
 		$id        = $parms[3];
-		$product   = $this->db_manager->get('Product')->fetchById($id);
+		$product   = $this->db_manager->get('product')->fetchById($id);
 
 		if($product === false){
 			return $this->redirect('/admin/errorpage');
@@ -96,6 +100,10 @@ class ProductController extends Controller
 
 	public function editAction()
 	{
+		if(!$this->session->get('admin')){
+			$this->session->clear();
+			$this->session->setAuthenticated(false);
+		}
 		if(!$this->session->isAuthenticated()){
 			return $this->redirect('/account/signin');
 		}
@@ -203,11 +211,11 @@ class ProductController extends Controller
 
 			}
 			if($id === null){
-				$this->db_manager->get('Product')->insert($name,$description,$category_id,$price,$stock,$image_name);
+				$this->db_manager->get('product')->insert($name,$description,$category_id,$price,$stock,$image_name);
 
 				return $this->redirect('/admin');
 			}else{
-			$this->db_manager->get('Product')->edit($name,$description,$category_id,$price,$stock,$is_displayed,$id,$image_name);}
+			$this->db_manager->get('product')->edit($name,$description,$category_id,$price,$stock,$is_displayed,$id,$image_name);}
 			return $this->render(array(
 				'errors'       => $errors,
 				'name'         => $name,

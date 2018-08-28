@@ -5,7 +5,7 @@
 
 	<div class="sidebar">
 		<form  action="<?php echo $base_url;?>/search" method="post">
-			<?php echo $this->render('search',array('categories'=>$categories,'category_id'=>'','search_name'=>''));?>
+			<?php echo $this->render('search',array('categories'=>$categories,'category_id'=>$category_id,'search_name'=>$search_name));?>
 		</form>
 	</div>
 		
@@ -19,7 +19,11 @@
 				<?php echo ' < '; ?>
 			<?php endif;?>
 			<?php for($i=1;$i<=$last_page;$i++):?>
-				<a href="<?php echo $base_url;?>/?page=<?php echo $i; ?>"><?php echo $i.' '; ?></a>
+				<?php if($i == $now_page):?>
+					<a><?php echo $i.' '; ?></a>
+				<?php else:?>
+					<a href="<?php echo $base_url;?>/?page=<?php echo $i; ?>"><?php echo $i.' '; ?></a>
+				<?php endif?>
 			<?php endfor;?>
 			<?php if($next_page <= $last_page):?>
 				<a href="<?php echo $base_url;?>/?page=<?php echo $next_page; ?>"><?php echo ' > '; ?></a>
@@ -66,7 +70,11 @@
 				<?php echo ' < '; ?>
 			<?php endif;?>
 			<?php for($i=1;$i<=$last_page;$i++):?>
-				<a href="<?php echo $base_url;?>/?page=<?php echo $i; ?>"><?php echo $i.' '; ?></a>
+				<?php if($i == $now_page):?>
+					<a><?php echo $i.' '; ?></a>
+				<?php else:?>
+					<a href="<?php echo $base_url;?>/?page=<?php echo $i; ?>"><?php echo $i.' '; ?></a>
+				<?php endif?>
 			<?php endfor;?>
 			<?php if($next_page <= $last_page):?>
 				<a href="<?php echo $base_url;?>/?page=<?php echo $next_page; ?>"><?php echo ' > '; ?></a>
