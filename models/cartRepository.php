@@ -1,13 +1,14 @@
 <?php 
 class cartRepository extends DbRepository{
 
-	public function insertCart($customer_id,$product_id){
+	public function insertCart($customer_id,$product_id,$amount){
 		$sql ="
-		INSERT INTO cart(customer_id,product_id)
-			      VALUES(:customer_id,:product_id)";
+		INSERT INTO cart(customer_id,product_id,amount)
+			      VALUES(:customer_id,:product_id,:amount)";
 		$stmt = $this->execute($sql,array(
 			':customer_id' =>$customer_id,
 			':product_id'  =>$product_id,
+			':amount'      =>$amount
 		));
 	}
 	public 
@@ -55,6 +56,19 @@ class cartRepository extends DbRepository{
 			
 			$stmt = $this->execute($sql,array(
 			':cart_id' =>$cart_id,
+		));
+	}
+
+	public function cartAmoutChage($amount,$cart_id){
+
+		$sql ="
+		UPDATE  cart 
+		SET amount = :amount 
+		WHERE cart_id = :cart_id";
+			
+			$stmt = $this->execute($sql,array(
+			':cart_id' => $cart_id,
+			':amount'  => $amount
 		));
 	}
 }

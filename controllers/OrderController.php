@@ -13,15 +13,25 @@ class OrderController extends Controller
 	public function detailAction(){
 		$id    = $this->request->getPost('id');
 		$order = $this->db_manager->get('order')->fetchById($id);
+		$orderd_detail_list = [];
 
+		
+			$orders_id            = $id;
+			$orderd_details       = $this->db_manager->get('order_details')->fetchAllByOrderdId($orders_id);
+			$orderd_detail_list[] =  $orderd_details;
+		
 		return $this->render(array(
 			'id'    => $id,
 			'order' => $order,
+			'orderd_detail_list' => $orderd_detail_list
 		));
 	}
 
 	public function editAction(){
-		
+		if(!$this->session->get('admin')){
+			$this->session->clear();
+			$this->session->setAuthenticated(false);
+		}
 		if(!$this->session->isAuthenticated()){
 			return $this->redirect('/account/signin');
 		}
@@ -35,7 +45,6 @@ class OrderController extends Controller
 			$customer_zipcode = $order['customer_zipcode'];
 			$customer_tel     = $order['customer_tel'];
 			$customer_email   = $order['customer_email'];
-			$product_id       = $order['product_id'];
 			$price            = $order['price'];
 			$tax_rate         = $order['tax_rate'];
 			$updated_at       = $order['updated_at'];	
@@ -49,7 +58,6 @@ class OrderController extends Controller
 			$customer_zipcode = $this->request->getPost('customer_zipcode');
 			$customer_tel     = $this->request->getPost('customer_tel');
 			$customer_email   = $this->request->getPost('customer_email');
-			$product_id       = $this->request->getPost('product_id');
 			$price            = $this->request->getPost('price');
 			$tax_rate         = $this->request->getPost('tax_rate');
 			$delite           = $this->request->getPost('delite');
@@ -115,12 +123,14 @@ class OrderController extends Controller
 		}
 
 		if(isset($delite)){
+			$orders_id = $id;
 			$this->db_manager->get('order')->delete($id);
+			$this->db_manager->get('order_details')->deliteByOrdersid($orders_id);
 			return $this->redirect('/admin/order');
 		}
 		if(count($errors) == 0){
-			$this->db_manager->get('Order')->edit($customer_name,$customer_address,$customer_street,$customer_zipcode,
-			$customer_tel,$customer_email,$product_id,$price,$tax_rate,$id,$number);
+			$this->db_manager->get('order')->edit($customer_name,$customer_address,$customer_street,$customer_zipcode,
+			$customer_tel,$customer_email,$price,$tax_rate,$id,$number);
 
 		}
 		return $this->render(array(
@@ -133,7 +143,6 @@ class OrderController extends Controller
 			'customer_zipcode' => $customer_zipcode,
 			'customer_tel'     => $customer_tel,
 			'customer_email'   => $customer_email,
-			'product_id'       => $product_id,
 			'price'            => $price,
 			'tax_rate'         => $tax_rate,
 			'updated_at'       => $updated_at,

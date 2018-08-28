@@ -1,7 +1,16 @@
 <?php
+
+ini_set("display_errors", 1);
+error_reporting(E_ALL);
+//ユーザー用アカウントコントローラー
 class FrontController extends Controller
 {
 	public function frontAction(){
+		if(!$this->session->get('customer')){
+			$this->session->clear();
+			$this->session->setAuthenticated(false);
+		}
+
 		$customer = $this->session->get('customer');
 
 		$categories         = $this->db_manager->get('category')->fetchAllCategories();
@@ -80,19 +89,23 @@ class FrontController extends Controller
 
 	public function detailAction()
 	{
+		$customer   = $this->session->get('customer');
 		$path_info  = $this->request->getPathInfo();
 		$parms      = explode('/',$path_info);
 		$product_id = $parms[1];
 		$product    = $this->db_manager->get('product')->fetchByProductId($product_id);
+
 
 		if($product === false or $product['is_displayed']==1){
 			return $this->redirect('/errorpage');
 		}
 	
 		return $this->render(array(
-			
+			'customer'   => $customer,
+			'path_info'  => $path_info,
 			'product_id' => $product_id,
-			'product'    => $product));
+			'product'    => $product
+		));
 	}
 
 
@@ -381,24 +394,29 @@ class FrontController extends Controller
 		if(!$this->session->isAuthenticated()){
 			return $this->redirect('/customer/signin');
 		}
+
+		$path = $this->request->getPost('path');
 		$product_id = $this->request->getPost('product_id');
 		$customer = $this->session->get('customer');
+		$amount = $this->request->getPost('amount');
 	    if($this->db_manager->get('cart')->isNotRegisted($customer['customer_id'],$product_id)){
-		   $this->db_manager->get('cart')->insertCart($customer['customer_id'],$product_id);
+		   $this->db_manager->get('cart')->insertCart($customer['customer_id'],$product_id,$amount);
 	    }
-		
-		return $this->redirect('/');
+
+	   
+		return $this->redirect('/mypage/'.$customer['customer_name'].'/purchase');
 	}
 
 	public function deletecartAction(){
 		$cart_id = $this->request->getPost('cart_id');
 		$customer = $this->session->get('customer');
+		$path = $this->request->getPost('path');
 		var_dump($customer);
 	    if($this->db_manager->get('cart')->isRegisted($cart_id)){
 		   $this->db_manager->get('cart')->deleteCart($cart_id);
 	    }
 		
-		return $this->redirect('/mypage/'.$customer['customer_name'].'/cart');
+		return $this->redirect('/mypage/'.$customer['customer_name'].$path);
 	}
 	
 	public function purchaseAction(){

@@ -7,7 +7,7 @@
 	</div>
 
 	<div id="pruchase_center">
-		<h2>購入確認</h2>
+		<h2>カート内一覧</h2>
 		<div class="purchase_product">
 			<?php foreach($cart_items as $product):?>
 				<div class="purchase_product_contents">
@@ -25,15 +25,16 @@
 
 								<li>
 									<div class="stock">
-									個数を選択してください<br/>
+									個数
 									<?php if($product['stock']==0):?>
 										<a class="soldout">SOLD OUT!!<br/></a>
 										<input type = "hidden" name="number" value = "0" />
 									<?php else :?>
 									<div class="select" style="width: 100%;">
-										<form name = "selbox">
-											<select name = 'amount' onChange ="amountChanged()">
-												<?php for($i = 0;$i <= $product['stock']; $i++ ):?>
+										<form action="<?php echo $base_url;?>/mypage/<?php echo $customer['customer_name']?>/cart_change" method = "post"> 
+											<input type="hidden" name="cart_id" value = "<?php echo $product['cart_id']?>">
+											<select name = 'amount' onChange ="this.form.submit()">
+												<?php for($i = 1;$i <= $product['stock']; $i++ ):?>
 													　<option value = "<?php echo $i;?>" <?php if($i == $product['amount']){
 														echo "selected";}?>/><?php echo $i;?></option>
 												<?php endfor;?>					
@@ -45,6 +46,7 @@
 
 								<form action="<?php echo $base_url;?>/deletecart" method="post">
 									<input type = "hidden" name="cart_id" value = "<?php echo $this->escape($product['cart_id']);?>" />
+									<input type="hidden" name="path" value = "/purchase">
 									<input type="submit" value="削除"/>
 								</form>
 							</ul>
@@ -56,18 +58,20 @@
 	</div>
 
 	<div id="right_bar">
-		<form action="<?php echo $base_url;?>/mypage/<?php echo $customer['customer_name']?>/purchase_conf" method="get">
+		<h2>合計金額</h2>
+		¥<?php echo number_format($sum_price);?>
+
+
+		<form action="<?php echo $base_url;?>/mypage/<?php echo $customer['customer_name']?>/address_conf" method="get">
 		<input type="submit" value="レジに進む">
 		</form>
 	</div>
 </div>
 
 
-<script>
+<script type="text/javascript" >
 
 	function amountChanged(){
- 	var a = document.selbox.amount.selectedIndex;
- 	alert(a);
-
+ 	alert(this.options[this.options.selectedIndex].text)
 	}
 </script>

@@ -44,5 +44,11 @@ class order_detailsRepository extends DbRepository
 		));
 	}
 
-	
+	public function deliteByOrdersid($orders_id){
+		$sql = "DELETE FROM order_details
+			WHERE orders_id = :orders_id";
+			$stmt = $this->execute($sql,array(
+				':orders_id' => $orders_id,
+			));
+	}
 }

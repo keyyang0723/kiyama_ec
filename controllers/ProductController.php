@@ -5,9 +5,16 @@ class ProductController extends Controller
 	
 	public function indexAction(){
 
+		if(!$this->session->get('admin')){
+			$this->session->clear();
+			$this->session->setAuthenticated(false);
+		}
+		
 		if(!$this->session->isAuthenticated()){
 			return $this->redirect('/account/signin');
 		}
+
+
 
 		$categories         = $this->db_manager->get('category')->fetchAllCategories();
 		$search_name        = $this->request->getPost('search_name');

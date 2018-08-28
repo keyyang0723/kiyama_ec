@@ -6,6 +6,13 @@ class MypageController extends Controller
 {
 
 	public function mainAction(){
+		if(!$this->session->get('customer')){
+			$this->session->clear();
+			$this->session->setAuthenticated(false);
+		}
+		if(!$this->session->isAuthenticated()){
+			return $this->redirect('/customer/signin');
+		}
 
 		$customer = $this->session->get('customer');
 		if(!$customer['customer_id']){
@@ -34,8 +41,15 @@ class MypageController extends Controller
 	}
 
 	public function editAction(){
-
+		if(!$this->session->get('customer')){
+			$this->session->clear();
+			$this->session->setAuthenticated(false);
+		}
+		if(!$this->session->isAuthenticated()){
+			return $this->redirect('/customer/signin');
+		}
 		$customer = $this->session->get('customer');
+
 		$customer_id = $customer['customer_id'];
 		
 		if($this ->request->isPost()){
@@ -123,11 +137,15 @@ class MypageController extends Controller
 			$this ->redirect('/mypage/'.$customer['customer_name'].'/cart');
 		}
 
-
+		$sum_price = 0;
+		foreach($cart_items as $item){
+			$sum_price = $sum_price  + $item['price'] * $item['amount'];
+		}
 		return $this->render(
 		array(
 			'customer'   => $customer,
 			'cart_items' => $cart_items,
+			'sum_price'  => $sum_price,
 		));
 	}
 
@@ -135,7 +153,7 @@ class MypageController extends Controller
 		$customer    = $this->session->get('customer');
 		$cart_items  = $this->db_manager->get('cart')->fetchByCustomer_id($customer['customer_id']);
 		if(count($cart_items) == 0){
-			$this ->redirect('/mypage/'.$customer['customer_name'].'/cart');
+			$this ->redirect('/mypage/'.$customer['customer_name'].'/purchase');
 		}
 
 		$sum_price = 0;
@@ -151,6 +169,14 @@ class MypageController extends Controller
 	}
 
 	public function address_confAction(){
+		if(!$this->session->get('customer')){
+			$this->session->clear();
+			$this->session->setAuthenticated(false);
+		}
+
+		if(!$this->session->isAuthenticated()){
+			return $this->redirect('/customer/signin');
+		}
 		$customer = $this->session->get('customer');
 		
 		return $this->render(
@@ -168,6 +194,10 @@ class MypageController extends Controller
 		$tax_rate      = $now_tax_rate['tax_rate'];
 		$sum_price     = 0;
 
+		if(count($cart_items)== 0){
+			$this->redirect('/errorpage');
+		}
+
 
 		$customer_address = $customer['customer_address'];
 		$customer_zipcode = $customer['customer_zipcode'];
@@ -177,7 +207,7 @@ class MypageController extends Controller
 		$customer_id      = $customer['customer_id'];
 
 		foreach($cart_items as $item){
-			$sum_price = $sum_price  + $item['price'];
+			$sum_price = $sum_price  + $item['price'] * $item['amount'];
 		}
 		$tax_price    = $sum_price * $tax_rate;
 		$in_tax_Price = $sum_price + $tax_price;
@@ -199,8 +229,10 @@ class MypageController extends Controller
  					$this->db_manager->get('product')->reduce($product_id,$number);
 				}
 				$this->db_manager->get('order_details')->updateByCustomerID($customer_id,$orders_id);
-				return $this->redirect('/mypage/'.$customer['customer_name'].'/order_finish');
+			
 
+				return $this->redirect('/mypage/'.$customer['customer_name'].'/order_finish');
+			
 			}
 
 		return $this->render(array(
@@ -212,8 +244,19 @@ class MypageController extends Controller
 		));
 	}
 	public function order_finishAction(){
-		return $this->render();
+		$customer    = $this->session->get('customer');
+		return $this->render( array('customer' => $customer ));
 	}
+
+	public function cart_changeAction(){
+		$customer      = $this->session->get('customer');
+		$amount        = $this->request->getPost('amount');
+		$cart_id       = $this->request->getPost('cart_id');
+		$this->db_manager->get('cart')->cartAmoutChage($amount,$cart_id);
+
+		return $this->redirect('/mypage/'.$customer['customer_name'].'/purchase');
+	}
+
 
 	function validetion($customer_id,$customer_name,$customer_address,$customer_street,$customer_zipcode,$customer_tel,$customer_email){
 		$errors = [];
@@ -270,6 +313,9 @@ class MypageController extends Controller
 		return $errors;
 	}
 
+ 	function mailTo($customer_email){
+ 	
+	 }
 
 	
 }

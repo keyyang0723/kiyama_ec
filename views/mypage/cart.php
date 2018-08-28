@@ -24,19 +24,34 @@
 							<?php endif;?>
 						</div>
 						<ul class="product_contents">
-							<a class="product_name"><?php echo $this->escape($product['name']);?></a>
+							<a class="product_name" href="<?php echo $base_url;?>/<?php echo $this->escape($product['id']);?>/detail"><?php echo $this->escape($product['name']);?></a>
 							<li>price <?php echo '¥'.$this->escape(number_format($product['price'])).'+TAX';?></li>
 							<li><?php if($product['stock'] == 0):?>
 								<a style = "color:red;"">SOLD OUT!!<br/></a>
 								<?php else:?>
-								stock <?php echo $this->escape($product['stock']);?>
+								<div class="stock">
+									個数
+									<?php if($product['stock']==0):?>
+										<a class="soldout">SOLD OUT!!<br/></a>
+										<input type = "hidden" name="number" value = "0" />
+									<?php else :?>
+									<div class="select" style="width: 100%;">
+										<form action="<?php echo $base_url;?>/mypage/<?php echo $customer['customer_name']?>/cart_change" method = "post"> 
+											<input type="hidden" name="cart_id" value = "<?php echo $product['cart_id']?>">
+											<select name = 'amount' onChange ="this.form.submit()">
+												<?php for($i = 1;$i <= $product['stock']; $i++ ):?>
+													　<option value = "<?php echo $i;?>" <?php if($i == $product['amount']){
+														echo "selected";}?>/><?php echo $i;?></option>
+												<?php endfor;?>					
+											</select>
+										</form>
+									<?php endif?>
+									</div>
 								<?php endif;?></li>
 
-							<form action="<?php echo $base_url;?>/<?php echo $this->escape($product['id']);?>/detail" method="post">
-								<input type="submit" value="商品詳細"/>
-							</form>
 							<form action="<?php echo $base_url;?>/deletecart" method="post">
 								<input type = "hidden" name="cart_id" value = "<?php echo $this->escape($product['cart_id']);?>" />
+								<input type="hidden" name="path" value = "/cart">
 								<input type="submit" value="カートから削除"/>
 							</form>
 						</ul>

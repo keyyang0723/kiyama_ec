@@ -8,6 +8,7 @@
 
     
     <!-- BootstrapのCSS読み込み -->
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="/css/style.css" />
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
@@ -22,12 +23,13 @@
  		<?php echo $_content; ?>
 
  	</div>
-
+ 
+<footer class="fixed-bottom">
  	<div id="footer">
- 		<a style="color: grey; text-align: justify-all;">※当サイトはテスト用のサイトになります
- 		実際にご利用していただけませんのでご理解ください<a>
+ 		<a style="color: grey; ">※当サイトはテスト用のサイトになります
+ 		実際にご利用していただけませんのでご理解ください</a>
  	</div>
-
+ </footer>
 
  	
  </body>

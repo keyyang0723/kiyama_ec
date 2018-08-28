@@ -34,9 +34,9 @@
 		</div>	
 	</div>
 	<div id="right_bar">
+	</div>
 		<h2>合計金額</h2>
 		¥<?php echo number_format($sum_price);?>
-		</form>
 
 		<form action="<?php echo $base_url;?>/mypage/<?php echo $customer['customer_name']?>/address_conf" method="get">
 		<input type="submit" value="確定">

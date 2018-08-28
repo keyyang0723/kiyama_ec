@@ -5,14 +5,10 @@
 	<?php if(isset($errors) && count($errors)>0): ?>
 		<?php echo $this->render('errors',array('errors'=> $errors));?>
 	<?php endif;?>
-	<ul>
+	<ul class="edit">
 		<li>
 			注文番号
 			<?php echo $this->escape($order['id']);?>
-		</li>
-		<li>
-			注文商品
-			<input type="text" name="product_id" value="<?php echo $this->escape($product_id);?>">	
 		</li>
 		<li>
 			顧客名

@@ -47,7 +47,7 @@ class orderRepository extends DbRepository
 	}
 
 	public function edit($customer_name,$customer_address,$customer_street,$customer_zipcode,
-		$customer_tel,$customer_email,$product_id,$price,$tax_rate,$id,$number)
+		$customer_tel,$customer_email,$price,$tax_rate,$id,$number)
 	{
 		$now = new Datetime();
 
@@ -59,7 +59,6 @@ class orderRepository extends DbRepository
 			customer_zipcode = :customer_zipcode,
 			customer_tel = :customer_tel,
 			customer_email = :customer_email,
-			product_id = :product_id,
 			price = :price,
 			tax_rate = :tax_rate,
 			updated_at = :updated_at,
@@ -75,7 +74,6 @@ class orderRepository extends DbRepository
 			':customer_zipcode' =>$customer_zipcode,
 			':customer_tel' =>$customer_tel,
 			':customer_email' =>$customer_email,
-			':product_id' =>$product_id,
 			':price' =>$price,
 			':tax_rate' =>$tax_rate,
 			':updated_at' => $now->format('Y-m-d H:i:s'),
@@ -135,5 +133,7 @@ class orderRepository extends DbRepository
 			':customer_id' => $customer_id
 		));
 	}
+
+	
 
 }

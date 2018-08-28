@@ -7,6 +7,9 @@
 	</div>
 	<div id="center">
 		<h2>購入履歴</h2>
+		<?php if(count($orderd_list) == 0 ):?>
+				<h2>・購入履歴はありません</h2>
+		<?php else:?>
 		<div>
 			<?php foreach($orderd_list as $order):?>
 				<div class = "orderd">
@@ -64,6 +67,7 @@
 					</div>
 				</div>
 			<?php endforeach?>
+		<?php endif?>
 		</div>
 	</div>
 </div>

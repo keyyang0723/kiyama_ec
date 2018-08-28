@@ -32,6 +32,7 @@ h1{
 }
 #main{
 	margin: 0 10px;
+	min-height: 650px;
 }
 #footer{
 
@@ -47,6 +48,7 @@ h1{
 #nav{
 	margin: 0 10px;
 	border-bottom: 3px solid #CCCCCC;
+	display: flex;
 }
 #front{
 	display: flex;
@@ -329,7 +331,18 @@ div.orderd_product_contents{
 div.orderd_info{
 	margin-left:0px;
 }
+div.left{
+text-align: left;
+width: 45%;
+height: 60px;
+  line-height: 60px;
+}
 
-
-
+div.right{
+text-align: right;
+margin-right: 50px;
+width: 45%;
+height: 60px;
+line-height: 60px;
+}
 
