@@ -134,6 +134,8 @@ class orderRepository extends DbRepository
 		));
 	}
 
-	
+	public function newAdd(){
+		
+	}
 
 }
